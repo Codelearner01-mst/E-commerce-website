@@ -1,0 +1,11 @@
+# Dependencies
+/node_modules
+.DS_Store
+
+# Tailwind/Build outputs (if you have a specific build folder)
+/dist/
+
+# Env files
+.env
+
+structure.txt
