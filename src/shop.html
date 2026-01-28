@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-commerce website</title>
+    <link rel="stylesheet" href="./output.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header
+      class="fixed top-0 left-0 right-0 bg-white flex justify-between items-center px-2 py-5.5 z-50"
+    >
+      <h1 class="text-black-700 text-2xl font-bold md:text-2xl">
+        Vision jewelry
+      </h1>
+      <div class="relative inline-block">
+        <i class="fa fa-shopping-cart"></i>
+        <span
+          id="cart-count"
+          class="absolute flex items-center justify-center -top-2 -right-2 bg-[#964B00] text-white text-[12px] font-bold rounded-full px-1.5 py-0.5 min-w-5 min-h-5"
+          >0</span
+        >
+      </div>
+
+      <button
+        id="hamburger-btn"
+        class="absolute border-2 right-5.5 flex flex-col gap-1 p-1.5 md:hidden"
+      >
+        <span class="block w-6 h-0.5 bg-black font-bold"></span>
+        <span class="block w-6 h-0.5 bg-black font-bold"></span>
+        <span class="block w-6 h-0.5 bg-black font-bold"></span>
+      </button>
+
+      <!--Mobile nav-->
+      <nav
+        id="drop-menu"
+        class="hidden shadow-2xs bg-white absolute w-50 left-0 top-0 h-85 md:hidden"
+      >
+        <ul
+          class="flex flex-col gap-2.5 mt-8 ml-4 font-sans text-black text-lg"
+        >
+          <li><a href="#home">Home</a></li>
+          <li><a href="#products">Products</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!--Desktop nav-->
+      <nav>
+        <ul class="hidden md:flex flex-row items-center gap-4 p-4">
+          <li class=""><a href="#home">Home</a></li>
+          <li class=""><a href="#products">Products</a></li>
+          <li class=""><a href="#about">About Us</a></li>
+          <li class=""><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div class="mt-15">
+        <h2>Shop</h2>
+      </div>
+      <section id="products" class="px-4 mt-5 py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto">
+          <div class="product-list grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="product-card">
+              <div class="product-image-container">
+                <img
+                  src="placeholder.jpg"
+                  alt="Gold Ring"
+                  class="product-image"
+                />
+              </div>
+              <div class="product-info">
+                <h3 class="product-title">Gold Ring</h3>
+                <div class="flex justify-between items-center">
+                  <p class="product-price">$19.99</p>
+                  <button class="add-cart-btn btn-primary">+Add to Cart</button>
+                </div>
+              </div>
+            </div>
+            <div class="product-card">
+              <div class="product-image-container">
+                <img
+                  src="placeholder.jpg"
+                  alt="Silver Necklace"
+                  class="product-image"
+                />
+              </div>
+              <div class="product-info">
+                <h3 class="product-title">Silver Necklace</h3>
+                <div class="flex justify-between items-center">
+                  <p class="product-price">$29.99</p>
+                  <button class="add-cart-btn btn-primary">Add to Cart</button>
+                </div>
+              </div>
+            </div>
+            <div class="product-card">
+              <div class="product-image-container">
+                <img
+                  src="placeholder.jpg"
+                  alt="Diamond Earrings"
+                  class="product-image"
+                />
+              </div>
+              <div class="product-info">
+                <h3 class="product-title">Diamond Earrings</h3>
+                <div class="flex justify-between items-center">
+                  <p class="product-price">$49.99</p>
+                  <button class="add-cart-btn btn-primary">Add to Cart</button>
+                </div>
+              </div>
+            </div>
+            <div class="product-card">
+              <div class="product-image-container">
+                <img
+                  src="placeholder.jpg"
+                  alt="Gold Ring"
+                  class="product-image"
+                />
+              </div>
+              <div class="product-info">
+                <h3 class="product-title">Gold Ring</h3>
+                <div class="flex justify-between items-center">
+                  <p class="product-price">$19.99</p>
+                  <button class="add-cart-btn btn-primary">+Add to Cart</button>
+                </div>
+              </div>
+            </div>
+            <div class="product-card">
+              <div class="product-image-container">
+                <img
+                  src="placeholder.jpg"
+                  alt="Silver Necklace"
+                  class="product-image"
+                />
+              </div>
+              <div class="product-info">
+                <h3 class="product-title">Silver Necklace</h3>
+                <div class="flex justify-between items-center">
+                  <p class="product-price">$29.99</p>
+                  <button class="add-cart-btn btn-primary">Add to Cart</button>
+                </div>
+              </div>
+            </div>
+            <div class="product-card">
+              <div class="product-image-container">
+                <img
+                  src="placeholder.jpg"
+                  alt="Diamond Earrings"
+                  class="product-image"
+                />
+              </div>
+              <div class="product-info">
+                <h3 class="product-title">Diamond Earrings</h3>
+                <div class="flex justify-between items-center">
+                  <p class="product-price">$49.99</p>
+                  <button class="add-cart-btn btn-primary">Add to Cart</button>
+                </div>
+              </div>
+            </div>
+            <div class="product-card">
+              <div class="product-image-container">
+                <img
+                  src="placeholder.jpg"
+                  alt="Gold Ring"
+                  class="product-image"
+                />
+              </div>
+              <div class="product-info">
+                <h3 class="product-title">Gold Ring</h3>
+                <div class="flex justify-between items-center">
+                  <p class="product-price">$19.99</p>
+                  <button class="add-cart-btn btn-primary">+Add to Cart</button>
+                </div>
+              </div>
+            </div>
+            <div class="product-card">
+              <div class="product-image-container">
+                <img
+                  src="placeholder.jpg"
+                  alt="Silver Necklace"
+                  class="product-image"
+                />
+              </div>
+              <div class="product-info">
+                <h3 class="product-title">Silver Necklace</h3>
+                <div class="flex justify-between items-center">
+                  <p class="product-price">$29.99</p>
+                  <button class="add-cart-btn btn-primary">Add to Cart</button>
+                </div>
+              </div>
+            </div>
+            <div class="product-card">
+              <div class="product-image-container">
+                <img
+                  src="placeholder.jpg"
+                  alt="Diamond Earrings"
+                  class="product-image"
+                />
+              </div>
+              <div class="product-info">
+                <h3 class="product-title">Diamond Earrings</h3>
+                <div class="flex justify-between items-center">
+                  <p class="product-price">$49.99</p>
+                  <button class="add-cart-btn btn-primary">Add to Cart</button>
+                </div>
+              </div>
+            </div>
+            <div class="product-card">
+              <div class="product-image-container">
+                <img
+                  src="placeholder.jpg"
+                  alt="Gold Ring"
+                  class="product-image"
+                />
+              </div>
+              <div class="product-info">
+                <h3 class="product-title">Gold Ring</h3>
+                <div class="flex justify-between items-center">
+                  <p class="product-price">$19.99</p>
+                  <button class="add-cart-btn btn-primary">+Add to Cart</button>
+                </div>
+              </div>
+            </div>
+            <div class="product-card">
+              <div class="product-image-container">
+                <img
+                  src="placeholder.jpg"
+                  alt="Silver Necklace"
+                  class="product-image"
+                />
+              </div>
+              <div class="product-info">
+                <h3 class="product-title">Silver Necklace</h3>
+                <div class="flex justify-between items-center">
+                  <p class="product-price">$29.99</p>
+                  <button class="add-cart-btn btn-primary">Add to Cart</button>
+                </div>
+              </div>
+            </div>
+            <div class="product-card">
+              <div class="product-image-container">
+                <img
+                  src="placeholder.jpg"
+                  alt="Diamond Earrings"
+                  class="product-image"
+                />
+              </div>
+              <div class="product-info">
+                <h3 class="product-title">Diamond Earrings</h3>
+                <div class="flex justify-between items-center">
+                  <p class="product-price">$49.99</p>
+                  <button class="add-cart-btn btn-primary">Add to Cart</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="bg-gray-900 text-gray-100 py-12 px-4">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+          <div>
+            <h3 class="text-white font-bold text-lg mb-4">Vision Jewelry</h3>
+            <p class="text-gray-400">
+              Creating timeless pieces for life's precious moments.
+            </p>
+          </div>
+          <div>
+            <h4 class="text-white font-semibold mb-4">Quick Links</h4>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="#home"
+                  class="text-gray-400 hover:text-white transition"
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#products"
+                  class="text-gray-400 hover:text-white transition"
+                  >Products</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#about"
+                  class="text-gray-400 hover:text-white transition"
+                  >About</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-white font-semibold mb-4">Support</h4>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="#contact"
+                  class="text-gray-400 hover:text-white transition"
+                  >Contact Us</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white transition"
+                  >Shipping Info</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white transition"
+                  >Returns</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-white font-semibold mb-4">Follow Us</h4>
+            <ul class="space-y-2">
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white transition"
+                  >Facebook</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white transition"
+                  >Instagram</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white transition"
+                  >Twitter</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+          <p>&copy; 2026 Vision Jewelry. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
