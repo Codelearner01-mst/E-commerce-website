@@ -6,7 +6,7 @@ const counterObj = {
 };
 
 const counterHelper = () => {
-  let count = counterObj?.count;
+  let count = counterObj.count;
   counterObj.count = ++count;
   return count;
 };
