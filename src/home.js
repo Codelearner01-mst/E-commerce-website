@@ -1,5 +1,5 @@
+import { saveCarts } from "./saveUtils.js";
 const cartsCount = document.getElementById("cart-count");
-const addToCartButton = document.querySelectorAll(".add-cart-btn");
 const productCards = document.querySelectorAll(".product-card");
 
 const products = [
@@ -59,6 +59,7 @@ productCards.forEach((card) => {
     displayCartCount();
     const addedCart = getAddedProduct(productId);
     carts.push(addedCart);
+    saveCarts(carts);
   });
 });
 
