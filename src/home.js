@@ -1,6 +1,7 @@
 import { saveCarts } from "./saveUtils.js";
 const cartsCount = document.getElementById("cart-count");
 const productCards = document.querySelectorAll(".product-card");
+const cartButton = document.getElementById("cart-btn");
 
 const products = [
   {
@@ -8,18 +9,21 @@ const products = [
     name: "Product 1",
     price: 29.99,
     image: "product1.jpg",
+    quantity: 1,
   },
   {
     id: 2,
     name: "Product 2",
     price: 39.99,
     image: "product2.jpg",
+    quantity: 1,
   },
   {
     id: 3,
     name: "Product 3",
     price: 49.99,
     image: "product3.jpg",
+    quantity: 1,
   },
 ];
 
@@ -28,6 +32,12 @@ const carts = [];
 const counterObj = {
   count: 0,
 };
+
+function goToNewPage() {
+  window.location.href = "carts.html";
+}
+
+cartButton.addEventListener("click", goToNewPage);
 
 const counterHelper = () => {
   let count = counterObj.count;
@@ -63,30 +73,10 @@ productCards.forEach((card) => {
   });
 });
 
-function CartHTML(productName, price, quantity, imageUrl) {
-  return `<div class="cart-info">
-              <div class="produt-info">
-                <div class="product-image-container">
-                  <img src="${imageUrl}" alt="${productName}" class="" />
-                </div>
-                <div class="product-details">
-                <p class="">${productName}</p>
-                <p class="">$${price}</p>
-                </div>
-              </div>
-              <div class="product-quantity">
-                <button role="" class="prev">&#10094;</button>
-                <span>1</span>
-                <button class="next">&#10095;</button>
-              </div>
-              <p class="total-price">${price * quantity}</p>
-            </div>`;
-}
-
 function toggleDropdownMenu() {
-  const hambergerButton = document.getElementById("hamburger-btn");
+  const hamburgerButton = document.getElementById("hamburger-btn");
   const DropdownMenu = document.getElementById("drop-menu");
-  hambergerButton.addEventListener("click", () => {
+  hamburgerButton.addEventListener("click", () => {
     DropdownMenu.classList.toggle("hidden");
   });
 }
