@@ -1,23 +1,43 @@
 function CartHTML(productName, price, quantity, imageUrl) {
   const cartDiv = document.createElement("div");
-  cartDiv.className = "cart-item";
-  cartDiv.innerHTML = `<div class="cart-info">
-              <div class="produt-info">
-                <div class="product-image-container">
-                  <img src="${imageUrl}" alt="${productName}" class="" />
+  cartDiv.className = "flex flex-row";
+  cartDiv.innerHTML = `
+              <div class="flex gap-2.5 flex-col ml-3.5 mr-9">
+                <div class="w-20 h-20">
+                  <img src="${imageUrl}" alt="${productName}" class="object-cover h-full w-full" />
                 </div>
-                <div class="product-details">
                 <p class="">${productName}</p>
-                <p class="">$${price}</p>
-                </div>
+                <p class="text-lg font-medium">$${price}</p>
               </div>
-              <div class="product-quantity">
-                <button role="" class="prev">&#10094;</button>
-                <span>1</span>
-                <button class="next">&#10095;</button>
+              <div class="flex items-center gap-6.5">
+              <div class="flex gap-6">
+                <button class="text-gray-400">&#10094;</button>
+                <span id="quantity">${quantity}</span>
+                <button class="text-gray-400">&#10095;</button>
               </div>
-              <p class="total-price">${price * quantity}</p>
-            </div>`;
+              <div
+              <p class="text-lg font-medium">$${price * quantity}</p>
+              </div>
+            <button class="bg-gray-100 rounded-full p-1.5"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+            </div>
+         
+          `;
   return cartDiv;
 }
 
