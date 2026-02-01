@@ -47,7 +47,7 @@ export function renderCarts(list, carts) {
   }
 
   for (const cart of carts) {
-    const HTML = cartHTML(cart.name, cart.price, cart.quantity, cart.image);
+    const HTML = cartHTML(cart?.name, cart?.price, cart?.quantity, cart?.image);
     list.appendChild(HTML);
   }
 }

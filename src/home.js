@@ -51,7 +51,7 @@ function productToAddToCart(id) {
   const product = products.find((product) => {
     const productId = product?.id;
     if (!productId) {
-      return false;
+      return;
     }
 
     return productId === id;
@@ -69,7 +69,6 @@ productCards.forEach((card) => {
     const product = productToAddToCart(productId);
     carts.push(product);
     displayCartsCount();
-    console.log(carts);
     saveCarts(carts);
   });
 });
