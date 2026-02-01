@@ -1,4 +1,4 @@
-function CartHTML(productName, price, quantity, imageUrl) {
+function cartHTML(productName, price, quantity, imageUrl) {
   const cartDiv = document.createElement("div");
   cartDiv.className = "flex flex-row";
   cartDiv.innerHTML = `
@@ -42,14 +42,12 @@ function CartHTML(productName, price, quantity, imageUrl) {
 }
 
 export function renderCarts(list, carts) {
-  if (!list) {
-    console.error("List element not found");
+  if (!list || !carts) {
     return;
   }
 
   for (const cart of carts) {
-    const HTML = CartHTML(cart.name, cart.price, cart.quantity, cart.image);
-    console.log(HTML);
+    const HTML = cartHTML(cart.name, cart.price, cart.quantity, cart.image);
     list.appendChild(HTML);
   }
 }

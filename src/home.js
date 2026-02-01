@@ -47,14 +47,14 @@ const displayCartsCount = () => {
   cartsCount.textContent = count;
 };
 
-function productAddedToCart(id) {
+function productToAddToCart(id) {
   const product = products.find((product) => {
-    const productid = product?.id;
-    if (!productid) {
+    const productId = product?.id;
+    if (!productId) {
       return false;
     }
 
-    return productid === id;
+    return productId === id;
   });
   return product;
 }
@@ -63,9 +63,13 @@ productCards.forEach((card) => {
   const addToCartButton = card.querySelector("button");
   addToCartButton.addEventListener("click", () => {
     const productId = parseInt(card.id.split("-")[1], 10);
-    const product = productAddedToCart(productId);
+    if (productId === NaN) {
+      return;
+    }
+    const product = productToAddToCart(productId);
     carts.push(product);
     displayCartsCount();
+    console.log(carts);
     saveCarts(carts);
   });
 });
