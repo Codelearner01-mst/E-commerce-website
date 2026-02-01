@@ -29,29 +29,26 @@ const products = [
 
 const carts = [];
 
-const counterObj = {
-  count: 0,
-};
-
 function goToNewPage() {
   window.location.href = "carts.html";
 }
 
 cartButton.addEventListener("click", goToNewPage);
 
-const counterHelper = () => {
-  let count = counterObj.count;
-  counterObj.count = ++count;
-  return count;
+const cartsCounter = () => {
+  if (!carts) {
+    return;
+  }
+  return carts.length;
 };
 
-const displayCartCount = () => {
-  const count = counterHelper();
+const displayCartsCount = () => {
+  const count = cartsCounter();
   cartsCount.textContent = count;
 };
 
-function getAddedProduct(id) {
-  const addedProduct = products.find((product) => {
+function productAddedToCart(id) {
+  const product = products.find((product) => {
     const productid = product?.id;
     if (!productid) {
       return false;
@@ -59,16 +56,16 @@ function getAddedProduct(id) {
 
     return productid === id;
   });
-  return addedProduct;
+  return product;
 }
 
 productCards.forEach((card) => {
   const addToCartButton = card.querySelector("button");
   addToCartButton.addEventListener("click", () => {
     const productId = parseInt(card.id.split("-")[1], 10);
-    displayCartCount();
-    const addedCart = getAddedProduct(productId);
-    carts.push(addedCart);
+    const product = productAddedToCart(productId);
+    carts.push(product);
+    displayCartsCount();
     saveCarts(carts);
   });
 });
