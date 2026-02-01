@@ -3,6 +3,11 @@ export function saveCarts(carts) {
 }
 
 export function loadCarts() {
-  const savedCarts = JSON.parse(localStorage.getItem("carts"));
-  return savedCarts;
+  try {
+    //return null and missing data and return empty array
+    return JSON.parse(localStorage.getItem("carts")) || [];
+  } catch (error) {
+    console.error("Corrupted cart data");
+    return [];
+  }
 }
