@@ -1,4 +1,7 @@
 export function saveCarts(carts) {
+  if (!carts) {
+    return;
+  }
   localStorage.setItem("carts", JSON.stringify(carts));
 }
 

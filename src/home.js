@@ -1,4 +1,5 @@
 import { saveCarts } from "./saveUtils.js";
+import { cartsCounter, displayCartsCount } from "./shared.js";
 const cartsCount = document.getElementById("cart-count");
 const productCards = document.querySelectorAll(".product-card");
 const cartButton = document.getElementById("cart-btn");
@@ -35,17 +36,16 @@ function goToNewPage() {
 
 cartButton.addEventListener("click", goToNewPage);
 
-const cartsCounter = () => {
-  if (!carts) {
-    return;
+function updateCartQuantity(product) {
+  for (const c of carts) {
+    if (c === product) {
+      if (c) {
+        c.quantity += 1;
+        return true;
+      }
+    }
   }
-  return carts.length;
-};
-
-const displayCartsCount = () => {
-  const count = cartsCounter();
-  cartsCount.textContent = count;
-};
+}
 
 function productToAddToCart(id) {
   const product = products.find((product) => {
@@ -67,9 +67,15 @@ productCards.forEach((card) => {
       return;
     }
     const product = productToAddToCart(productId);
-    carts.push(product);
-    displayCartsCount();
-    saveCarts(carts);
+    if (updateCartQuantity(product)) {
+      const count = cartsCounter(carts);
+      displayCartsCount(cartsCount, count);
+    } else {
+      carts.push(product);
+      const count = cartsCounter(carts);
+      displayCartsCount(cartsCount, count);
+      saveCarts(carts);
+    }
   });
 });
 
