@@ -1,8 +1,9 @@
-import { saveCarts } from "./saveUtils.js";
+import { loadCarts, saveCarts } from "./saveUtils.js";
 import { cartsCounter, displayCartsCount } from "./shared.js";
 const cartsCount = document.getElementById("cart-count");
 const productCards = document.querySelectorAll(".product-card");
 const cartButton = document.getElementById("cart-btn");
+const savedCarts = loadCarts("carts");
 
 const products = [
   {
@@ -28,7 +29,9 @@ const products = [
   },
 ];
 
-const carts = [];
+let carts = [];
+
+carts = savedCarts;
 
 function goToNewPage() {
   window.location.href = "carts.html";
@@ -68,14 +71,13 @@ productCards.forEach((card) => {
     }
     const product = productToAddToCart(productId);
     if (updateCartQuantity(product)) {
-      const count = cartsCounter(carts);
-      displayCartsCount(cartsCount, count);
+      saveCarts(carts);
     } else {
       carts.push(product);
-      const count = cartsCounter(carts);
-      displayCartsCount(cartsCount, count);
       saveCarts(carts);
     }
+    const count = cartsCounter(carts);
+    displayCartsCount(cartsCount, count);
   });
 });
 
@@ -86,4 +88,6 @@ function toggleDropdownMenu() {
     DropdownMenu.classList.toggle("hidden");
   });
 }
+const count = cartsCounter(carts);
+displayCartsCount(cartsCount, count);
 toggleDropdownMenu();
