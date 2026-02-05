@@ -3,7 +3,7 @@ import { cartsCounter, displayCartsCount } from "./shared.js";
 const cartsCount = document.getElementById("cart-count");
 const productCards = document.querySelectorAll(".product-card");
 const cartButton = document.getElementById("cart-btn");
-const savedCarts = loadCarts("carts");
+const savedCarts = loadCarts();
 
 const products = [
   {
@@ -39,15 +39,27 @@ function goToNewPage() {
 
 cartButton.addEventListener("click", goToNewPage);
 
-function updateCartQuantity(product) {
+const hasSameProductInCart = (product) => {
   for (const c of carts) {
     if (c === product) {
-      if (c) {
-        c.quantity += 1;
-        return true;
-      }
+      return true;
     }
   }
+};
+
+const getCartIndex = (product) => {
+  return carts.indexOf(product);
+};
+
+function updateCartQuantity(product) {
+  const index = getCartIndex(product);
+  if (index === -1) {
+    console.log("Cart not found");
+    return;
+  }
+  console.log(index);
+  const cart = carts[index];
+  cart.quantity += 1;
 }
 
 function productToAddToCart(id) {
@@ -70,7 +82,10 @@ productCards.forEach((card) => {
       return;
     }
     const product = productToAddToCart(productId);
-    if (updateCartQuantity(product)) {
+
+    console.log(carts);
+    if (hasSameProductInCart(product)) {
+      updateCartQuantity(product);
       saveCarts(carts);
     } else {
       carts.push(product);
@@ -80,6 +95,15 @@ productCards.forEach((card) => {
     displayCartsCount(cartsCount, count);
   });
 });
+
+function clearAllCarts() {
+  for (const c of carts) {
+    carts.pop(c);
+    saveCarts(carts);
+    console.log(c, "is removed from carts");
+  }
+}
+//clearAllCarts();
 
 function toggleDropdownMenu() {
   const hamburgerButton = document.getElementById("hamburger-btn");
