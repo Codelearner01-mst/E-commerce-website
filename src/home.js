@@ -1,6 +1,6 @@
 import { loadCarts, saveCarts } from "./saveUtils.js";
 import { cartsCounter, displayCartsCount } from "./shared.js";
-const cartsCount = document.getElementById("cart-count");
+const cartsCountSpan = document.getElementById("cart-count");
 const productCards = document.querySelectorAll(".product-card");
 const cartButton = document.getElementById("cart-btn");
 const savedCarts = loadCarts();
@@ -39,25 +39,20 @@ function goToNewPage() {
 
 cartButton.addEventListener("click", goToNewPage);
 
-const hasSameProductInCart = (product) => {
+function hasSameProductInCart(product) {
   for (const c of carts) {
-    if (c === product) {
+    if (c.id === product.id) {
       return true;
     }
   }
-};
+}
 
 const getCartIndex = (product) => {
-  return carts.indexOf(product);
+  return carts.findIndex((c) => c.id === product.id);
 };
 
 function updateCartQuantity(product) {
   const index = getCartIndex(product);
-  if (index === -1) {
-    console.log("Cart not found");
-    return;
-  }
-  console.log(index);
   const cart = carts[index];
   cart.quantity += 1;
 }
@@ -83,16 +78,14 @@ productCards.forEach((card) => {
     }
     const product = productToAddToCart(productId);
 
-    console.log(carts);
     if (hasSameProductInCart(product)) {
       updateCartQuantity(product);
-      saveCarts(carts);
     } else {
       carts.push(product);
-      saveCarts(carts);
     }
+    saveCarts(carts);
     const count = cartsCounter(carts);
-    displayCartsCount(cartsCount, count);
+    displayCartsCount(cartsCountSpan, count);
   });
 });
 
@@ -100,7 +93,6 @@ function clearAllCarts() {
   for (const c of carts) {
     carts.pop(c);
     saveCarts(carts);
-    console.log(c, "is removed from carts");
   }
 }
 //clearAllCarts();
@@ -113,5 +105,5 @@ function toggleDropdownMenu() {
   });
 }
 const count = cartsCounter(carts);
-displayCartsCount(cartsCount, count);
+displayCartsCount(cartsCountSpan, count);
 toggleDropdownMenu();
