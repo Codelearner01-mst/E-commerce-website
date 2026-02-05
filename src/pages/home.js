@@ -1,5 +1,6 @@
-import { loadCarts, saveCarts } from "./saveUtils.js";
-import { cartsCounter, displayCartsCount } from "./shared.js";
+import { loadCarts, saveCarts } from "../utils/saveUtils.js";
+import { cartsCounter, displayCartsCount } from "../utils/shared.js";
+
 const cartsCountSpan = document.getElementById("cart-count");
 const productCards = document.querySelectorAll(".product-card");
 const cartButton = document.getElementById("cart-btn");
@@ -95,7 +96,6 @@ function clearAllCarts() {
     saveCarts(carts);
   }
 }
-//clearAllCarts();
 
 function toggleDropdownMenu() {
   const hamburgerButton = document.getElementById("hamburger-btn");
@@ -104,6 +104,7 @@ function toggleDropdownMenu() {
     DropdownMenu.classList.toggle("hidden");
   });
 }
+
 const count = cartsCounter(carts);
 displayCartsCount(cartsCountSpan, count);
 toggleDropdownMenu();
