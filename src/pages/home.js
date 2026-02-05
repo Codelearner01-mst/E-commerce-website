@@ -2,11 +2,11 @@ import { loadCarts, saveCarts } from "../utils/saveUtils.js";
 import { cartsCounter, displayCartsCount } from "../utils/shared.js";
 
 const cartsCountSpan = document.getElementById("cart-count");
-const productCards = document.querySelectorAll(".product-card");
+const products = document.querySelector(".product-list");
 const cartButton = document.getElementById("cart-btn");
 const savedCarts = loadCarts();
 
-const products = [
+const productsData = [
   {
     id: 1,
     name: "Product 1",
@@ -59,7 +59,7 @@ function updateCartQuantity(product) {
 }
 
 function productToAddToCart(id) {
-  const product = products.find((product) => {
+  const product = productsData.find((product) => {
     const productId = product?.id;
     if (!productId) {
       return;
@@ -70,24 +70,28 @@ function productToAddToCart(id) {
   return product;
 }
 
-productCards.forEach((card) => {
-  const addToCartButton = card.querySelector("button");
-  addToCartButton.addEventListener("click", () => {
-    const productId = parseInt(card.id.split("-")[1], 10);
-    if (productId === NaN) {
-      return;
-    }
-    const product = productToAddToCart(productId);
+products.addEventListener("click", (event) => {
+  if (event.target.tagName !== "BUTTON") {
+    return;
+  }
+  const card = event.target.closest(".product-card");
+  if (!card) {
+    return;
+  }
+  const productId = parseInt(card.id.split("-")[1], 10);
+  if (isNaN(productId)) {
+    return;
+  }
+  const product = productToAddToCart(productId);
 
-    if (hasSameProductInCart(product)) {
-      updateCartQuantity(product);
-    } else {
-      carts.push(product);
-    }
-    saveCarts(carts);
-    const count = cartsCounter(carts);
-    displayCartsCount(cartsCountSpan, count);
-  });
+  if (hasSameProductInCart(product)) {
+    updateCartQuantity(product);
+  } else {
+    carts.push(product);
+  }
+  saveCarts(carts);
+  const count = cartsCounter(carts);
+  displayCartsCount(cartsCountSpan, count);
 });
 
 function clearAllCarts() {
