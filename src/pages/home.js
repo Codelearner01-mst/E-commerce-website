@@ -1,9 +1,17 @@
 import { loadCarts, saveCarts } from "../utils/saveUtils.js";
-import { cartsCounter, displayCartsCount } from "../utils/shared.js";
+import {
+  cartsCounter,
+  displayCartsCount,
+  toggleDropdownMenu,
+} from "../utils/shared.js";
 
 const cartsCountSpan = document.getElementById("cart-count");
 const products = document.querySelector(".product-list");
 const cartButton = document.getElementById("cart-btn");
+
+const hamburgerButton = document.getElementById("hamburger-btn");
+const dropDownMenu = document.getElementById("drop-menu");
+
 const savedCarts = loadCarts();
 
 const productsData = [
@@ -101,13 +109,7 @@ function clearAllCarts() {
   }
 }
 
-function toggleDropdownMenu() {
-  const hamburgerButton = document.getElementById("hamburger-btn");
-  const DropdownMenu = document.getElementById("drop-menu");
-  hamburgerButton.addEventListener("click", () => {
-    DropdownMenu.classList.toggle("hidden");
-  });
-}
+toggleDropdownMenu(hamburgerButton, dropDownMenu);
 
 const count = cartsCounter(carts);
 displayCartsCount(cartsCountSpan, count);
