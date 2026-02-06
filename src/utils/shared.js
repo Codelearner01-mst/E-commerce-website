@@ -16,3 +16,9 @@ export function displayCartsCount(element, count) {
   }
   element.textContent = count;
 }
+
+export function toggleDropdownMenu(button, dropdown) {
+  button.addEventListener("click", () => {
+    dropdown.classList.toggle("hidden");
+  });
+}
