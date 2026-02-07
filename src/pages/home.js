@@ -1,3 +1,15 @@
+/**
+ * pages/home.js
+ * Main entry for the home page UI logic.
+ *
+ * Responsibilities:
+ * - Load persisted cart state from localStorage
+ * - Wire up product "Add to Cart" interactions
+ * - Keep the cart count display in sync
+ *
+ * Data model (cart item):
+ * { id: number, name: string, price: number, image: string, quantity: number }
+ */
 import { loadCarts, saveCarts } from "../utils/saveUtils.js";
 import {
   cartsCounter,
@@ -48,6 +60,12 @@ function goToNewPage() {
 
 cartButton.addEventListener("click", goToNewPage);
 
+/**
+ * Check whether a product (by id) already exists in `carts`.
+ * Why: do not rely on object identity because `productsData` is recreated on page load.
+ * @param {{id:number}} product - product to check
+ * @returns {boolean}
+ */
 function hasSameProductInCart(product) {
   for (const c of carts) {
     if (c.id === product.id) {
@@ -56,16 +74,31 @@ function hasSameProductInCart(product) {
   }
 }
 
+/**
+ * Find the index of a cart item by product id.
+ * @param {{id:number}} product
+ * @returns {number} index in `carts` or -1
+ */
 const getCartIndex = (product) => {
   return carts.findIndex((c) => c.id === product.id);
 };
 
+/**
+ * Increment quantity for the cart item matching `product.id`.
+ * Side effects: mutates `carts` (in-memory) — caller must persist with `saveCarts`.
+ * @param {{id:number}} product
+ */
 function updateCartQuantity(product) {
   const index = getCartIndex(product);
   const cart = carts[index];
   cart.quantity += 1;
 }
 
+/**
+ * Return a product object from `productsData` by id.
+ * @param {number} id
+ * @returns {{id:number,name:string,price:number,quantity:number}|undefined}
+ */
 function productToAddToCart(id) {
   const product = productsData.find((product) => {
     const productId = product?.id;

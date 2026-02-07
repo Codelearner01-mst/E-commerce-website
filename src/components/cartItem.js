@@ -1,7 +1,25 @@
+/**
+ * components/cartItem.js
+ * Cart item renderer and controls.
+ *
+ * Exports a factory function `CartItem(cart, carts, ele)` that returns a DOM
+ * element representing a cart row. The returned element wires up event
+ * handlers that modify `carts` in-place and persist changes via `saveCarts`.
+ *
+ * Expected `cart` shape:
+ * { id: number, name: string, price: number, image: string, quantity: number }
+ */
 import { saveCarts } from "../utils/saveUtils.js";
 import { cartsCounter, displayCartsCount } from "../utils/shared.js";
 
 export function CartItem(cart, carts, ele) {
+  /**
+   * Create a cart item element.
+   * @param {{id:number,name:string,price:number,image:string,quantity:number}} cart
+   * @param {Array} carts - the cart array (mutated by the component)
+   * @param {HTMLElement} ele - element used to display cart count
+   * @returns {HTMLElement}
+   */
   const cartDiv = document.createElement("div");
   cartDiv.className = "flex flex-row";
   cartDiv.innerHTML = `

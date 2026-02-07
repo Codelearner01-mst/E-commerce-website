@@ -1,3 +1,7 @@
+/**
+ * components/render.js
+ * Simple renderer: iterate `carts` and append `CartItem` elements.
+ */
 import { CartItem } from "./cartItem.js";
 
 export function renderCarts(list, carts, ele) {
