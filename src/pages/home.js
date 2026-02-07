@@ -113,4 +113,3 @@ toggleDropdownMenu(hamburgerButton, dropDownMenu);
 
 const count = cartsCounter(carts);
 displayCartsCount(cartsCountSpan, count);
-toggleDropdownMenu();

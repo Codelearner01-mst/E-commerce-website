@@ -1,6 +1,7 @@
 import { saveCarts } from "../utils/saveUtils.js";
+import { cartsCounter, displayCartsCount } from "../utils/shared.js";
 
-export function CartItem(cart, carts) {
+export function CartItem(cart, carts, ele) {
   const cartDiv = document.createElement("div");
   cartDiv.className = "flex flex-row";
   cartDiv.innerHTML = `
@@ -50,6 +51,8 @@ export function CartItem(cart, carts) {
       cart.quantity -= 1;
       quantityDisplay.textContent = cart.quantity;
       totalPrice.textContent = `$${cart.price * cart.quantity}`;
+      const count = cartsCounter(carts);
+      displayCartsCount(ele, count);
       saveCarts(carts);
     }
   });
@@ -58,14 +61,18 @@ export function CartItem(cart, carts) {
     cart.quantity += 1;
     quantityDisplay.textContent = cart.quantity;
     totalPrice.textContent = `$${cart.price * cart.quantity}`;
+    const count = cartsCounter(carts);
+    displayCartsCount(ele, count);
     saveCarts(carts);
   });
 
   deleteBtn.addEventListener("click", () => {
     cartDiv.remove();
-    const index = carts.findIndex(c => c.id === cart.id);
+    const index = carts.findIndex((c) => c.id === cart.id);
     if (index > -1) {
       carts.splice(index, 1);
+      const count = cartsCounter(carts);
+      displayCartsCount(ele, count);
       saveCarts(carts);
     }
   });

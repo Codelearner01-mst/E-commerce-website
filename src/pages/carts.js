@@ -21,7 +21,7 @@ const carts = loadCarts();
 if (carts.length === 0) {
   emptyCartMessage.classList.remove("hidden");
 }
-renderCarts(cartList, carts);
+renderCarts(cartList, carts, cartCountSpan);
 
 const count = cartsCounter(carts);
 displayCartsCount(cartCountSpan, count);
