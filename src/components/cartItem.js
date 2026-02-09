@@ -21,7 +21,7 @@ export function CartItem(cart, carts, ele) {
    * @returns {HTMLElement}
    */
   const cartDiv = document.createElement("div");
-  cartDiv.className = "flex flex-row";
+  cartDiv.className = "flex flex-row border-b border-gray-200 pb-4";
   cartDiv.innerHTML = `
     <div class="flex gap-2.5 flex-col ml-3.5 mr-9">
       <div class="w-20 h-20">
@@ -37,7 +37,7 @@ export function CartItem(cart, carts, ele) {
         <button class="text-gray-400 increase-btn">&#10095;</button>
       </div>
       <div>
-        <p class="text-lg font-medium total-price">$${cart.price * cart.quantity}</p>
+        <p id="total-price" class="text-lg font-medium total-price">$${cart.price * cart.quantity}</p>
       </div>
       <button class="bg-gray-100 rounded-full p-1.5 delete-btn">
         <svg
