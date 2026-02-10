@@ -9,4 +9,4 @@
 .env
 
 structure.txt
-outputs.css
+../styles/outputs.css

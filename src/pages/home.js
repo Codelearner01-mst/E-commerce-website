@@ -16,6 +16,7 @@ import {
   displayCartsCount,
   toggleDropdownMenu,
 } from "../utils/shared.js";
+import { ShowSucessMessage } from "../utils/shared.js";
 
 const cartsCountSpan = document.getElementById("cart-count");
 const products = document.querySelector(".product-list");
@@ -23,6 +24,8 @@ const cartButton = document.getElementById("cart-btn");
 
 const hamburgerButton = document.getElementById("hamburger-btn");
 const dropDownMenu = document.getElementById("drop-menu");
+
+const addedCartSuccess = document.querySelector(".added-cart-success");
 
 const savedCarts = loadCarts();
 
@@ -131,6 +134,7 @@ products.addEventListener("click", (event) => {
     carts.push(product);
   }
   saveCarts(carts);
+  ShowSucessMessage(addedCartSuccess);
   const count = cartsCounter(carts);
   displayCartsCount(cartsCountSpan, count);
 });
