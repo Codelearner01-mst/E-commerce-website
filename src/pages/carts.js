@@ -11,6 +11,7 @@ const carts = loadCarts();
 const cartCountSpan = document.getElementById("cart-count");
 const cartList = document.getElementById("carts-list");
 const emptyCartMessage = document.getElementById("empty-cart-message");
+const updateCartSuccessMessage = document.querySelector(".update-cart-success");
 
 const hamburgerButton = document.getElementById("hamburger-btn");
 const dropDownMenu = document.getElementById("drop-menu");
@@ -20,16 +21,15 @@ const subtotalAmount = document.getElementById("subtotal-amount");
 const totalAmount = document.getElementById("total-amount");
 const checkoutButton = document.getElementById("checkout-btn");
 
-renderCarts(cartList, carts, cartCountSpan);
+renderCarts(cartList, carts, cartCountSpan, updateCartSuccessMessage);
 
-const totalPriceElement = document.querySelectorAll(".total-price");
+const totalPriceElement = document.querySelectorAll(".total-price"); //This get the prices for each product in cart
 
 function calculateSubtotal() {
   let sum = 0;
-  totalPriceElement.forEach((elem) => {
-    const priceText = elem.textContent.replace("$", "");
+  totalPriceElement.forEach((ele) => {
+    const priceText = ele.textContent.replace("$", ""); //Replace "$" with empty space so to turn it to a float number.This was done to avoid NaN error on e.g $23,$30.
     const price = parseFloat(priceText);
-    console.log("Parsed price:", price);
     sum += price;
   });
   return `$${sum.toFixed()}`;

@@ -11,8 +11,10 @@
  */
 import { saveCarts } from "../utils/saveUtils.js";
 import { cartsCounter, displayCartsCount } from "../utils/shared.js";
+import { ShowSucessMessage } from "../utils/shared.js";
 
-export function CartItem(cart, carts, ele) {
+export function CartItem(cart, carts, countEle, msgEle) {
+  //Cart holds a particular product in the carts array
   /**
    * Create a cart item element.
    * @param {{id:number,name:string,price:number,image:string,quantity:number}} cart
@@ -58,6 +60,10 @@ export function CartItem(cart, carts, ele) {
     </div>
   `;
 
+  if (!msgEle || !countEle) {
+    return;
+  }
+
   const decreaseBtn = cartDiv.querySelector(".decrease-btn");
   const increaseBtn = cartDiv.querySelector(".increase-btn");
   const deleteBtn = cartDiv.querySelector(".delete-btn");
@@ -70,7 +76,8 @@ export function CartItem(cart, carts, ele) {
       quantityDisplay.textContent = cart.quantity;
       totalPrice.textContent = `$${cart.price * cart.quantity}`;
       const count = cartsCounter(carts);
-      displayCartsCount(ele, count);
+      displayCartsCount(countEle, count);
+      ShowSucessMessage(msgEle);
       saveCarts(carts);
     }
   });
@@ -80,7 +87,8 @@ export function CartItem(cart, carts, ele) {
     quantityDisplay.textContent = cart.quantity;
     totalPrice.textContent = `$${cart.price * cart.quantity}`;
     const count = cartsCounter(carts);
-    displayCartsCount(ele, count);
+    displayCartsCount(countEle, count);
+    ShowSucessMessage(msgEle);
     saveCarts(carts);
   });
 
@@ -90,7 +98,8 @@ export function CartItem(cart, carts, ele) {
     if (index > -1) {
       carts.splice(index, 1);
       const count = cartsCounter(carts);
-      displayCartsCount(ele, count);
+      displayCartsCount(countEle, count);
+      ShowSucessMessage(msgEle);
       saveCarts(carts);
     }
   });
