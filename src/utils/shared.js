@@ -23,18 +23,42 @@ export function toggleDropdownMenu(button, dropdown) {
   });
 }
 
-export function ShowSucessMessage(ele) {
+export function ShowSucessMessage(ele, bool = true) {
   if (!ele) {
     return;
   }
-  setTimeout(() => {
-    ele.classList.remove("opacity-0", "pointer-events-none", "-translate-y-2");
-    ele.classList.add("translate-y-0", "opacity-100");
-  }, 10);
+
+  //User click on add-to-cart. success message pop up in 1second
+  //pop up fade out smoothly in 20seconds
+  //Restart pop up message when add-to-cart button is clicked and previous message not fade out
+
+  let isButtonClickedBeforeFadeOut = bool;
+  console.log("Initial clicked", isButtonClickedBeforeFadeOut);
+
+  if (isButtonClickedBeforeFadeOut) {
+    setTimeout(() => {
+      ele.classList.add("opacity-0", "pointer-events-none", "-translate-y-2");
+      ele.classList.remove("translate-y-0", "opacity-100");
+    }, 300);
+
+    setTimeout(() => {
+      ele.classList.remove(
+        "opacity-0",
+        "pointer-events-none",
+        "-translate-y-2",
+      );
+      ele.classList.add("translate-y-0", "opacity-100");
+    }, 1000);
+  }
 
   setTimeout(() => {
     ele.classList.replace("opacity-100", "opacity-0");
     ele.classList.replace("translate-y-0", "-translate-y-2");
     ele.classList.add("pointer-events-none");
-  }, 2000);
+  }, 3000);
+  ele.addEventListener("transitionend", () => {
+    if (ele.classList.contains("opacity-0")) {
+      isButtonClickedBeforeFadeOut = false;
+    }
+  });
 }

@@ -134,7 +134,7 @@ products.addEventListener("click", (event) => {
     carts.push(product);
   }
   saveCarts(carts);
-  ShowSucessMessage(addedCartSuccessMessage);
+  ShowSucessMessage(addedCartSuccessMessage, true);
   const count = cartsCounter(carts);
   displayCartsCount(cartsCount, count);
 });
