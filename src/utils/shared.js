@@ -36,5 +36,5 @@ export function ShowSucessMessage(ele) {
     ele.classList.replace("opacity-100", "opacity-0");
     ele.classList.replace("translate-y-0", "-translate-y-2");
     ele.classList.add("pointer-events-none");
-  }, 3000);
+  }, 2000);
 }
