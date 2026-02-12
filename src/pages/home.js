@@ -149,4 +149,4 @@ function clearAllCarts() {
 toggleDropdownMenu(hamburgerButton, dropDownMenu);
 
 const count = cartsCounter(carts);
-displayCartsCount(cartsCountSpan, count);
+displayCartsCount(cartsCount, count);
