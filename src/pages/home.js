@@ -99,8 +99,12 @@ function productToAddToCart(id) {
   const product = productsData.find((product) => {
     const productId = product?.id;
     //Tackle undefined and not a Number id. e.g.(id: null id:"abc" id2: 1)
-    if (!productId || productId === undefined || isNaN(productId)) {
-      return;
+    if (
+      !productId ||
+      typeof productId !== "number" ||
+      Number.isNaN(productId)
+    ) {
+      return undefined;
     }
 
     return productId === id;
