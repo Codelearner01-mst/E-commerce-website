@@ -21,13 +21,12 @@ import { ShowSucessMessage } from "../utils/shared.js";
 const cartsCount = document.getElementById("cart-count");
 const products = document.querySelector(".product-list");
 const cartButton = document.getElementById("cart-btn");
+const messageForm = document.getElementById("message-form");
 
 const hamburgerButton = document.getElementById("hamburger-btn");
 const dropDownMenu = document.getElementById("drop-menu");
 
-const addedCartSuccessMessage = document.querySelector(".added-cart-success");
-
-const savedCarts = loadCarts();
+const addToCartSuccessMessage = document.querySelector(".added-cart-success");
 
 const productsData = [
   {
@@ -53,9 +52,7 @@ const productsData = [
   },
 ];
 
-let carts = [];
-
-carts = savedCarts;
+let carts = loadCarts();
 
 function goToNewPage() {
   window.location.href = "carts.html";
@@ -70,11 +67,7 @@ cartButton.addEventListener("click", goToNewPage);
  * @returns {boolean}
  */
 function hasSameProductInCart(product) {
-  for (const c of carts) {
-    if (c.id === product.id) {
-      return true;
-    }
-  }
+  return carts.some((c) => c.id === product.id);
 }
 
 /**
@@ -105,7 +98,8 @@ function updateCartQuantity(product) {
 function productToAddToCart(id) {
   const product = productsData.find((product) => {
     const productId = product?.id;
-    if (!productId) {
+    //Tackle undefined and not a Number id. e.g.(id: null id:"abc" id2: 1)
+    if (!productId || productId === undefined || isNaN(productId)) {
       return;
     }
 
@@ -119,7 +113,7 @@ products.addEventListener("click", (event) => {
     return;
   }
   const card = event.target.closest(".product-card");
-  if (!card) {
+  if (!card || card === null) {
     return;
   }
   const productId = parseInt(card.id.split("-")[1], 10);
@@ -127,6 +121,9 @@ products.addEventListener("click", (event) => {
     return;
   }
   const product = productToAddToCart(productId);
+  if (product === undefined) {
+    return;
+  }
 
   if (hasSameProductInCart(product)) {
     updateCartQuantity(product);
@@ -134,7 +131,7 @@ products.addEventListener("click", (event) => {
     carts.push(product);
   }
   saveCarts(carts);
-  ShowSucessMessage(addedCartSuccessMessage, true);
+  ShowSucessMessage(addToCartSuccessMessage, true);
   const count = cartsCounter(carts);
   displayCartsCount(cartsCount, count);
 });
@@ -145,6 +142,14 @@ function clearAllCarts() {
     saveCarts(carts);
   }
 }
+
+messageForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  alert("Message sent succcessfully!");
+  messageForm
+    .querySelectorAll(".input-field")
+    .forEach((Input) => (Input.value = ""));
+});
 
 toggleDropdownMenu(hamburgerButton, dropDownMenu);
 

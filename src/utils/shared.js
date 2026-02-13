@@ -33,7 +33,6 @@ export function ShowSucessMessage(ele, bool = true) {
   //Restart pop up message when add-to-cart button is clicked and previous message not fade out
 
   let isButtonClickedBeforeFadeOut = bool;
-  console.log("Initial clicked", isButtonClickedBeforeFadeOut);
 
   if (isButtonClickedBeforeFadeOut) {
     setTimeout(() => {
