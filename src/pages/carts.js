@@ -32,7 +32,7 @@ function calculateSubtotal() {
     const price = parseFloat(priceText);
     sum += price;
   });
-  return `$${sum.toFixed()}`;
+  return `$${sum.toFixed(2)}`;
 }
 const result = calculateSubtotal();
 subtotalAmount.textContent = result;

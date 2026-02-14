@@ -74,7 +74,7 @@ export function CartItem(cart, carts, countEle, msgEle) {
     if (cart.quantity > 1) {
       cart.quantity -= 1;
       quantityDisplay.textContent = cart.quantity;
-      totalPrice.textContent = `$${cart.price * cart.quantity}`;
+      totalPrice.textContent = `$${cart.price * cart.quantity.toFixed(2)}`;
       const count = cartsCounter(carts);
       displayCartsCount(countEle, count);
       ShowSucessMessage(msgEle);
