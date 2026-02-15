@@ -23,12 +23,12 @@ const checkoutButton = document.getElementById("checkout-btn");
 
 renderCarts(cartList, carts, cartCountSpan, updateCartSuccessMessage);
 
-const totalPriceElement = document.querySelectorAll(".total-price"); //This get the prices for each product in cart
+const totalPriceElement = document.querySelectorAll(".total-price"); //Get the total amount of each product in cart
 
 function calculateSubtotal() {
   let sum = 0;
   totalPriceElement.forEach((ele) => {
-    const priceText = ele.textContent.replace("$", ""); //Replace "$" with empty space so to turn it to a float number.This was done to avoid NaN error on e.g $23,$30.
+    const priceText = ele.textContent.replace("$", ""); //Replace "$" with empty space to avoid NaN error on strings like $23,$30 when turning it to a float number
     const price = parseFloat(priceText);
     sum += price;
   });
