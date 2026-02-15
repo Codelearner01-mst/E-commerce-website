@@ -25,7 +25,7 @@ const dropDownMenu = document.getElementById("drop-menu");
 
 const addToCartSuccessMessage = document.querySelector(".added-cart-success");
 
-let carts = loadCarts();
+const carts = loadCarts();
 
 function goToNewPage() {
   window.location.href = "carts.html";
@@ -48,7 +48,9 @@ function submitMessage() {
   });
 }
 submitMessage();
-toggleDropdownMenu(hamburgerButton, dropDownMenu);
+hamburgerButton.addEventListener("click", () => {
+  toggleDropdownMenu(dropDownMenu);
+});
 
 const count = cartsCounter(carts);
 displayCartsCount(cartsCount, count);

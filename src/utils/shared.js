@@ -1,6 +1,6 @@
 export function cartsCounter(carts) {
-  if (!carts) {
-    return;
+  if (!carts || !Array.isArray(carts)) {
+    return 0;
   }
 
   let cartsCount = 0;
@@ -10,21 +10,22 @@ export function cartsCounter(carts) {
   return cartsCount;
 }
 
-export function displayCartsCount(element, count) {
-  if (!element) {
+export function displayCartsCount(ele, count) {
+  if (!ele || ele === null) {
     return;
   }
-  element.textContent = count;
+  ele.textContent = count;
 }
 
-export function toggleDropdownMenu(button, dropdown) {
-  button.addEventListener("click", () => {
-    dropdown.classList.toggle("hidden");
-  });
+export function toggleDropdownMenu(dropdown) {
+  if (dropdown === null) {
+    return;
+  }
+  dropdown.classList.toggle("hidden");
 }
 
 export function ShowSucessMessage(ele, bool = true) {
-  if (!ele) {
+  if (!ele || ele === null) {
     return;
   }
 
