@@ -1,0 +1,87 @@
+import { cartsCounter, displayCartsCount } from "../utils/shared.js";
+import { ShowSucessMessage } from "../utils/shared.js";
+import { saveCarts } from "./saveUtils.js";
+import { productsData } from "../utils/productsStore.js";
+
+/**
+ * Check whether a product (by id) already exists in `carts`.
+ * Why: do not rely on object identity because `productsData` is recreated on page load.
+ * @param {{id:number}} product - product to check
+ * @returns {boolean}
+ */
+function hasSameProductInCart(product, carts) {
+  return carts.some((c) => c.id === product.id);
+}
+
+/**
+ * Find the index of a cart item by product id.
+ * @param {{id:number}} product
+ * @returns {number} index in `carts` or -1
+ */
+const getCartIndex = (product, carts) => {
+  return carts.findIndex((c) => c.id === product.id);
+};
+
+/**
+ * Increment quantity for the cart item matching `product.id`.
+ * Side effects: mutates `carts` (in-memory) — caller must persist with `saveCarts`.
+ * @param {{id:number}} product
+ */
+function updateCartQuantity(product, carts) {
+  const index = getCartIndex(product, carts);
+  console.log(index === -1);
+  const cart = carts[index];
+  cart.quantity += 1;
+}
+
+/**
+ * Return a product object from `productsData` by id.
+ * @param {number} id
+ * @returns {{id:number,name:string,price:number,quantity:number}|undefined}
+ */
+function productToAddToCart(id) {
+  const product = productsData.find((product) => {
+    const productId = product?.id;
+    //Tackle undefined and not a Number id. e.g.(id: null id:"abc" id2: 1)
+    if (
+      !productId ||
+      typeof productId !== "number" ||
+      Number.isNaN(productId)
+    ) {
+      return undefined;
+    }
+
+    return productId === id;
+  });
+  return product;
+}
+
+export function addToCartAndShowMessage(products, carts, countEle, msgEle) {
+  products.addEventListener("click", (event) => {
+    if (event.target.tagName !== "BUTTON") {
+      return;
+    }
+    const card = event.target.closest(".product-card");
+    if (!card || card === null) {
+      return;
+    }
+    const productId = parseInt(card.id.split("-")[1], 10);
+    if (isNaN(productId)) {
+      return;
+    }
+    const product = productToAddToCart(productId);
+    if (product === undefined) {
+      return;
+    }
+
+    if (hasSameProductInCart(product, carts)) {
+      updateCartQuantity(product, carts);
+    } else {
+      carts.push(product);
+    }
+    saveCarts(carts);
+    ShowSucessMessage(msgEle, true);
+    const count = cartsCounter(carts);
+    displayCartsCount(countEle, count);
+  });
+}
