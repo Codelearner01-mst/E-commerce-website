@@ -38,10 +38,6 @@ const result = calculateSubtotal();
 subtotalAmount.textContent = result;
 totalAmount.textContent = result;
 
-if (!cartList) {
-  console.error("Cart list element not found");
-}
-
 if (carts.length === 0) {
   emptyCartMessage.classList.remove("hidden");
   resultContainer.classList.add("hidden");

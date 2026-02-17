@@ -29,7 +29,6 @@ const getCartIndex = (product, carts) => {
  */
 function updateCartQuantity(product, carts) {
   const index = getCartIndex(product, carts);
-  console.log(index === -1);
   const cart = carts[index];
   cart.quantity += 1;
 }
