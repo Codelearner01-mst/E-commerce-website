@@ -2,7 +2,7 @@
 
 @layer components {
   .product-card {
-    @apply bg-white rounded-md overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2;
+    @apply bg-white overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2;
   }
 
   .product-image {
@@ -10,7 +10,7 @@
   }
 
   .product-image-container {
-    @apply relative overflow-hidden h-64;
+    @apply overflow-hidden sm:h-67 md:h-62.5 xl:h-67 lg:h-65 h-65.5 sm:w-61.75 md:w-[328px] lg:w-[209px] xl:w-[267px] mx-auto;
   }
 
   .product-info {
@@ -18,15 +18,15 @@
   }
 
   .product-title {
-    @apply text-lg font-semibold text-gray-900 mb-3;
+    @apply text-[15px] font-semibold text-gray-900 mb-3;
   }
 
   .product-price {
-    @apply font-bold text-lg text-yellow-800 font-sans;
+    @apply font-bold text-lg text-black font-sans;
   }
 
   .btn-primary {
-    @apply bg-white text-lg text-black border-2 px-3 py-1.5 rounded-xs hover:bg-gray-200 transition-colors duration-200 font-semibold;
+    @apply bg-white text-[15px] text-yellow-700 border py-1.5 px-3 hover:bg-gray-200 transition-colors duration-200 font-semibold;
   }
 
   .btn-primary-full {
@@ -38,7 +38,7 @@
   }
 
   .section-title {
-    @apply text-4xl font-bold text-gray-900 mb-2;
+    @apply text-3xl font-bold text-gray-900 mb-2;
   }
 
   .section-subtitle {
