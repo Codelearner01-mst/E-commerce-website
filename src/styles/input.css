@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@theme {
+  --breakpoint-xs: 30rem;
+}
+
 @layer components {
   .product-card {
     @apply bg-white overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2;

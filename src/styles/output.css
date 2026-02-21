@@ -901,6 +901,11 @@
       }
     }
   }
+  .xs\:w-\[26rem\] {
+    @media (width >= 30rem) {
+      width: 26rem;
+    }
+  }
   .sm\:right-7 {
     @media (width >= 40rem) {
       right: calc(var(--spacing) * 7);
