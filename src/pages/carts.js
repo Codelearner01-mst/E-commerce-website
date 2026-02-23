@@ -1,10 +1,6 @@
 import { renderCarts } from "../components/render.js";
 import { loadCarts } from "../utils/saveUtils.js";
-import {
-  cartsCounter,
-  displayCartsCount,
-  toggleDropdownMenu,
-} from "../utils/shared.js";
+import { displayCartsCount, toggleDropdownMenu } from "../utils/shared.js";
 
 const carts = loadCarts();
 
@@ -46,7 +42,8 @@ if (carts.length === 0) {
   resultContainer.classList.remove("hidden");
 }
 
-const count = cartsCounter(carts);
-displayCartsCount(cartCountSpan, count);
+displayCartsCount(cartCountSpan, carts);
 
-toggleDropdownMenu(hamburgerButton, dropDownMenu);
+hamburgerButton.addEventListener("click", () => {
+  toggleDropdownMenu(dropDownMenu);
+});

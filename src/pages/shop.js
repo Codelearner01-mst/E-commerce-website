@@ -1,11 +1,7 @@
 import { loadCarts } from "../utils/saveUtils.js";
-import {
-  cartsCounter,
-  displayCartsCount,
-  toggleDropdownMenu,
-} from "../utils/shared.js";
+import { displayCartsCount, toggleDropdownMenu } from "../utils/shared.js";
 
-import { addToCartAndShowMessage } from "../utils/cart-controller.js";
+import { addToCartOrDisplayProduct } from "../utils/cart-controller.js";
 
 const cartCount = document.getElementById("cart-count");
 const hamburgerButton = document.getElementById("hamburger-btn");
@@ -20,8 +16,9 @@ cartButton.addEventListener("click", () => {
 
 const carts = loadCarts();
 
-addToCartAndShowMessage(products, carts, cartCount, updateCartSuccessMessage);
+addToCartOrDisplayProduct(products, carts, cartCount, updateCartSuccessMessage);
 
-const count = cartsCounter(carts);
-displayCartsCount(cartCount, count);
-toggleDropdownMenu(hamburgerButton, dropDownMenu);
+displayCartsCount(cartCount, carts);
+hamburgerButton.addEventListener("click", () => {
+  toggleDropdownMenu(dropDownMenu);
+});

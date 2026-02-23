@@ -310,9 +310,6 @@
   .mt-28 {
     margin-top: calc(var(--spacing) * 28);
   }
-  .mt-36 {
-    margin-top: calc(var(--spacing) * 36);
-  }
   .mt-auto {
     margin-top: auto;
   }

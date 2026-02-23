@@ -1,8 +1,8 @@
-import { cartsCounter, displayCartsCount } from "../utils/shared.js";
+import { displayCartsCount } from "../utils/shared.js";
 import { ShowSucessMessage } from "../utils/shared.js";
 import { saveCarts } from "./saveUtils.js";
 import { productsData } from "../utils/productsStore.js";
-import { productHTML } from "../components/productItem";
+//import { productHTML } from "../components/productItem";
 
 /**
  * Check whether a product (by id) already exists in `carts`.
@@ -56,42 +56,24 @@ function productToAddToCartOrDisplay(id) {
   return product;
 }
 
-function displayProduct(products) {
+export function addToCartOrDisplayProduct(products, carts, countEle, msgEle) {
   products.addEventListener("click", (event) => {
-    if (event.target.tagName === "BUTTON") {
-      return;
-    }
     const card = event.target.closest(".product-card");
     if (!card || card === null) {
       return;
     }
-    const productId = parseInt(card.id.split("-")[1], 10);
-    if (isNaN(productId)) {
-      return;
-    }
-    const product = productToAddToCartOrDisplay(productId);
-    if (product === undefined) {
-      return;
-    }
-  });
-}
 
-export function addToCartAndShowMessage(products, carts, countEle, msgEle) {
-  products.addEventListener("click", (event) => {
-    if (event.target.tagName !== "BUTTON") {
-      return;
-    }
-    const card = event.target.closest(".product-card");
-    if (!card || card === null) {
-      return;
-    }
     const productId = parseInt(card.id.split("-")[1], 10);
     if (isNaN(productId)) {
       return;
     }
+
     const product = productToAddToCartOrDisplay(productId);
     if (product === undefined) {
       return;
+    }
+    if (event.target.tagName !== "BUTTON") {
+      return product;
     }
 
     if (hasSameProductInCart(product, carts)) {
@@ -101,7 +83,6 @@ export function addToCartAndShowMessage(products, carts, countEle, msgEle) {
     }
     saveCarts(carts);
     ShowSucessMessage(msgEle, true);
-    const count = cartsCounter(carts);
-    displayCartsCount(countEle, count);
+    displayCartsCount(countEle, carts);
   });
 }

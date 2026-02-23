@@ -10,7 +10,7 @@
  * { id: number, name: string, price: number, image: string, quantity: number }
  */
 import { saveCarts } from "../utils/saveUtils.js";
-import { cartsCounter, displayCartsCount } from "../utils/shared.js";
+import { displayCartsCount } from "../utils/shared.js";
 import { ShowSucessMessage } from "../utils/shared.js";
 
 export function CartItem(cart, carts, countEle, msgEle) {
@@ -75,8 +75,7 @@ export function CartItem(cart, carts, countEle, msgEle) {
       cart.quantity -= 1;
       quantityDisplay.textContent = cart.quantity;
       totalPrice.textContent = `$${cart.price * cart.quantity.toFixed(2)}`;
-      const count = cartsCounter(carts);
-      displayCartsCount(countEle, count);
+      displayCartsCount(countEle, carts);
       ShowSucessMessage(msgEle);
       saveCarts(carts);
     }
@@ -86,8 +85,7 @@ export function CartItem(cart, carts, countEle, msgEle) {
     cart.quantity += 1;
     quantityDisplay.textContent = cart.quantity;
     totalPrice.textContent = `$${cart.price * cart.quantity}`;
-    const count = cartsCounter(carts);
-    displayCartsCount(countEle, count);
+    displayCartsCount(countEle, carts);
     ShowSucessMessage(msgEle);
     saveCarts(carts);
   });
@@ -97,8 +95,7 @@ export function CartItem(cart, carts, countEle, msgEle) {
     const index = carts.findIndex((c) => c.id === cart.id);
     if (index > -1) {
       carts.splice(index, 1);
-      const count = cartsCounter(carts);
-      displayCartsCount(countEle, count);
+      displayCartsCount(countEle, carts);
       ShowSucessMessage(msgEle);
       saveCarts(carts);
     }

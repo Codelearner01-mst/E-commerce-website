@@ -12,8 +12,8 @@
  */
 import { toggleDropdownMenu } from "../utils/shared.js";
 import { loadCarts } from "../utils/saveUtils.js";
-import { addToCartAndShowMessage } from "../utils/cart-controller.js";
-import { cartsCounter, displayCartsCount } from "../utils/shared.js";
+import { addToCartOrDisplayProduct } from "../utils/cart-controller.js";
+import { displayCartsCount } from "../utils/shared.js";
 
 const cartsCount = document.getElementById("cart-count");
 const products = document.querySelector(".product-list");
@@ -33,7 +33,7 @@ function goToNewPage() {
 
 cartButton.addEventListener("click", goToNewPage);
 
-addToCartAndShowMessage(products, carts, cartsCount, addToCartSuccessMessage);
+addToCartOrDisplayProduct(products, carts, cartsCount, addToCartSuccessMessage);
 
 function submitMessage() {
   if (messageForm === null) {
@@ -52,5 +52,4 @@ hamburgerButton.addEventListener("click", () => {
   toggleDropdownMenu(dropDownMenu);
 });
 
-const count = cartsCounter(carts);
-displayCartsCount(cartsCount, count);
+displayCartsCount(cartsCount, carts);

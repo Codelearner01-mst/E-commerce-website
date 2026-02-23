@@ -10,10 +10,11 @@ export function cartsCounter(carts) {
   return cartsCount;
 }
 
-export function displayCartsCount(ele, count) {
+export function displayCartsCount(ele, carts) {
   if (!ele || ele === null) {
     return;
   }
+  const count = cartsCounter(carts);
   ele.textContent = count;
 }
 
