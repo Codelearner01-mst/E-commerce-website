@@ -6,8 +6,9 @@ export function productHTML(product) {
     !Array.isArray(product) &&
     product !== null
   ) {
-    return `
-       <div class="product-details">
+    const div = document.createElement("div");
+    div.className = "product-details";
+    div.innerHTML = `
          <div>
            <img src="${product.image}" alt="${product.name}">
          </div>
@@ -15,8 +16,7 @@ export function productHTML(product) {
          <p>${product.price}</p>
        </div>
    `;
+    return div;
   }
   return {};
 }
-
-//export default productHTML;

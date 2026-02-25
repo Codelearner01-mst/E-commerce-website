@@ -33,12 +33,7 @@ function goToNewPage() {
 
 cartButton.addEventListener("click", goToNewPage);
 
-export const product = addToCartOrDisplayProduct(
-  products,
-  carts,
-  addToCartSuccessMessage,
-  cartsCount,
-);
+addToCartOrDisplayProduct(products, carts, addToCartSuccessMessage, cartsCount);
 
 function submitMessage() {
   if (messageForm === null) {

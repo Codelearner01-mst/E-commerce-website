@@ -4,8 +4,8 @@
  */
 import { CartItem } from "./cartItem.js";
 import { productHTML } from "./productItem.js";
-import { product } from "../pages/home.js";
-//import { product } from "../pages/shop.js";
+
+const product = JSON.parse(sessionStorage.getItem("currentProduct"));
 
 export function renderCarts(list, carts, countEle, msgEle) {
   if (!list || !carts) {
@@ -23,6 +23,5 @@ export function renderProduct(containerEle) {
   if (typeof product !== "object" || product === null) {
     return;
   }
-  console.error("Invalid product data:", product);
   containerEle.appendChild(productHTML(product));
 }

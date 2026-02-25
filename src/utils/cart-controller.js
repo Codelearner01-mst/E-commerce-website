@@ -76,8 +76,9 @@ export function addToCartOrDisplayProduct(products, carts, msgEle, countEle) {
       return;
     }
     if (event.target.tagName !== "BUTTON") {
+      sessionStorage.setItem("currentProduct", JSON.stringify(product));
       window.location.href = "product.html";
-      return product;
+      return;
     }
 
     if (hasSameProductInCart(product, carts)) {
