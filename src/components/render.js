@@ -20,11 +20,7 @@ export function renderCarts(list, carts, countEle, msgEle) {
 
 export function renderProduct(containerEle) {
   //const product
-  if (
-    typeof product === "object" &&
-    product !== null &&
-    !Array.isArray(product)
-  ) {
+  if (typeof product !== "object" || product === null) {
     return;
   }
   console.error("Invalid product data:", product);

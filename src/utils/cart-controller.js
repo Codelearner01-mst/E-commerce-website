@@ -57,6 +57,9 @@ function productToAddToCartOrDisplay(id) {
 }
 
 export function addToCartOrDisplayProduct(products, carts, msgEle, countEle) {
+  if (!products || !carts || !msgEle || !countEle) {
+    return;
+  }
   products.addEventListener("click", (event) => {
     const card = event.target.closest(".product-card");
     if (!card || card === null) {
