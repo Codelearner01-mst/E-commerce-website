@@ -56,7 +56,7 @@ function productToAddToCartOrDisplay(id) {
   return product;
 }
 
-export function addToCartOrDisplayProduct(products, carts, countEle, msgEle) {
+export function addToCartOrDisplayProduct(products, carts, msgEle, countEle) {
   products.addEventListener("click", (event) => {
     const card = event.target.closest(".product-card");
     if (!card || card === null) {
@@ -73,6 +73,7 @@ export function addToCartOrDisplayProduct(products, carts, countEle, msgEle) {
       return;
     }
     if (event.target.tagName !== "BUTTON") {
+      window.location.href = "product.html";
       return product;
     }
 

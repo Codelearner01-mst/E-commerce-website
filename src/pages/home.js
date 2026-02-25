@@ -33,7 +33,12 @@ function goToNewPage() {
 
 cartButton.addEventListener("click", goToNewPage);
 
-addToCartOrDisplayProduct(products, carts, cartsCount, addToCartSuccessMessage);
+export const product = addToCartOrDisplayProduct(
+  products,
+  carts,
+  addToCartSuccessMessage,
+  cartsCount,
+);
 
 function submitMessage() {
   if (messageForm === null) {
@@ -48,6 +53,7 @@ function submitMessage() {
   });
 }
 submitMessage();
+
 hamburgerButton.addEventListener("click", () => {
   toggleDropdownMenu(dropDownMenu);
 });
