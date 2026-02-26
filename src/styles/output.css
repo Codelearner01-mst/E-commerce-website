@@ -307,6 +307,9 @@
   .mt-22 {
     margin-top: calc(var(--spacing) * 22);
   }
+  .mt-25 {
+    margin-top: calc(var(--spacing) * 25);
+  }
   .mt-28 {
     margin-top: calc(var(--spacing) * 28);
   }
