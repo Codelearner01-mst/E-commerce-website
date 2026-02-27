@@ -68,7 +68,7 @@ export const productsData = [
     id: 10,
     name: "Product 10",
     price: 29.99,
-    image: "../images/sabrianna-uiKSc7-NM2s-unsplash.jpg",
+    image: "../images/sabrianna-x_iL7y7VV4M-unsplash.jpg",
     quantity: 1,
   },
   {
