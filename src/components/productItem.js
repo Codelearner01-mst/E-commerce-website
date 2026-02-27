@@ -9,11 +9,15 @@ export function productHTML(product) {
     const div = document.createElement("div");
     div.className = "product-details";
     div.innerHTML = `
-         <div>
-           <img src="${product.image}" alt="${product.name}">
+         <div class="xs:w-[26rem] h-90 w-full mx-auto left-26 sm:w-[28rem] sm:h-[31rem] mb-8 overflow-hidden">
+           <img class="product-image" src="${product.image}" alt="${product.name}">
          </div>
-         <p>${product.name}</p>
-         <p>${product.price}</p>
+       <div class="flex items-center flex-col justify-center gap-2.5">
+         <p class="text-[1.4rem] font-medium">${product.name}</p>
+         <p class="text-[1.4rem] font-medium">$${product.price}</p>
+         <div class="text-[1.1rem] bg-amber-600 border border-amber-400 px-7 py-2.5">
+           <p class="text-white">ADD TO CART</p>
+         </div>
        </div>
    `;
     return div;
