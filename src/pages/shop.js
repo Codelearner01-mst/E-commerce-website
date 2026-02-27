@@ -16,7 +16,7 @@ cartButton.addEventListener("click", () => {
 
 const carts = loadCarts();
 
-addToCartOrDisplayProduct(products, carts, cartCount, updateCartSuccessMessage);
+addToCartOrDisplayProduct(products, carts, updateCartSuccessMessage, cartCount);
 
 displayCartsCount(cartCount, carts);
 hamburgerButton.addEventListener("click", () => {

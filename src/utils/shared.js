@@ -25,11 +25,22 @@ export function toggleDropdownMenu(dropdown) {
   dropdown.classList.toggle("hidden");
 }
 
+export function decreaseQuantityControl(cart, ele) {
+  if (cart.quantity > 1) {
+    cart.quantity -= 1;
+    ele.textContent = cart.quantity;
+  }
+}
+
+export function increaseQuantityControl(cart, ele) {
+  cart.quantity += 1;
+  ele.textContent = cart.quantity;
+}
+
 export function ShowSucessMessage(ele, bool = true) {
   if (!ele || ele === null) {
     return;
   }
-
   //User click on add-to-cart. success message pop up in 1second
   //pop up fade out smoothly in 20seconds
   //Restart pop up message when add-to-cart button is clicked and previous message not fade out

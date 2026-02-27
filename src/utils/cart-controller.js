@@ -81,11 +81,13 @@ export function addToCartOrDisplayProduct(products, carts, msgEle, countEle) {
       return;
     }
 
-    if (hasSameProductInCart(product, carts)) {
-      updateCartQuantity(product, carts);
-    } else {
-      carts.push(product);
-    }
+    carts.push(product);
+    card.querySelector(".quantity-control").innerHTML =
+      ` <div class="flex gap-6">
+        <button class="text-gray-400 decrease-btn">&#10094;</button>
+        <span class="quantity-display">1</span>
+        <button class="text-gray-400 increase-btn">&#10095;</button>
+      </div>`;
     saveCarts(carts);
     ShowSucessMessage(msgEle, true);
     displayCartsCount(countEle, carts);
