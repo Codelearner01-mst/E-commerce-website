@@ -2,6 +2,8 @@ import { displayCartsCount } from "../utils/shared.js";
 import { ShowSucessMessage } from "../utils/shared.js";
 import { saveCarts } from "./saveUtils.js";
 import { productsData } from "../utils/productsStore.js";
+import { increaseQuantityControl } from "../utils/shared.js";
+import { decreaseQuantityControl } from "../utils/shared.js";
 //import { productHTML } from "../components/productItem";
 
 /**
@@ -10,7 +12,7 @@ import { productsData } from "../utils/productsStore.js";
  * @param {{id:number}} product - product to check
  * @returns {boolean}
  */
-function hasSameProductInCart(product, carts) {
+function hasProductInCart(product, carts) {
   return carts.some((c) => c.id === product.id);
 }
 
@@ -28,11 +30,6 @@ const getCartIndex = (product, carts) => {
  * Side effects: mutates `carts` (in-memory) — caller must persist with `saveCarts`.
  * @param {{id:number}} product
  */
-function updateCartQuantity(product, carts) {
-  const index = getCartIndex(product, carts);
-  const cart = carts[index];
-  cart.quantity += 1;
-}
 
 /**
  * Return a product object from `productsData` by id.
@@ -80,14 +77,31 @@ export function addToCartOrDisplayProduct(products, carts, msgEle, countEle) {
       window.location.href = "product.html";
       return;
     }
-
-    carts.push(product);
-    card.querySelector(".quantity-control").innerHTML =
-      ` <div class="flex gap-6">
-        <button class="text-gray-400 decrease-btn">&#10094;</button>
-        <span class="quantity-display">1</span>
+    console.log("Is productin cart:", hasProductInCart(product, carts));
+    if (!hasProductInCart(product, carts)) {
+      carts.push(product);
+      card.querySelector(".quantity-control").innerHTML =
+        ` <div class="flex gap-6">
+          <button class="text-gray-400 decrease-btn">&#10094;</button>
+          <span class="quantity-display">1</span>
         <button class="text-gray-400 increase-btn">&#10095;</button>
       </div>`;
+      const index = getCartIndex(product, carts);
+      const cart = carts[index];
+      const quantityDisplay = card.querySelector(".quantity-display");
+      card.querySelector(".increase-btn").addEventListener("click", () => {
+        increaseQuantityControl(cart, quantityDisplay);
+        saveCarts(carts);
+        ShowSucessMessage(msgEle, true);
+        displayCartsCount(countEle, carts);
+      });
+      card.querySelector(".decrease-btn").addEventListener("click", () => {
+        decreaseQuantityControl(cart, quantityDisplay);
+        saveCarts(carts);
+        ShowSucessMessage(msgEle, true);
+        displayCartsCount(countEle, carts);
+      });
+    }
     saveCarts(carts);
     ShowSucessMessage(msgEle, true);
     displayCartsCount(countEle, carts);
