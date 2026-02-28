@@ -1,6 +1,6 @@
 import { loadCarts } from "../utils/saveUtils.js";
 import { displayCartsCount, toggleDropdownMenu } from "../utils/shared.js";
-
+import { setQuantityControlUi } from "../utils/shared.js";
 import { addToCartOrDisplayProduct } from "../utils/cart-controller.js";
 
 const cartCount = document.getElementById("cart-count");
@@ -15,6 +15,8 @@ cartButton.addEventListener("click", () => {
 });
 
 const carts = loadCarts();
+
+setQuantityControlUi(products, carts);
 
 addToCartOrDisplayProduct(products, carts, updateCartSuccessMessage, cartCount);
 
