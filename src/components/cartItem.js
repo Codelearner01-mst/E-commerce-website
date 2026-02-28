@@ -12,8 +12,8 @@
 import { saveCarts } from "../utils/saveUtils.js";
 import { displayCartsCount } from "../utils/shared.js";
 import { ShowSucessMessage } from "../utils/shared.js";
-import { decreaseQuantityControl } from "../utils/shared.js";
-import { increaseQuantityControl } from "../utils/shared.js";
+import { decreaseQuantity } from "../utils/shared.js";
+import { increaseQuantity } from "../utils/shared.js";
 
 export function CartItem(cart, carts, countEle, msgEle) {
   //Cart holds a particular product in the carts array
@@ -73,7 +73,7 @@ export function CartItem(cart, carts, countEle, msgEle) {
   const totalPrice = cartDiv.querySelector(".total-price");
 
   decreaseBtn.addEventListener("click", () => {
-    decreaseQuantityControl(cart, quantityDisplay);
+    decreaseQuantity(cart, quantityDisplay);
     totalPrice.textContent = `$${cart.price * cart.quantity.toFixed(2)}`;
     displayCartsCount(countEle, carts);
     ShowSucessMessage(msgEle);
@@ -81,7 +81,7 @@ export function CartItem(cart, carts, countEle, msgEle) {
   });
 
   increaseBtn.addEventListener("click", () => {
-    increaseQuantityControl(cart, quantityDisplay);
+    increaseQuantity(cart, quantityDisplay);
     totalPrice.textContent = `$${cart.price * cart.quantity}`;
     displayCartsCount(countEle, carts);
     ShowSucessMessage(msgEle);

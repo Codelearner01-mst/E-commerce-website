@@ -2,8 +2,7 @@ import { displayCartsCount } from "../utils/shared.js";
 import { ShowSucessMessage } from "../utils/shared.js";
 import { saveCarts } from "./saveUtils.js";
 import { productsData } from "../utils/productsStore.js";
-import { increaseQuantityControl } from "../utils/shared.js";
-import { decreaseQuantityControl } from "../utils/shared.js";
+import { setProductQuantityControl } from "../utils/shared.js";
 //import { productHTML } from "../components/productItem";
 
 /**
@@ -47,57 +46,43 @@ function productToAddToCartOrDisplay(id) {
   return product;
 }
 
-export function addToCartOrDisplayProduct(products, carts, msgEle, countEle) {
-  if (!products || !carts || !msgEle || !countEle) {
+export function displayProduct(card, carts) {
+  if (!carts || !Array.isArray(carts)) {
     return;
   }
-  products.addEventListener("click", (event) => {
-    const card = event.target.closest(".product-card");
-    if (!card || card === null) {
-      return;
-    }
+  const productId = parseInt(card.id.split("-")[1], 10);
+  const product = productToAddToCartOrDisplay(productId);
+  sessionStorage.setItem("currentProduct", JSON.stringify(product));
+  window.location.href = "product.html";
+  return;
+}
 
-    const productId = parseInt(card.id.split("-")[1], 10);
-    if (isNaN(productId)) {
-      return;
-    }
+export function addToCartOrControlQuantity(card, carts, msgEle, countEle) {
+  if (!carts || !msgEle || !countEle) {
+    return;
+  }
+  const productId = parseInt(card.id.split("-")[1], 10);
+  if (isNaN(productId)) {
+    return;
+  }
+  const product = productToAddToCartOrDisplay(productId);
+  if (product === undefined) {
+    return;
+  }
 
-    const product = productToAddToCartOrDisplay(productId);
-    if (product === undefined) {
-      return;
-    }
-    if (event.target.tagName !== "BUTTON") {
-      sessionStorage.setItem("currentProduct", JSON.stringify(product));
-      window.location.href = "product.html";
-      return;
-    }
-
-    if (!hasProductInCart(product, carts)) {
-      carts.push(product);
-      card.querySelector(".quantity-control").innerHTML =
-        ` <div class="flex gap-6">
-          <button class="text-gray-400 decrease-btn">&#10094;</button>
-          <span class="quantity-display">1</span>
-        <button class="text-gray-400 increase-btn">&#10095;</button>
-      </div>`;
-      const index = getCartIndex(product, carts);
-      const cart = carts[index];
-      const quantityDisplay = card.querySelector(".quantity-display");
-      card.querySelector(".increase-btn").addEventListener("click", () => {
-        increaseQuantityControl(cart, quantityDisplay);
-        saveCarts(carts);
-        ShowSucessMessage(msgEle, true);
-        displayCartsCount(countEle, carts);
-      });
-      card.querySelector(".decrease-btn").addEventListener("click", () => {
-        decreaseQuantityControl(cart, quantityDisplay);
-        saveCarts(carts);
-        ShowSucessMessage(msgEle, true);
-        displayCartsCount(countEle, carts);
-      });
-    }
-    saveCarts(carts);
-    ShowSucessMessage(msgEle, true);
-    displayCartsCount(countEle, carts);
-  });
+  if (!hasProductInCart(product, carts)) {
+    carts.push(product);
+    const index = getCartIndex(product, carts);
+    const cart = carts[index];
+    setProductQuantityControl(
+      card.querySelector(".quantity-control"),
+      cart,
+      carts,
+      msgEle,
+      countEle,
+    );
+  }
+  saveCarts(carts);
+  ShowSucessMessage(msgEle, true);
+  displayCartsCount(countEle, carts);
 }

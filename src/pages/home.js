@@ -12,9 +12,10 @@
  */
 import { toggleDropdownMenu } from "../utils/shared.js";
 import { loadCarts } from "../utils/saveUtils.js";
-import { addToCartOrDisplayProduct } from "../utils/cart-controller.js";
 import { displayCartsCount } from "../utils/shared.js";
-import { setQuantityControlUi } from "../utils/shared.js";
+import { displayProduct } from "../utils/cart-controller.js";
+import { addToCartOrControlQuantity } from "../utils/cart-controller.js";
+import { setProductQuantityControl } from "../utils/shared.js";
 
 const cartsCount = document.getElementById("cart-count");
 const products = document.querySelector(".product-list");
@@ -27,7 +28,6 @@ const dropDownMenu = document.getElementById("drop-menu");
 const addToCartSuccessMessage = document.querySelector(".added-cart-success");
 
 const carts = loadCarts();
-//console.log("Products", products.querySelectorAll(".product-card"));
 
 function goToNewPage() {
   window.location.href = "carts.html";
@@ -35,9 +35,30 @@ function goToNewPage() {
 
 cartButton.addEventListener("click", goToNewPage);
 
-setQuantityControlUi(products, carts);
+products.querySelectorAll(".product-card").forEach((card) => {
+  const cardId = parseInt(card.id.split("-")[1], 10);
+  if (carts.some((cart) => cart.id === cardId)) {
+    const index = carts.findIndex((c) => c.id === cardId);
+    setProductQuantityControl(
+      card.querySelector(".quantity-control"),
+      carts[index],
+      carts,
+      addToCartSuccessMessage,
+      cartsCount,
+    );
+  }
+});
 
-addToCartOrDisplayProduct(products, carts, addToCartSuccessMessage, cartsCount);
+products.addEventListener("click", (event) => {
+  const card = event.target.closest(".product-card");
+  if (!card || card === null) {
+    return;
+  }
+  if (event.target.tagName !== "BUTTON") {
+    displayProduct(card, carts);
+  }
+  addToCartOrControlQuantity(card, carts, addToCartSuccessMessage, cartsCount);
+});
 
 function submitMessage() {
   if (messageForm === null) {

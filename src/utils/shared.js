@@ -1,3 +1,5 @@
+import { saveCarts } from "./saveUtils.js";
+
 export function cartsCounter(carts) {
   if (!carts || !Array.isArray(carts)) {
     return 0;
@@ -25,38 +27,40 @@ export function toggleDropdownMenu(dropdown) {
   dropdown.classList.toggle("hidden");
 }
 
-export function decreaseQuantityControl(cart, ele) {
+export function decreaseQuantity(cart, ele) {
   if (cart.quantity > 1) {
     cart.quantity -= 1;
     ele.textContent = cart.quantity;
   }
 }
 
-export function increaseQuantityControl(cart, ele) {
+export function increaseQuantity(cart, ele) {
   cart.quantity += 1;
   ele.textContent = cart.quantity;
 }
 
-/* -Get all products in the html
-   -Get the id of each product in the html
-   -Check if poduct is in carts by comparing ids
-   -If product in carts, change the 'add to cart' button to quantity control button
-*/
-export function setQuantityControlUi(products, carts) {
-  if (!products || products === null || !Array.isArray(carts)) {
+export function setProductQuantityControl(ele, cart, carts, msgEle, countEle) {
+  if (!Array.isArray(carts)) {
     return;
   }
-  products.querySelectorAll(".product-card").forEach((card) => {
-    const cardId = parseInt(card.id.split("-")[1], 10);
-
-    if (carts.some((cart) => cart.id === cardId)) {
-      card.querySelector(".quantity-control").innerHTML =
-        ` <div class="flex gap-6">
+  ele.innerHTML = ` <div class="flex gap-6">
           <button class="text-gray-400 decrease-btn">&#10094;</button>
-          <span class="quantity-display">1</span>
+          <span class="quantity-display">${cart.quantity}</span>
         <button class="text-gray-400 increase-btn">&#10095;</button>
       </div>`;
-    }
+
+  const quantityDisplay = ele.querySelector(".quantity-display");
+  ele.querySelector(".increase-btn").addEventListener("click", () => {
+    increaseQuantity(cart, quantityDisplay);
+    saveCarts(carts);
+    ShowSucessMessage(msgEle, true);
+    displayCartsCount(countEle, carts);
+  });
+  ele.querySelector(".decrease-btn").addEventListener("click", () => {
+    decreaseQuantity(cart, quantityDisplay);
+    saveCarts(carts);
+    ShowSucessMessage(msgEle, true);
+    displayCartsCount(countEle, carts);
   });
 }
 
