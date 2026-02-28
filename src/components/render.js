@@ -19,7 +19,6 @@ export function renderCarts(list, carts, countEle, msgEle) {
 }
 
 export function renderProduct(containerEle) {
-  //const product
   if (typeof product !== "object" || product === null) {
     return;
   }

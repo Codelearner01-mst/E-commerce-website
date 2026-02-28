@@ -14,6 +14,7 @@ import { toggleDropdownMenu } from "../utils/shared.js";
 import { loadCarts } from "../utils/saveUtils.js";
 import { addToCartOrDisplayProduct } from "../utils/cart-controller.js";
 import { displayCartsCount } from "../utils/shared.js";
+import { setQuantityControlUi } from "../utils/shared.js";
 
 const cartsCount = document.getElementById("cart-count");
 const products = document.querySelector(".product-list");
@@ -26,12 +27,15 @@ const dropDownMenu = document.getElementById("drop-menu");
 const addToCartSuccessMessage = document.querySelector(".added-cart-success");
 
 const carts = loadCarts();
+//console.log("Products", products.querySelectorAll(".product-card"));
 
 function goToNewPage() {
   window.location.href = "carts.html";
 }
 
 cartButton.addEventListener("click", goToNewPage);
+
+setQuantityControlUi(products, carts);
 
 addToCartOrDisplayProduct(products, carts, addToCartSuccessMessage, cartsCount);
 

@@ -37,6 +37,29 @@ export function increaseQuantityControl(cart, ele) {
   ele.textContent = cart.quantity;
 }
 
+/* -Get all products in the html
+   -Get the id of each product in the html
+   -Check if poduct is in carts by comparing ids
+   -If product in carts, change the 'add to cart' button to quantity control button
+*/
+export function setQuantityControlUi(products, carts) {
+  if (!products || products === null || !Array.isArray(carts)) {
+    return;
+  }
+  products.querySelectorAll(".product-card").forEach((card) => {
+    const cardId = parseInt(card.id.split("-")[1], 10);
+
+    if (carts.some((cart) => cart.id === cardId)) {
+      card.querySelector(".quantity-control").innerHTML =
+        ` <div class="flex gap-6">
+          <button class="text-gray-400 decrease-btn">&#10094;</button>
+          <span class="quantity-display">1</span>
+        <button class="text-gray-400 increase-btn">&#10095;</button>
+      </div>`;
+    }
+  });
+}
+
 export function ShowSucessMessage(ele, bool = true) {
   if (!ele || ele === null) {
     return;

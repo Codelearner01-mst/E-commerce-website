@@ -26,12 +26,6 @@ const getCartIndex = (product, carts) => {
 };
 
 /**
- * Increment quantity for the cart item matching `product.id`.
- * Side effects: mutates `carts` (in-memory) — caller must persist with `saveCarts`.
- * @param {{id:number}} product
- */
-
-/**
  * Return a product object from `productsData` by id.
  * @param {number} id
  * @returns {{id:number,name:string,price:number,quantity:number}|undefined}
@@ -77,7 +71,7 @@ export function addToCartOrDisplayProduct(products, carts, msgEle, countEle) {
       window.location.href = "product.html";
       return;
     }
-    console.log("Is productin cart:", hasProductInCart(product, carts));
+
     if (!hasProductInCart(product, carts)) {
       carts.push(product);
       card.querySelector(".quantity-control").innerHTML =
