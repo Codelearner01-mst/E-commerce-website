@@ -56,8 +56,14 @@ products.addEventListener("click", (event) => {
   }
   if (event.target.tagName !== "BUTTON") {
     displayProduct(card, carts, "src/pages/product.html");
+  } else {
+    addToCartOrControlQuantity(
+      card,
+      carts,
+      addToCartSuccessMessage,
+      cartsCount,
+    );
   }
-  addToCartOrControlQuantity(card, carts, addToCartSuccessMessage, cartsCount);
 });
 
 function submitMessage() {
