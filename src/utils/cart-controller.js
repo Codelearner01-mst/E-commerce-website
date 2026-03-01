@@ -11,7 +11,7 @@ import { setProductQuantityControl } from "../utils/shared.js";
  * @param {{id:number}} product - product to check
  * @returns {boolean}
  */
-function hasProductInCart(product, carts) {
+function isProductInCart(product, carts) {
   return carts.some((c) => c.id === product.id);
 }
 
@@ -70,7 +70,7 @@ export function addToCartOrControlQuantity(card, carts, msgEle, countEle) {
     return;
   }
 
-  if (!hasProductInCart(product, carts)) {
+  if (!isProductInCart(product, carts)) {
     carts.push(product);
     const index = getCartIndex(product, carts);
     const cart = carts[index];
