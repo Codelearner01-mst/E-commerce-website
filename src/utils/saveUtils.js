@@ -6,7 +6,7 @@ export function saveCarts(carts) {
 
 export function loadCarts() {
   try {
-    return JSON.parse(localStorage.getItem("carts"));
+    return JSON.parse(localStorage.getItem("carts")) || [];
   } catch (error) {
     return [];
   }
