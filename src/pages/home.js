@@ -30,7 +30,7 @@ const addToCartSuccessMessage = document.querySelector(".added-cart-success");
 const carts = loadCarts();
 
 function goToNewPage() {
-  window.location.href = "carts.html";
+  window.location.href = "src/pages/carts.html";
 }
 
 cartButton.addEventListener("click", goToNewPage);
@@ -55,7 +55,7 @@ products.addEventListener("click", (event) => {
     return;
   }
   if (event.target.tagName !== "BUTTON") {
-    displayProduct(card, carts);
+    displayProduct(card, carts, "src/pages/product.html");
   }
   addToCartOrControlQuantity(card, carts, addToCartSuccessMessage, cartsCount);
 });

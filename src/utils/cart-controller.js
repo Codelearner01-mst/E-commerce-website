@@ -46,14 +46,14 @@ function productToAddToCartOrDisplay(id) {
   return product;
 }
 
-export function displayProduct(card, carts) {
+export function displayProduct(card, carts, href) {
   if (!carts || !Array.isArray(carts)) {
     return;
   }
   const productId = parseInt(card.id.split("-")[1], 10);
   const product = productToAddToCartOrDisplay(productId);
   sessionStorage.setItem("currentProduct", JSON.stringify(product));
-  window.location.href = "product.html";
+  window.location.href = href;
   return;
 }
 

@@ -36,7 +36,7 @@ products.addEventListener("click", (event) => {
     return;
   }
   if (event.target.tagName !== "BUTTON") {
-    displayProduct(card, carts);
+    displayProduct(card, carts, "product.html");
   }
   addToCartOrControlQuantity(card, carts, updateCartSuccessMessage, cartCount);
 });
