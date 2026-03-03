@@ -114,59 +114,143 @@
         </ul>
       </nav>
     </header>
-    <main>
-      <div>
-        <h2>Check Out</h2>
+    <main class="mt-24">
+      <div class="bg-gray-100 py-6">
+        <h2 class="ml-3 text-xl font-medium">Check Out</h2>
       </div>
-      <section class="mt-28">
+      <section class="mt-18">
         <div>
-          <h2>Billing Details</h2>
+          <h2 class="font-medium ml-3 mb-8 border-b border-gray-200 pb-4">
+            BILLING DETAILS
+          </h2>
         </div>
-        <form>
-          <label for="firstname">First Name</label>
-          <input type="text" id="firstname" name="firstname" required />
-          <label for="lastname">Last Name</label>
-          <input type="text" id="lastname" name="lastname" required />
-          <label for="phone-number">Phone number</label>
-          <input type="number" id="phone-number" name="phoneNumber" required />
-          <label for="country">Country</label>
-          <input type="text" id="country" name="country" required />
-          <label for="address">Address</label>
-          <input type="text" id="address" name="address" required />
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required />
-          <label for="city">City</label>
-          <input type="text" id="city" name="city" required />
-          <label for="desciption">Message</label>
-          <textarea
-            id="desciption"
-            name="desciption"
-            required
-            rows="5"
-          ></textarea>
+        <form class="p-5">
+          <div class="mb-6">
+            <label for="firstname" class="block mb-2">First Name</label>
+            <input
+              type="text"
+              id="firstname"
+              name="firstname"
+              class="input-field"
+              required
+            />
+          </div>
+          <div class="mb-6">
+            <label for="lastname" class="block mb-2">Last Name</label>
+            <input
+              type="text"
+              id="lastname"
+              name="lastname"
+              class="input-field"
+              required
+            />
+          </div>
+          <div class="mb-6">
+            <label for="phone-number" class="block mb-2">Phone number</label>
+            <input
+              type="number"
+              id="phone-number"
+              name="phoneNumber"
+              class="input-field"
+              required
+            />
+          </div>
+          <div class="mb-6">
+            <label for="country" class="block mb-2">Country</label>
+            <input
+              type="text"
+              id="country"
+              name="country"
+              class="input-field"
+              required
+            />
+          </div>
+          <div class="mb-6">
+            <label for="address" class="block mb-2">Address</label>
+            <input
+              type="text"
+              id="address"
+              name="address"
+              class="input-field"
+              required
+            />
+          </div>
+          <div class="mb-6">
+            <label for="email" class="block mb-2">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="input-field"
+              required
+            />
+          </div>
+          <div class="mb-6">
+            <label for="city" class="block mb-2">City</label>
+            <input
+              type="text"
+              id="city"
+              name="city"
+              class="input-field"
+              required
+            />
+          </div>
+          <div class="mb-6">
+            <label for="desciption" class="block mb-2">Message</label>
+            <textarea
+              id="desciption"
+              name="desciption"
+              class="input-field"
+              required
+              rows="5"
+            ></textarea>
+          </div>
         </form>
       </section>
-      <section>
-        <div>
-          <div><h1>YOUR ORDER</h1></div>
+      <section class="bg-yellow-100 py-4 mx-4 mb-12">
+        <div class="px-8">
           <div>
-            <div id="products">
-              <p>Product</p>
-            </div>
+            <h1 class="text-2xl font-medium mb-8">YOUR ORDER</h1>
+          </div>
+          <div class="flex flex-col gap-2">
+            <div class="flex flex-row justify-between mb-1">
+              <div>
+                <p>Product</p>
+              </div>
 
-            <div id="totals">
-              <p>Total</p>
+              <div id="totals">
+                <p>Total</p>
+              </div>
+            </div>
+            <div class="flex flex-row justify-between font-light">
+              <p>01.Vessel gold</p>
+              <p>$66.87</p>
+            </div>
+            <div class="flex flex-row justify-between font-light">
+              <p>02.Black diamond</p>
+              <p>$99.57</p>
+            </div>
+            <div class="flex flex-row justify-between font-light">
+              <p>03.Pure acrel white</p>
+              <p>$23.44</p>
+            </div>
+            <div class="mt-4">
+              <div class="flex flex-row justify-between">
+                <p class="">Subtotal</p>
+                <p id="subtotal-amount" class="font-bold">$0.00</p>
+              </div>
+              <div class="flex flex-row justify-between">
+                <p class="">Total</p>
+                <p id="total-amount" class="font-bold">$0.00</p>
+              </div>
             </div>
           </div>
-          <div>
-            <p class="">Subtotal</p>
-            <p id="subtotal-amount">$0.00</p>
-          </div>
-          <div>
-            <p class="">Total</p>
-            <p id="total-amount">$0.00</p>
-          </div>
-          <button id="place-order-btn">PLACE ORDER</button>
+          <button
+            id="place-order-btn"
+            class="w-full text-center bg-black font-sans text-white px-4 py-2 mt-8.5 mb-1.5 hover:bg-gray-800 transition"
+          >
+            PLACE ORDER
+          </button>
         </div>
       </section>
     </main>
