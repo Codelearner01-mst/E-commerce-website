@@ -13,10 +13,8 @@ const addTocartBtn = document.getElementById("add-cart-btn");
 const addToCartSuccessMessage = document.querySelector(".added-cart-success");
 const cartsCount = document.getElementById("cart-count");
 const currentProduct = JSON.parse(sessionStorage.getItem("currentProduct"));
-console.log(currentProduct);
 
 if (carts.some((cart) => cart.id === currentProduct.id)) {
-  console.log("This logic runs");
   const index = carts.findIndex((c) => c.id === currentProduct.id);
   const card = productContainer.querySelector(".product-card");
   setProductQuantityControl(
