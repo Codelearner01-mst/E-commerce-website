@@ -118,13 +118,13 @@
       <div class="bg-gray-100 py-6">
         <h2 class="ml-3 text-xl font-medium">Check Out</h2>
       </div>
-      <section class="mt-18">
-        <div>
+        <div class="mt-20">
           <h2 class="font-medium ml-3 mb-8 border-b border-gray-200 pb-4">
             BILLING DETAILS
           </h2>
         </div>
-        <form class="p-5">
+        <section>
+        <form class="p-5" id="checkout-form">
           <div class="mb-6">
             <label for="firstname" class="block mb-2">First Name</label>
             <input
@@ -205,10 +205,8 @@
               rows="5"
             ></textarea>
           </div>
-        </form>
-      </section>
-      <section class="bg-yellow-100 py-4 mx-4 mb-12">
-        <div class="px-8">
+         <div class="bg-yellow-100 py-4 mx-4 mb-12">
+          <div class="px-8">
           <div>
             <h1 class="text-2xl font-medium mb-8">YOUR ORDER</h1>
           </div>
@@ -246,13 +244,14 @@
             </div>
           </div>
           <button
+            type="submit"
             id="place-order-btn"
             class="w-full text-center bg-black font-sans text-white px-4 py-2 mt-8.5 mb-1.5 hover:bg-gray-800 transition"
           >
             PLACE ORDER
           </button>
         </div>
-      </section>
+       </form>
     </main>
 
     <footer class="bg-gray-900 text-gray-100 py-12 px-4">
@@ -339,5 +338,5 @@
       </div>
     </footer>
   </body>
-  <script type="module" src="./home.js"></script>
+  <script type="module" src="checkout.js"></script>
 </html>

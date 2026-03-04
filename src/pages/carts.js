@@ -21,6 +21,10 @@ renderCarts(cartList, carts, cartCountSpan, updateCartSuccessMessage);
 
 const totalPriceElement = document.querySelectorAll(".total-price"); //Get the total amount of each product in cart
 
+checkoutButton.addEventListener("click", () => {
+  window.location.href = "checkout.html";
+});
+
 function calculateSubtotal() {
   let sum = 0;
   totalPriceElement.forEach((ele) => {
