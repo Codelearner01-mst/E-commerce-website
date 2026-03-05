@@ -1,7 +1,10 @@
+import { toggleDropdownMenu } from "../utils/shared.js";
+
 const checkoutForm = document.getElementById("checkout-form");
 const phoneNum = document.getElementById("phone-number");
 const email = document.getElementById("email");
-
+const hamburgerButton = document.getElementById("hamburger-btn");
+const dropDownMenu = document.getElementById("drop-menu");
 const incorrectFieldMessage = (message) => {
   if (document.querySelector(".warning-message") !== null) {
     phoneNum
@@ -33,4 +36,8 @@ checkoutForm.addEventListener("submit", (e) => {
       );
   }
   alert("Your checkout form is submitted successfully");
+});
+
+hamburgerButton.addEventListener("click", () => {
+  toggleDropdownMenu(dropDownMenu);
 });
