@@ -35,7 +35,6 @@ export function CartItem(cart, carts, countEle, msgEle) {
       <p class="text-lg font-medium">$${cart.price}</p>
     </div>
     <div class="flex items-center gap-6.5">
-     ${}
       <div>
         <p id="total-price" class="text-lg font-medium total-price">$${cart.price * cart.quantity}</p>
       </div>
