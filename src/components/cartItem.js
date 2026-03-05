@@ -12,8 +12,8 @@
 import { saveCarts } from "../utils/saveUtils.js";
 import { displayCartsCount } from "../utils/shared.js";
 import { ShowSucessMessage } from "../utils/shared.js";
-import { decreaseQuantity } from "../utils/shared.js";
-import { increaseQuantity } from "../utils/shared.js";
+import { decreaseQuantity } from "../utils/quantityUpdater.js";
+import { increaseQuantity } from "../utils/quantityUpdater.js";
 
 export function CartItem(cart, carts, countEle, msgEle) {
   //Cart holds a particular product in the carts array

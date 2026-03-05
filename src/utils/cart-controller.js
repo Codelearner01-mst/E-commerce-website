@@ -3,26 +3,8 @@ import { ShowSucessMessage } from "../utils/shared.js";
 import { saveCarts } from "./saveUtils.js";
 import { productsData } from "../utils/productsStore.js";
 import { setProductQuantityControl } from "../utils/shared.js";
-//import { productHTML } from "../components/productItem";
-
-/**
- * Check whether a product (by id) already exists in `carts`.
- * Why: do not rely on object identity because `productsData` is recreated on page load.
- * @param {{id:number}} product - product to check
- * @returns {boolean}
- */
-function isProductInCart(product, carts) {
-  return carts.some((c) => c.id === product.id);
-}
-
-/**
- * Find the index of a cart item by product id.
- * @param {{id:number}} product
- * @returns {number} index in `carts` or -1
- */
-const getCartIndex = (product, carts) => {
-  return carts.findIndex((c) => c.id === product.id);
-};
+import { getCartIndex } from "../utils/helper.js";
+import { isProductInCart } from "../utils/helper.js";
 
 /**
  * Return a product object from `productsData` by id.
@@ -40,7 +22,6 @@ function productToAddToCartOrDisplay(id) {
     ) {
       return undefined;
     }
-
     return productId === id;
   });
   return product;
