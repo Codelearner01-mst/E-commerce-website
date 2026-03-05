@@ -3,6 +3,8 @@ import { displayCartsCount, toggleDropdownMenu } from "../utils/shared.js";
 import { displayProduct } from "../utils/cart-controller.js";
 import { addToCartOrControlQuantity } from "../utils/cart-controller.js";
 import { setProductQuantityControl } from "../utils/shared.js";
+import { getCartIndex } from "../utils/helper.js";
+import { isProductInCart } from "../utils/helper.js";
 
 const cartCount = document.getElementById("cart-count");
 const hamburgerButton = document.getElementById("hamburger-btn");
@@ -19,8 +21,8 @@ const carts = loadCarts();
 //Set quantity control for all products already in cart when page reloads
 products.querySelectorAll(".product-card").forEach((card) => {
   const cardId = parseInt(card.id.split("-")[1], 10);
-  if (carts.some((cart) => cart.id === cardId)) {
-    const index = carts.findIndex((c) => c.id === cardId);
+  if (isProductInCart({ id: cardId }, carts)) {
+    const index = getCartIndex({ id: cardId }, carts);
     setProductQuantityControl(
       card.querySelector(".quantity-control"),
       carts[index],

@@ -1,4 +1,7 @@
 import { saveCarts } from "./saveUtils.js";
+import { increaseQuantity } from "./quantityUpdater.js";
+import { decreaseQuantity } from "./quantityUpdater.js";
+import { quantityControlItem } from "../components/quantityControlItem.js";
 
 export function cartsCounter(carts) {
   if (!carts || !Array.isArray(carts)) {
@@ -54,12 +57,8 @@ export function setProductQuantityControl(ele, cart, carts, msgEle, countEle) {
   if (!Array.isArray(carts)) {
     return;
   }
-  ele.innerHTML = ` <div class="flex gap-6">
-          <button class="text-gray-400 decrease-btn">&#10094;</button>
-          <span class="quantity-display">${cart.quantity}</span>
-        <button class="text-gray-400 increase-btn">&#10095;</button>
-      </div>`;
-
+  ele.innerHTML = quantityControlItem(cart);
+  console.log("Button ele:", ele);
   const quantityDisplay = ele.querySelector(".quantity-display");
   ele.querySelector(".increase-btn").addEventListener("click", () => {
     increaseQuantity(cart, quantityDisplay);

@@ -3,6 +3,8 @@ import { addToCartOrControlQuantity } from "../utils/cart-controller.js";
 import { loadCarts } from "../utils/saveUtils.js";
 import { setProductQuantityControl } from "../utils/shared.js";
 import { displayCartsCount } from "../utils/shared.js";
+import { getCartIndex } from "../utils/helper.js";
+import { isProductInCart } from "../utils/helper.js";
 
 const carts = loadCarts();
 
@@ -14,8 +16,8 @@ const addToCartSuccessMessage = document.querySelector(".added-cart-success");
 const cartsCount = document.getElementById("cart-count");
 const currentProduct = JSON.parse(sessionStorage.getItem("currentProduct"));
 
-if (carts.some((cart) => cart.id === currentProduct.id)) {
-  const index = carts.findIndex((c) => c.id === currentProduct.id);
+if (isProductInCart(currentProduct, carts)) {
+  const index = getCartIndex(currentProduct, carts);
   const card = productContainer.querySelector(".product-card");
   setProductQuantityControl(
     card.querySelector(".quantity-control"),
