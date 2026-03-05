@@ -32,7 +32,7 @@ const getCartIndex = (product, carts) => {
 function productToAddToCartOrDisplay(id) {
   const product = productsData.find((product) => {
     const productId = product?.id;
-    //Tackle undefined and not a Number id. e.g.(id: null id:"abc" id2: 1)
+    //Tackle undefined and NaN. e.g.(id: null id:"abc" id2: 1)
     if (
       !productId ||
       typeof productId !== "number" ||
@@ -46,13 +46,14 @@ function productToAddToCartOrDisplay(id) {
   return product;
 }
 
+//Locate to the product page
 export function displayProduct(card, carts, href) {
   if (!carts || !Array.isArray(carts)) {
     return;
   }
   const productId = parseInt(card.id.split("-")[1], 10);
   const product = productToAddToCartOrDisplay(productId);
-  sessionStorage.setItem("currentProduct", JSON.stringify(product));
+  sessionStorage.setItem("currentProduct", JSON.stringify(product)); //Store the product object temporilary to display it in the product page
   window.location.href = href;
   return;
 }
@@ -70,6 +71,7 @@ export function addToCartOrControlQuantity(card, carts, msgEle, countEle) {
     return;
   }
 
+  //Check if the product is already in the cart. If not, add it and set up quantity controls. If it is, do nothing (quantity controls should already be set up).
   if (!isProductInCart(product, carts)) {
     carts.push(product);
     const index = getCartIndex(product, carts);

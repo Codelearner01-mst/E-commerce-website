@@ -35,6 +35,7 @@ function goToNewPage() {
 
 cartButton.addEventListener("click", goToNewPage);
 
+//Set quantity control for all products already in cart when page reloads
 products.querySelectorAll(".product-card").forEach((card) => {
   const cardId = parseInt(card.id.split("-")[1], 10);
   if (carts.some((cart) => cart.id === cardId)) {
