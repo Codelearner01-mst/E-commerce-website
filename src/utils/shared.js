@@ -36,7 +36,6 @@ export function setProductQuantityControl(ele, cart, carts, msgEle, countEle) {
     return;
   }
   ele.innerHTML = quantityControlItem(cart);
-  console.log("Button ele:", ele);
   const quantityDisplay = ele.querySelector(".quantity-display");
   ele.querySelector(".increase-btn").addEventListener("click", () => {
     increaseQuantity(cart, quantityDisplay);
