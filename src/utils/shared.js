@@ -65,7 +65,13 @@ export function ShowSucessMessage(ele, bool = true) {
   // and force it to its hidden state.
   ele.classList.add("transition-none");
   ele.classList.remove("opacity-100", "translate-y-0");
-  ele.classList.add("opacity-0", "-translate-y-full", "-translate-y-4", "-translate-y-2", "pointer-events-none");
+  ele.classList.add(
+    "opacity-0",
+    "-translate-y-full",
+    "-translate-y-4",
+    "-translate-y-2",
+    "pointer-events-none",
+  );
 
   // Force a browser reflow to apply the hidden state instantly
   void ele.offsetWidth;
@@ -74,7 +80,13 @@ export function ShowSucessMessage(ele, bool = true) {
   ele.classList.remove("transition-none");
 
   // Show the toast smoothly by adding visible classes
-  ele.classList.remove("opacity-0", "pointer-events-none", "-translate-y-full", "-translate-y-4", "-translate-y-2");
+  ele.classList.remove(
+    "opacity-0",
+    "pointer-events-none",
+    "-translate-y-full",
+    "-translate-y-4",
+    "-translate-y-2",
+  );
   ele.classList.add("opacity-100", "translate-y-0");
 
   // Hide the toast after 4 seconds to feel snappy but give enough time to read

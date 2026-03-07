@@ -2,6 +2,7 @@
 
 @theme {
   --breakpoint-xs: 30rem;
+  --breakpoint-x-xs: 35rem;
 }
 
 @layer components {
@@ -14,7 +15,7 @@
   }
 
   .product-image-container {
-    @apply overflow-hidden sm:h-67 md:h-62.5 xl:h-67 lg:h-65 h-65.5 sm:w-61.75 md:w-[328px] lg:w-[209px] xl:w-[267px];
+    @apply overflow-hidden mx-auto sm:h-67 md:h-62.5 xl:h-67 lg:h-65 h-65.5 sm:w-61.75 md:w-[328px] lg:w-[209px] xl:w-[267px];
   }
 
   .product-info {
