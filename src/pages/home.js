@@ -14,7 +14,7 @@ import { toggleDropdownMenu } from "../utils/shared.js";
 import { loadCarts } from "../utils/saveUtils.js";
 import { displayCartsCount } from "../utils/shared.js";
 import { displayProduct } from "../utils/cart-controller.js";
-import { addToCartOrControlQuantity } from "../utils/cart-controller.js";
+import { addProductToCartAndSetControlQuantity } from "../utils/cart-controller.js";
 import { setProductQuantityControl } from "../utils/shared.js";
 import { getCartIndex } from "../utils/helper.js";
 import { isProductInCart } from "../utils/helper.js";
@@ -40,8 +40,8 @@ cartButton.addEventListener("click", goToNewPage);
 //Set quantity control for all products already in cart when page reloads
 products.querySelectorAll(".product-card").forEach((card) => {
   const cardId = parseInt(card.id.split("-")[1], 10);
-  if (isProductInCart({ id: cardId }, carts)) {
-    const index = getCartIndex({ id: cardId }, carts);
+  if (isProductInCart(cardId, carts)) {
+    const index = getCartIndex(cardId, carts);
     setProductQuantityControl(
       card.querySelector(".quantity-control"),
       carts[index],
@@ -54,13 +54,14 @@ products.querySelectorAll(".product-card").forEach((card) => {
 
 products.addEventListener("click", (event) => {
   const card = event.target.closest(".product-card");
+  const cardId = parseInt(card.id.split("-")[1], 10);
   if (!card || card === null) {
     return;
   }
   if (event.target.tagName !== "BUTTON") {
     displayProduct(card, carts, "src/pages/product.html");
-  } else {
-    addToCartOrControlQuantity(
+  } else if (!isProductInCart(cardId, carts)) {
+    addProductToCartAndSetControlQuantity(
       card,
       carts,
       addToCartSuccessMessage,

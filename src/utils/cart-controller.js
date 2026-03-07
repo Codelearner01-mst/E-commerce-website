@@ -39,7 +39,12 @@ export function displayProduct(card, carts, href) {
   return;
 }
 
-export function addToCartOrControlQuantity(card, carts, msgEle, countEle) {
+export function addProductToCartAndSetControlQuantity(
+  card,
+  carts,
+  msgEle,
+  countEle,
+) {
   if (!carts || !msgEle || !countEle) {
     return;
   }
@@ -52,19 +57,18 @@ export function addToCartOrControlQuantity(card, carts, msgEle, countEle) {
     return;
   }
 
-  //Check if the product is already in the cart. If not, add it and set up quantity controls. If it is, do nothing (quantity controls should already be set up).
-  if (!isProductInCart(product, carts)) {
-    carts.push(product);
-    const index = getCartIndex(product, carts);
-    const cart = carts[index];
-    setProductQuantityControl(
-      card.querySelector(".quantity-control"),
-      cart,
-      carts,
-      msgEle,
-      countEle,
-    );
-  }
+  //Push product to cart and set up quantity controls..
+  carts.push(product);
+  const index = getCartIndex(product.id, carts);
+  const cart = carts[index];
+  setProductQuantityControl(
+    card.querySelector(".quantity-control"),
+    cart,
+    carts,
+    msgEle,
+    countEle,
+  );
+
   saveCarts(carts);
   ShowSucessMessage(msgEle, true);
   displayCartsCount(countEle, carts);

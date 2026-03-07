@@ -3,8 +3,8 @@
  * @param {{id:number}} product
  * @returns {number} index in `carts` or -1
  */
-export const getCartIndex = (product, carts) => {
-  return carts.findIndex((c) => c.id === product.id);
+export const getCartIndex = (id, carts) => {
+  return carts.findIndex((c) => c.id === id);
 };
 
 /**
@@ -13,6 +13,6 @@ export const getCartIndex = (product, carts) => {
  * @param {{id:number}} product - product to check
  * @returns {boolean}
  */
-export const isProductInCart = (product, carts) => {
-  return carts.some((c) => c.id === product.id);
+export const isProductInCart = (id, carts) => {
+  return carts.some((c) => c.id === id);
 };

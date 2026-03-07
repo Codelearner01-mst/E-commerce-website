@@ -1,5 +1,5 @@
 import { renderProduct } from "../components/render.js";
-import { addToCartOrControlQuantity } from "../utils/cart-controller.js";
+import { addProductToCartAndSetControlQuantity } from "../utils/cart-controller.js";
 import { loadCarts } from "../utils/saveUtils.js";
 import { setProductQuantityControl } from "../utils/shared.js";
 import { displayCartsCount } from "../utils/shared.js";
@@ -16,8 +16,8 @@ const addToCartSuccessMessage = document.querySelector(".added-cart-success");
 const cartsCount = document.getElementById("cart-count");
 const currentProduct = JSON.parse(sessionStorage.getItem("currentProduct"));
 
-if (isProductInCart(currentProduct, carts)) {
-  const index = getCartIndex(currentProduct, carts);
+if (isProductInCart(currentProduct.id, carts)) {
+  const index = getCartIndex(currentProduct.id, carts);
   const card = productContainer.querySelector(".product-card");
   setProductQuantityControl(
     card.querySelector(".quantity-control"),
@@ -32,7 +32,12 @@ if (isProductInCart(currentProduct, carts)) {
 
 addTocartBtn.addEventListener("click", () => {
   const card = addTocartBtn.closest(".product-card");
-  addToCartOrControlQuantity(card, carts, addToCartSuccessMessage, cartsCount);
+  addProductToCartAndSetControlQuantity(
+    card,
+    carts,
+    addToCartSuccessMessage,
+    cartsCount,
+  );
   card.querySelector(".quantity-control").style.backgroundColor = "white";
   card.querySelector(".quantity-control").style.border = "none";
 });
