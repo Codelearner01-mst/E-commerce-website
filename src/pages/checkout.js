@@ -1,5 +1,9 @@
 import { toggleDropdownMenu } from "../utils/shared.js";
+import { renderCartsDisplayOnly } from "../components/render.js";
+import { loadCarts } from "../utils/saveUtils.js";
+import { displayCartsCount } from "../utils/shared.js";
 
+const cartsCount = document.getElementById("cart-count");
 const checkoutForm = document.getElementById("checkout-form");
 const hamburgerButton = document.getElementById("hamburger-btn");
 const dropDownMenu = document.getElementById("drop-menu");
@@ -9,6 +13,11 @@ const confirmPaymentMethod = document.getElementById("confirm-payment-method");
 const confirmTotalAmount = document.getElementById("confirm-total-amount");
 const currentTotalAmount = document.getElementById("total-amount");
 const randomOrderId = document.getElementById("random-order-id");
+const cartList = document.getElementById("carts");
+
+const carts = loadCarts();
+
+renderCartsDisplayOnly(carts, cartList);
 
 checkoutForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -49,3 +58,5 @@ checkoutForm.addEventListener("submit", (e) => {
 hamburgerButton.addEventListener("click", () => {
   toggleDropdownMenu(dropDownMenu);
 });
+
+displayCartsCount(cartsCount, carts);

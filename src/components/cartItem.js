@@ -101,3 +101,14 @@ export function CartItem(cart, carts, countEle, msgEle) {
 
   return cartDiv;
 }
+
+export function cartsDisplayOnlyItem(cart, numbering) {
+  if (typeof cart !== "object" && Array.isArray(cart) && cart === null) {
+    return;
+  }
+  const cartDiv = document.createElement("div");
+  cartDiv.className = "flex flex-row justify-between font-light";
+  cartDiv.innerHTML = `<p><span>${numbering}</span>. ${cart.name}</p>
+                <p>$${cart.price}</p>`;
+  return cartDiv;
+}

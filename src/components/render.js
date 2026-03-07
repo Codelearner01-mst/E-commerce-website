@@ -4,6 +4,7 @@
  */
 import { CartItem } from "./cartItem.js";
 import { productHTML } from "./productItem.js";
+import { cartsDisplayOnlyItem } from "./cartItem.js";
 
 const product = JSON.parse(sessionStorage.getItem("currentProduct"));
 
@@ -23,4 +24,13 @@ export function renderProduct(containerEle) {
     return;
   }
   containerEle.appendChild(productHTML(product));
+}
+
+export function renderCartsDisplayOnly(carts, list) {
+  for (let i = 0; i < carts.length; i++) {
+    const cart = carts[i];
+    const number = i < 9 ? `0${i + 1}` : i + 1;
+    const cartElement = cartsDisplayOnlyItem(cart, number);
+    list.appendChild(cartElement);
+  }
 }
