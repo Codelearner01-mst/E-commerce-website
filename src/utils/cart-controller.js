@@ -4,7 +4,6 @@ import { saveCarts } from "./saveUtils.js";
 import { productsData } from "../utils/productsStore.js";
 import { setProductQuantityControl } from "../utils/shared.js";
 import { getCartIndex } from "../utils/helper.js";
-import { isProductInCart } from "../utils/helper.js";
 
 /**
  * Return a product object from `productsData` by id.
