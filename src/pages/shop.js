@@ -1,4 +1,4 @@
-import { loadCarts } from "../utils/saveUtils.js";
+import { savedCarts } from "../utils/saveUtils.js";
 import { displayCartsCount, toggleDropdownMenu } from "../utils/shared.js";
 import { displayProduct } from "../utils/cart-controller.js";
 import { addProductToCartAndSetControlQuantity } from "../utils/cart-controller.js";
@@ -16,7 +16,7 @@ const updateCartSuccessMessage = document.querySelector(".update-cart-success");
 cartButton.addEventListener("click", () => {
   window.location.href = "carts.html";
 });
-const carts = loadCarts();
+const carts = savedCarts();
 
 //Set quantity control for all products already in cart when page reloads
 products.querySelectorAll(".product-card").forEach((card) => {

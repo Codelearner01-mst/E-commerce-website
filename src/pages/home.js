@@ -11,7 +11,7 @@
  * { id: number, name: string, price: number, image: string, quantity: number }
  */
 import { toggleDropdownMenu } from "../utils/shared.js";
-import { loadCarts } from "../utils/saveUtils.js";
+import { savedCarts } from "../utils/saveUtils.js";
 import { displayCartsCount } from "../utils/shared.js";
 import { displayProduct } from "../utils/cart-controller.js";
 import { addProductToCartAndSetControlQuantity } from "../utils/cart-controller.js";
@@ -29,7 +29,7 @@ const dropDownMenu = document.getElementById("drop-menu");
 
 const addToCartSuccessMessage = document.querySelector(".added-cart-success");
 
-const carts = loadCarts();
+const carts = savedCarts();
 
 function goToNewPage() {
   window.location.href = "src/pages/carts.html";

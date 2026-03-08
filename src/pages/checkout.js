@@ -1,6 +1,6 @@
 import { toggleDropdownMenu } from "../utils/shared.js";
 import { renderCartsDisplayOnly } from "../components/render.js";
-import { loadCarts } from "../utils/saveUtils.js";
+import { savedCarts } from "../utils/saveUtils.js";
 import { displayCartsCount } from "../utils/shared.js";
 
 const cartsCount = document.getElementById("cart-count");
@@ -15,7 +15,7 @@ const currentTotalAmount = document.getElementById("total-amount");
 const randomOrderId = document.getElementById("random-order-id");
 const cartList = document.getElementById("carts");
 
-const carts = loadCarts();
+const carts = savedCarts();
 
 renderCartsDisplayOnly(carts, cartList);
 

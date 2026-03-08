@@ -1,12 +1,12 @@
 import { renderProduct } from "../components/render.js";
 import { addProductToCartAndSetControlQuantity } from "../utils/cart-controller.js";
-import { loadCarts } from "../utils/saveUtils.js";
+import { savedCarts } from "../utils/saveUtils.js";
 import { setProductQuantityControl } from "../utils/shared.js";
 import { displayCartsCount } from "../utils/shared.js";
 import { getCartIndex } from "../utils/helper.js";
 import { isProductInCart } from "../utils/helper.js";
 
-const carts = loadCarts();
+const carts = savedCarts();
 
 const productContainer = document.getElementById("product-container");
 renderProduct(productContainer);

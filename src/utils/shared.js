@@ -1,6 +1,6 @@
 import { saveCarts } from "./saveUtils.js";
-import { increaseQuantity } from "./quantityUpdater.js";
-import { decreaseQuantity } from "./quantityUpdater.js";
+import { increaseQuantity } from "./quantityUpdate.js";
+import { decreaseQuantity } from "./quantityUpdate.js";
 import { quantityControlItem } from "../components/quantityControlItem.js";
 
 export function cartsCounter(carts) {

@@ -1,8 +1,8 @@
 import { renderCarts } from "../components/render.js";
-import { loadCarts } from "../utils/saveUtils.js";
+import { savedCarts } from "../utils/saveUtils.js";
 import { displayCartsCount, toggleDropdownMenu } from "../utils/shared.js";
 
-const carts = loadCarts();
+const carts = savedCarts();
 
 const cartCountSpan = document.getElementById("cart-count");
 const cartList = document.getElementById("carts-list");
