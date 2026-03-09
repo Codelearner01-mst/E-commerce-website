@@ -80,7 +80,7 @@ export function CartItem(cart, carts, countEle, msgEle, totalEle, subTotalEle) {
     totalEle.textContent = result;
     subTotalEle.textContent = result;
     displayCartsCount(countEle, carts);
-    ShowSucessMessage(msgEle);
+    ShowSucessMessage(msgEle, "Cart updated successfully!");
     saveCarts(carts);
   });
 
@@ -91,7 +91,7 @@ export function CartItem(cart, carts, countEle, msgEle, totalEle, subTotalEle) {
     totalEle.textContent = result;
     subTotalEle.textContent = result;
     displayCartsCount(countEle, carts);
-    ShowSucessMessage(msgEle);
+    ShowSucessMessage(msgEle, "Cart updated successfully!");
     saveCarts(carts);
   });
 
@@ -104,7 +104,7 @@ export function CartItem(cart, carts, countEle, msgEle, totalEle, subTotalEle) {
       totalEle.textContent = result;
       subTotalEle.textContent = result;
       displayCartsCount(countEle, carts);
-      ShowSucessMessage(msgEle);
+      ShowSucessMessage(msgEle, `${cart.name} remove from cart!`);
       saveCarts(carts);
     }
   });

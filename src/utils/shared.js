@@ -40,18 +40,18 @@ export function setProductQuantityControl(ele, cart, carts, msgEle, countEle) {
   ele.querySelector(".increase-btn").addEventListener("click", () => {
     increaseQuantity(cart, quantityDisplay);
     saveCarts(carts);
-    ShowSucessMessage(msgEle, true);
+    ShowSucessMessage(msgEle, "Cart updated successfully!");
     displayCartsCount(countEle, carts);
   });
   ele.querySelector(".decrease-btn").addEventListener("click", () => {
     decreaseQuantity(cart, quantityDisplay);
     saveCarts(carts);
-    ShowSucessMessage(msgEle, true);
+    ShowSucessMessage(msgEle, "Cart updated successfully!");
     displayCartsCount(countEle, carts);
   });
 }
 
-export function ShowSucessMessage(ele, bool = true) {
+export function ShowSucessMessage(ele, message) {
   if (!ele || ele === null) {
     return;
   }
@@ -60,6 +60,7 @@ export function ShowSucessMessage(ele, bool = true) {
     clearTimeout(ele.hideTimeout);
   }
 
+  ele.querySelector("p").textContent = message;
   // To make it fade out immediately before fading in again, we disable transition
   // and force it to its hidden state.
   ele.classList.add("transition-none");

@@ -69,6 +69,6 @@ export function addProductToCartAndSetControlQuantity(
   );
 
   saveCarts(carts);
-  ShowSucessMessage(msgEle, true);
+  ShowSucessMessage(msgEle, `${product.name} added to cart successfully!`);
   displayCartsCount(countEle, carts);
 }
