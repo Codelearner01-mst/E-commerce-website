@@ -14,8 +14,9 @@ import { displayCartsCount } from "../utils/shared.js";
 import { ShowSucessMessage } from "../utils/shared.js";
 import { decreaseQuantity } from "../utils/quantityUpdate.js";
 import { increaseQuantity } from "../utils/quantityUpdate.js";
+import { calculateSubtotal } from "../utils/calculateTotal.js";
 
-export function CartItem(cart, carts, countEle, msgEle) {
+export function CartItem(cart, carts, countEle, msgEle, totalEle, subTotalEle) {
   //Cart holds a particular product in the carts array
   /**
    * Create a cart item element.
@@ -75,6 +76,9 @@ export function CartItem(cart, carts, countEle, msgEle) {
   decreaseBtn.addEventListener("click", () => {
     decreaseQuantity(cart, quantityDisplay);
     totalPrice.textContent = `$${cart.price * cart.quantity.toFixed(2)}`;
+    const result = calculateSubtotal(carts);
+    totalEle.textContent = result;
+    subTotalEle.textContent = result;
     displayCartsCount(countEle, carts);
     ShowSucessMessage(msgEle);
     saveCarts(carts);
@@ -83,6 +87,9 @@ export function CartItem(cart, carts, countEle, msgEle) {
   increaseBtn.addEventListener("click", () => {
     increaseQuantity(cart, quantityDisplay);
     totalPrice.textContent = `$${cart.price * cart.quantity}`;
+    const result = calculateSubtotal(carts);
+    totalEle.textContent = result;
+    subTotalEle.textContent = result;
     displayCartsCount(countEle, carts);
     ShowSucessMessage(msgEle);
     saveCarts(carts);
@@ -93,6 +100,9 @@ export function CartItem(cart, carts, countEle, msgEle) {
     const index = carts.findIndex((c) => c.id === cart.id);
     if (index > -1) {
       carts.splice(index, 1);
+      const result = calculateSubtotal(carts);
+      totalEle.textContent = result;
+      subTotalEle.textContent = result;
       displayCartsCount(countEle, carts);
       ShowSucessMessage(msgEle);
       saveCarts(carts);

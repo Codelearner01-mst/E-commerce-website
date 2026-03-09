@@ -8,13 +8,27 @@ import { cartsDisplayOnlyItem } from "./cartItem.js";
 
 const product = JSON.parse(sessionStorage.getItem("currentProduct"));
 
-export function renderCarts(list, carts, countEle, msgEle) {
+export function renderCarts(
+  list,
+  carts,
+  countEle,
+  msgEle,
+  totalEle,
+  subTotalEle,
+) {
   if (!list || !carts) {
     return;
   }
 
   for (const cart of carts) {
-    const cartElement = CartItem(cart, carts, countEle, msgEle);
+    const cartElement = CartItem(
+      cart,
+      carts,
+      countEle,
+      msgEle,
+      totalEle,
+      subTotalEle,
+    );
     list.appendChild(cartElement);
   }
 }

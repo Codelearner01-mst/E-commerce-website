@@ -2,6 +2,7 @@ import { toggleDropdownMenu } from "../utils/shared.js";
 import { renderCartsDisplayOnly } from "../components/render.js";
 import { savedCarts } from "../utils/saveUtils.js";
 import { displayCartsCount } from "../utils/shared.js";
+import { calculateSubtotal } from "../utils/calculateTotal.js";
 
 const cartsCount = document.getElementById("cart-count");
 const checkoutForm = document.getElementById("checkout-form");
@@ -11,13 +12,18 @@ const confirmationModal = document.getElementById("confirmation-modal");
 const modalContent = document.getElementById("modal-content");
 const confirmPaymentMethod = document.getElementById("confirm-payment-method");
 const confirmTotalAmount = document.getElementById("confirm-total-amount");
-const currentTotalAmount = document.getElementById("total-amount");
 const randomOrderId = document.getElementById("random-order-id");
 const cartList = document.getElementById("carts");
+const subtotalAmount = document.getElementById("subtotal-amount");
+const totalAmount = document.getElementById("total-amount");
 
 const carts = savedCarts();
 
 renderCartsDisplayOnly(carts, cartList);
+
+const result = calculateSubtotal(carts);
+subtotalAmount.textContent = result;
+totalAmount.textContent = result;
 
 checkoutForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -38,8 +44,8 @@ checkoutForm.addEventListener("submit", (e) => {
   // Update modal info
   confirmPaymentMethod.textContent = paymentText;
   confirmTotalAmount.textContent =
-    currentTotalAmount && currentTotalAmount.textContent !== "$0.00"
-      ? currentTotalAmount.textContent
+    totalAmount && totalAmount.textContent !== "$0.00"
+      ? totalAmount.textContent
       : "$189.88"; // Fallback placeholder if actual calculation isn't present
 
   // Show modal
