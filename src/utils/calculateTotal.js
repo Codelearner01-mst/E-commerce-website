@@ -9,6 +9,10 @@ const getCartTotals = (carts) => {
 
 export function calculateSubtotal(carts) {
   const cartTotals = getCartTotals(carts);
+
+  if (!cartTotals.length) {
+    return 0;
+  }
   const sum = cartTotals.reduce((acc, total) => {
     return acc + total;
   });
