@@ -6,6 +6,7 @@ import { calculateSubtotal } from "../utils/calculateTotal.js";
 const carts = savedCarts();
 
 const cartCountSpan = document.getElementById("cart-count");
+const cartButton = document.getElementById("cart-btn");
 const cartList = document.getElementById("carts-list");
 const emptyCartMessage = document.getElementById("empty-cart-message");
 const updateCartSuccessMessage = document.querySelector(".update-cart-success");
@@ -29,6 +30,10 @@ renderCarts(
 
 checkoutButton.addEventListener("click", () => {
   window.location.href = "checkout.html";
+});
+
+cartButton.addEventListener("click", () => {
+  window.location.href = "carts.html";
 });
 
 const result = calculateSubtotal(carts);

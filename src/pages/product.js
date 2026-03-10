@@ -12,9 +12,14 @@ const productContainer = document.getElementById("product-container");
 renderProduct(productContainer);
 
 const addTocartBtn = document.getElementById("add-cart-btn");
+const cartButton = document.getElementById("cart-btn");
 const addToCartSuccessMessage = document.querySelector(".added-cart-success");
 const cartsCount = document.getElementById("cart-count");
 const currentProduct = JSON.parse(sessionStorage.getItem("currentProduct"));
+
+cartButton.addEventListener("click", () => {
+  window.location.href = "carts.html";
+});
 
 if (isProductInCart(currentProduct.id, carts)) {
   const index = getCartIndex(currentProduct.id, carts);

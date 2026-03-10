@@ -5,6 +5,7 @@ import { displayCartsCount } from "../utils/shared.js";
 import { calculateSubtotal } from "../utils/calculateTotal.js";
 
 const cartsCount = document.getElementById("cart-count");
+const cartButton = document.getElementById("cart-btn");
 const checkoutForm = document.getElementById("checkout-form");
 const hamburgerButton = document.getElementById("hamburger-btn");
 const dropDownMenu = document.getElementById("drop-menu");
@@ -20,6 +21,10 @@ const totalAmount = document.getElementById("total-amount");
 const carts = savedCarts();
 
 renderCartsDisplayOnly(carts, cartList);
+
+cartButton.addEventListener("click", () => {
+  window.location.href = "carts.html";
+});
 
 const result = calculateSubtotal(carts);
 subtotalAmount.textContent = result;
