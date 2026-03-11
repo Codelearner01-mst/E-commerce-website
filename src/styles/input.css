@@ -2,7 +2,7 @@
 
 @theme {
   --breakpoint-xs: 30rem;
-  --breakpoint-x-xs: 35rem;
+  --breakpoint-x-xs: 36rem;
 }
 
 @layer components {
