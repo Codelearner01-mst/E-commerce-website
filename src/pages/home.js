@@ -18,6 +18,7 @@ import { addProductToCartAndSetControlQuantity } from "../utils/cart-controller.
 import { setProductQuantityControl } from "../utils/shared.js";
 import { getCartIndex } from "../utils/helper.js";
 import { isProductInCart } from "../utils/helper.js";
+import { productCardHTML } from "../components/productCard.js";
 
 const cartsCount = document.getElementById("cart-count");
 const products = document.querySelector(".product-list");
