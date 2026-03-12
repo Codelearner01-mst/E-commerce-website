@@ -18,8 +18,8 @@ import { addProductToCartAndSetControlQuantity } from "../utils/cart-controller.
 import { setProductQuantityControl } from "../utils/shared.js";
 import { getCartIndex } from "../utils/helper.js";
 import { isProductInCart } from "../utils/helper.js";
-import { productCardHTML } from "../components/productCard.js";
 import { productsData } from "../utils/productsStore.js";
+import { renderProducts } from "../components/render.js";
 
 const cartsCount = document.getElementById("cart-count");
 const products = document.querySelector(".product-list");
@@ -28,17 +28,13 @@ const messageForm = document.getElementById("message-form");
 
 const hamburgerButton = document.getElementById("hamburger-btn");
 const dropDownMenu = document.getElementById("drop-menu");
-const productList = document.getElementById("drop-menu");
+const productList = document.getElementById("product-list");
+
+renderProducts(productsData, productList);
 
 const addToCartSuccessMessage = document.querySelector(".added-cart-success");
 
 const carts = savedCarts();
-
-function goToNewPage() {
-  window.location.href = "src/pages/carts.html";
-}
-
-cartButton.addEventListener("click", goToNewPage);
 
 //Set quantity control for all products already in cart when page reloads
 products.querySelectorAll(".product-card").forEach((card) => {
@@ -86,9 +82,3 @@ function submitMessage() {
   });
 }
 submitMessage();
-
-hamburgerButton.addEventListener("click", () => {
-  toggleDropdownMenu(dropDownMenu);
-});
-
-displayCartsCount(cartsCount, carts);

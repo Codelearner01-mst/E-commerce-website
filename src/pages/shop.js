@@ -8,12 +8,18 @@ import { isProductInCart } from "../utils/helper.js";
 import { hamburgerHTML } from "../components/loadComponents/header/hamburgerItem.js";
 import { navigationHTML } from "../components/loadComponents/header/navigationItem.js";
 import { cartCountHTML } from "../components/loadComponents/header/cartCountItem.js";
+import { productsData } from "../utils/productsStore.js";
+import { renderProducts } from "../components/render.js";
 
 const headerBar = document.getElementById("header-bar");
 
 headerBar.insertAdjacentHTML("beforeEnd", cartCountHTML());
 headerBar.insertAdjacentHTML("beforeEnd", hamburgerHTML());
 headerBar.insertAdjacentHTML("beforeEnd", navigationHTML());
+
+const productList = document.getElementById("product-list");
+
+renderProducts(productsData, productList, productsData.length);
 
 const cartCount = document.getElementById("cart-count");
 const hamburgerButton = document.getElementById("hamburger-btn");

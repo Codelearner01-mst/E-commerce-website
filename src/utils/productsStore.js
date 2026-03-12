@@ -5,14 +5,16 @@ export const productsData = [
     id: 1,
     name: "Product 1",
     price: 29.99,
-    image: "../images/alex-azabache-y2ErhoE92KA-unsplash.jpg",
+    image: "./src/images/alex-azabache-y2ErhoE92KA-unsplash.jpg",
     quantity: 1,
   },
   {
     id: 2,
     name: "Product 2",
     price: 39.99,
-    image: "../images/cornelia-ng-2zHQhfEpisc-unsplash.jpg",
+    image:
+      "./src/images/cornelia-ng-2zHQhfEpisc-unsplash.jpg" ||
+      "../images/cornelia-ng-2zHQhfEpisc-unsplash.jpg",
     quantity: 1,
   },
   {

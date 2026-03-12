@@ -2,8 +2,8 @@ export function productCardHTML(product) {
   return `  <div class="product-card" id="produtct-${product.id}">
               <div class="product-image-container">
                 <img
-                  src="${product.image}"
-                  alt="${product.image}"
+                  src=${product.image}
+                  alt=${product.name}
                   class="product-image"
                 />
               </div>
