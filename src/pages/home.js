@@ -19,6 +19,7 @@ import { setProductQuantityControl } from "../utils/shared.js";
 import { getCartIndex } from "../utils/helper.js";
 import { isProductInCart } from "../utils/helper.js";
 import { productCardHTML } from "../components/productCard.js";
+import { productsData } from "../utils/productsStore.js";
 
 const cartsCount = document.getElementById("cart-count");
 const products = document.querySelector(".product-list");
@@ -27,6 +28,7 @@ const messageForm = document.getElementById("message-form");
 
 const hamburgerButton = document.getElementById("hamburger-btn");
 const dropDownMenu = document.getElementById("drop-menu");
+const productList = document.getElementById("drop-menu");
 
 const addToCartSuccessMessage = document.querySelector(".added-cart-success");
 
