@@ -4,6 +4,16 @@ import { savedCarts } from "../utils/saveUtils.js";
 import { displayCartsCount } from "../utils/shared.js";
 import { calculateSubtotal } from "../utils/calculateTotal.js";
 
+import { hamburgerHTML } from "../components/loadComponents/header/hamburgerItem.js";
+import { navigationHTML } from "../components/loadComponents/header/navigationItem.js";
+import { cartCountHTML } from "../components/loadComponents/header/cartCountItem.js";
+
+const headerBar = document.getElementById("header-bar");
+
+headerBar.insertAdjacentHTML("beforeEnd", cartCountHTML());
+headerBar.insertAdjacentHTML("beforeEnd", hamburgerHTML());
+headerBar.insertAdjacentHTML("beforeEnd", navigationHTML());
+
 const cartsCount = document.getElementById("cart-count");
 const cartButton = document.getElementById("cart-btn");
 const checkoutForm = document.getElementById("checkout-form");

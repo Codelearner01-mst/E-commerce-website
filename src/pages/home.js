@@ -18,16 +18,27 @@ import { addProductToCartAndSetControlQuantity } from "../utils/cart-controller.
 import { setProductQuantityControl } from "../utils/shared.js";
 import { getCartIndex } from "../utils/helper.js";
 import { isProductInCart } from "../utils/helper.js";
+import { hamburgerHTML } from "../components/loadComponents/header/hamburgerItem.js";
+import { navigationHTML } from "../components/loadComponents/header/navigationItem.js";
+import { cartCountHTML } from "../components/loadComponents/header/cartCountItem.js";
 
-const cartsCount = document.getElementById("cart-count");
+//beforeBegin', 'afterBegin', 'beforeEnd', or 'afterEnd'
+const headerBar = document.getElementById("header-bar");
+
+headerBar.insertAdjacentHTML("beforeEnd", cartCountHTML());
+headerBar.insertAdjacentHTML("beforeEnd", hamburgerHTML());
+headerBar.insertAdjacentHTML("beforeEnd", navigationHTML());
+
 const products = document.querySelector(".product-list");
-const cartButton = document.getElementById("cart-btn");
 const messageForm = document.getElementById("message-form");
 
 const hamburgerButton = document.getElementById("hamburger-btn");
 const dropDownMenu = document.getElementById("drop-menu");
 
 const addToCartSuccessMessage = document.querySelector(".added-cart-success");
+
+const cartsCount = document.getElementById("cart-count");
+const cartButton = document.getElementById("cart-btn");
 
 const carts = savedCarts();
 
