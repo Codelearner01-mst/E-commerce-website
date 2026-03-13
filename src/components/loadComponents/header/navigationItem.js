@@ -1,4 +1,4 @@
-export function navigationHTML() {
+export function navigationHTML(path) {
   return `
       <!--Mobile nav-->
       <nav
@@ -34,22 +34,22 @@ export function navigationHTML() {
             <li
               class="border-b border-gray-100 pb-2 hover:text-blue-600 transition-colors"
             >
-              <a href="#home">Home</a>
+              <a href="../../index.html">Home</a>
             </li>
             <li
               class="border-b border-gray-100 pb-2 hover:text-blue-600 transition-colors"
             >
-              <a href="#products">Products</a>
+              <a href=${path}>Products</a>
             </li>
             <li
               class="border-b border-gray-100 pb-2 hover:text-blue-600 transition-colors"
             >
-              <a href="#about">About Us</a>
+              <a href="../../index.html#about">About Us</a>
             </li>
             <li
               class="border-b border-gray-100 pb-2 hover:text-blue-600 transition-colors"
             >
-              <a href="#contact">Contact</a>
+              <a href="../../index.html#contact">Contact</a>
             </li>
           </ul>
 
@@ -64,10 +64,10 @@ export function navigationHTML() {
         <ul
           class="hidden md:flex flex-row gap-4.5 lg:gap-5 md:text-lg lg:text-xl font font-serif"
         >
-          <li class=""><a href="#home">Home</a></li>
-          <li class=""><a href="#products">Products</a></li>
-          <li class=""><a href="#about">About Us</a></li>
-          <li class=""><a href="#contact">Contact</a></li>
+          <li class=""><a href="../../index.html">Home</a></li>
+          <li class=""><a href=${path}>Products</a></li>
+          <li class=""><a href="../../index.html#about">About Us</a></li>
+          <li class=""><a href="../../index.html#contact">Contact</a></li>
         </ul>
       </nav>`;
 }

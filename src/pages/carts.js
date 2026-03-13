@@ -10,7 +10,7 @@ const headerBar = document.getElementById("header-bar");
 
 headerBar.insertAdjacentHTML("beforeEnd", cartCountHTML());
 headerBar.insertAdjacentHTML("beforeEnd", hamburgerHTML());
-headerBar.insertAdjacentHTML("beforeEnd", navigationHTML());
+headerBar.insertAdjacentHTML("beforeEnd", navigationHTML("./shop.html"));
 
 const carts = savedCarts();
 

@@ -15,7 +15,7 @@ const headerBar = document.getElementById("header-bar");
 
 headerBar.insertAdjacentHTML("beforeEnd", cartCountHTML());
 headerBar.insertAdjacentHTML("beforeEnd", hamburgerHTML());
-headerBar.insertAdjacentHTML("beforeEnd", navigationHTML());
+headerBar.insertAdjacentHTML("beforeEnd", navigationHTML("#products"));
 
 const cartCount = document.getElementById("cart-count");
 const hamburgerButton = document.getElementById("hamburger-btn");
