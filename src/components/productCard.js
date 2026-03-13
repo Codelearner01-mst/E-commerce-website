@@ -3,7 +3,7 @@ export function productCardHTML(product) {
               <div class="product-image-container">
                 <img
                   src="${product.image}"
-                  alt="${product.image}"
+                  alt="${product.name}"
                   class="product-image"
                 />
               </div>

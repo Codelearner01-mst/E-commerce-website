@@ -50,12 +50,15 @@ export function renderCartsDisplayOnly(carts, list) {
   }
 }
 
-export function renderProducts(products, list, number = 4) {
+export function renderProducts(products, list, number = 4, page) {
   if (!products || !list || !Array.isArray(products)) {
     return;
   }
   for (let i = 0; i < number; i++) {
     const product = products[i];
+    if (page === "index.html") {
+      product.image = "./src/images/" + product.image;
+    }
 
     const productCard = productCardHTML(product);
     list.insertAdjacentHTML("beforeEnd", productCard);
