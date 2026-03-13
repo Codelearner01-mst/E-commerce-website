@@ -5,6 +5,7 @@
 import { CartItem } from "./cartItem.js";
 import { productHTML } from "./productItem.js";
 import { cartsDisplayOnlyItem } from "./cartItem.js";
+import { productCardHTML } from "../components/productCard.js";
 
 const product = JSON.parse(sessionStorage.getItem("currentProduct"));
 
@@ -46,5 +47,17 @@ export function renderCartsDisplayOnly(carts, list) {
     const number = i < 9 ? `0${i + 1}` : i + 1;
     const cartElement = cartsDisplayOnlyItem(cart, number);
     list.appendChild(cartElement);
+  }
+}
+
+export function renderProducts(products, list, number = 4) {
+  if (!products || !list || !Array.isArray(products)) {
+    return;
+  }
+  for (let i = 0; i < number; i++) {
+    const product = products[i];
+
+    const productCard = productCardHTML(product);
+    list.insertAdjacentHTML("beforeEnd", productCard);
   }
 }

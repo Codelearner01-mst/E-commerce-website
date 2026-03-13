@@ -8,6 +8,8 @@ import { isProductInCart } from "../utils/helper.js";
 import { hamburgerHTML } from "../components/loadComponents/header/hamburgerItem.js";
 import { navigationHTML } from "../components/loadComponents/header/navigationItem.js";
 import { cartCountHTML } from "../components/loadComponents/header/cartCountItem.js";
+import { productsData } from "../utils/productsStore.js";
+import { renderProducts } from "../components/render.js";
 
 const headerBar = document.getElementById("header-bar");
 
@@ -21,6 +23,9 @@ const cartButton = document.getElementById("cart-btn");
 const dropDownMenu = document.getElementById("drop-menu");
 const products = document.querySelector(".product-list");
 const updateCartSuccessMessage = document.querySelector(".update-cart-success");
+const productList = document.getElementById("product-list");
+
+renderProducts(productsData, productList, productsData.length);
 
 cartButton.addEventListener("click", () => {
   window.location.href = "carts.html";
