@@ -22,9 +22,11 @@ import { productsData } from "../utils/productsStore.js";
 import { hamburgerHTML } from "../components/loadComponents/header/hamburgerItem.js";
 import { navigationHTML } from "../components/loadComponents/header/navigationItem.js";
 import { cartCountHTML } from "../components/loadComponents/header/cartCountItem.js";
+import { footerHTML } from "../components/loadComponents/footer/footerItem.js";
 import { renderProducts } from "../components/render.js";
 
 const headerBar = document.getElementById("header-bar");
+const footer = document.getElementById("footer");
 
 headerBar.insertAdjacentHTML("beforeEnd", cartCountHTML());
 headerBar.insertAdjacentHTML("beforeEnd", hamburgerHTML());
@@ -32,6 +34,8 @@ headerBar.insertAdjacentHTML(
   "beforeEnd",
   navigationHTML("./src/pages/shop.html"),
 );
+
+footer.innerHTML = footerHTML();
 
 const cartsCount = document.getElementById("cart-count");
 const products = document.querySelector(".product-list");
