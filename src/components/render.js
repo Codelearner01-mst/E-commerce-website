@@ -38,6 +38,8 @@ export function renderProduct(containerEle) {
   if (typeof product !== "object" || product === null) {
     return;
   }
+  const newPath = product.image.replace("./src/images/", "");
+  product.image = newPath;
   containerEle.appendChild(productHTML(product));
 }
 
