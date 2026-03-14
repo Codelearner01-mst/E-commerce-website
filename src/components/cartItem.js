@@ -12,10 +12,11 @@
 import { saveCarts } from "../utils/saveUtils.js";
 import { displayCartsCount } from "../utils/shared.js";
 import { ShowSucessMessage } from "../utils/shared.js";
-import { decreaseQuantity } from "../utils/shared.js";
-import { increaseQuantity } from "../utils/shared.js";
+import { decreaseQuantity } from "../utils/quantityUpdate.js";
+import { increaseQuantity } from "../utils/quantityUpdate.js";
+import { calculateSubtotal } from "../utils/calculateTotal.js";
 
-export function CartItem(cart, carts, countEle, msgEle) {
+export function CartItem(cart, carts, countEle, msgEle, totalEle, subTotalEle) {
   //Cart holds a particular product in the carts array
   /**
    * Create a cart item element.
@@ -35,11 +36,11 @@ export function CartItem(cart, carts, countEle, msgEle) {
       <p class="text-lg font-medium">$${cart.price}</p>
     </div>
     <div class="flex items-center gap-6.5">
-      <div class="flex gap-6">
+     <div class="flex gap-6">
         <button class="text-gray-400 decrease-btn">&#10094;</button>
         <span class="quantity-display">${cart.quantity}</span>
         <button class="text-gray-400 increase-btn">&#10095;</button>
-      </div>
+    </div>
       <div>
         <p id="total-price" class="text-lg font-medium total-price">$${cart.price * cart.quantity}</p>
       </div>
@@ -75,16 +76,22 @@ export function CartItem(cart, carts, countEle, msgEle) {
   decreaseBtn.addEventListener("click", () => {
     decreaseQuantity(cart, quantityDisplay);
     totalPrice.textContent = `$${cart.price * cart.quantity.toFixed(2)}`;
+    const result = calculateSubtotal(carts);
+    totalEle.textContent = result;
+    subTotalEle.textContent = result;
     displayCartsCount(countEle, carts);
-    ShowSucessMessage(msgEle);
+    ShowSucessMessage(msgEle, "Cart updated successfully!");
     saveCarts(carts);
   });
 
   increaseBtn.addEventListener("click", () => {
     increaseQuantity(cart, quantityDisplay);
     totalPrice.textContent = `$${cart.price * cart.quantity}`;
+    const result = calculateSubtotal(carts);
+    totalEle.textContent = result;
+    subTotalEle.textContent = result;
     displayCartsCount(countEle, carts);
-    ShowSucessMessage(msgEle);
+    ShowSucessMessage(msgEle, "Cart updated successfully!");
     saveCarts(carts);
   });
 
@@ -93,11 +100,25 @@ export function CartItem(cart, carts, countEle, msgEle) {
     const index = carts.findIndex((c) => c.id === cart.id);
     if (index > -1) {
       carts.splice(index, 1);
+      const result = calculateSubtotal(carts);
+      totalEle.textContent = result;
+      subTotalEle.textContent = result;
       displayCartsCount(countEle, carts);
-      ShowSucessMessage(msgEle);
+      ShowSucessMessage(msgEle, `${cart.name} remove from cart!`);
       saveCarts(carts);
     }
   });
 
+  return cartDiv;
+}
+
+export function cartsDisplayOnlyItem(cart, numbering) {
+  if (typeof cart !== "object" && Array.isArray(cart) && cart === null) {
+    return;
+  }
+  const cartDiv = document.createElement("div");
+  cartDiv.className = "flex flex-row justify-between font-light";
+  cartDiv.innerHTML = `<p><span>${numbering}</span>. ${cart.name}</p>
+                <p>$${cart.price}</p>`;
   return cartDiv;
 }

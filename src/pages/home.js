@@ -11,11 +11,31 @@
  * { id: number, name: string, price: number, image: string, quantity: number }
  */
 import { toggleDropdownMenu } from "../utils/shared.js";
-import { loadCarts } from "../utils/saveUtils.js";
+import { savedCarts } from "../utils/saveUtils.js";
 import { displayCartsCount } from "../utils/shared.js";
 import { displayProduct } from "../utils/cart-controller.js";
-import { addToCartOrControlQuantity } from "../utils/cart-controller.js";
+import { addProductToCartAndSetControlQuantity } from "../utils/cart-controller.js";
 import { setProductQuantityControl } from "../utils/shared.js";
+import { getCartIndex } from "../utils/helper.js";
+import { isProductInCart } from "../utils/helper.js";
+import { productsData } from "../utils/productsStore.js";
+import { hamburgerHTML } from "../components/loadComponents/header/hamburgerItem.js";
+import { navigationHTML } from "../components/loadComponents/header/navigationItem.js";
+import { cartCountHTML } from "../components/loadComponents/header/cartCountItem.js";
+import { footerHTML } from "../components/loadComponents/footer/footerItem.js";
+import { renderProducts } from "../components/render.js";
+
+const headerBar = document.getElementById("header-bar");
+const footer = document.getElementById("footer");
+
+headerBar.insertAdjacentHTML("beforeEnd", cartCountHTML());
+headerBar.insertAdjacentHTML("beforeEnd", hamburgerHTML());
+headerBar.insertAdjacentHTML(
+  "beforeEnd",
+  navigationHTML("./src/pages/shop.html"),
+);
+
+footer.innerHTML = footerHTML();
 
 const cartsCount = document.getElementById("cart-count");
 const products = document.querySelector(".product-list");
@@ -24,21 +44,25 @@ const messageForm = document.getElementById("message-form");
 
 const hamburgerButton = document.getElementById("hamburger-btn");
 const dropDownMenu = document.getElementById("drop-menu");
+const productList = document.getElementById("product-list");
+
+renderProducts(productsData, productList, 4, "index.html");
 
 const addToCartSuccessMessage = document.querySelector(".added-cart-success");
 
-const carts = loadCarts();
+const carts = savedCarts();
 
 function goToNewPage() {
-  window.location.href = "carts.html";
+  window.location.href = "src/pages/carts.html";
 }
 
 cartButton.addEventListener("click", goToNewPage);
 
+//Set quantity control for all products already in cart when page reloads
 products.querySelectorAll(".product-card").forEach((card) => {
   const cardId = parseInt(card.id.split("-")[1], 10);
-  if (carts.some((cart) => cart.id === cardId)) {
-    const index = carts.findIndex((c) => c.id === cardId);
+  if (isProductInCart(cardId, carts)) {
+    const index = getCartIndex(cardId, carts);
     setProductQuantityControl(
       card.querySelector(".quantity-control"),
       carts[index],
@@ -51,13 +75,20 @@ products.querySelectorAll(".product-card").forEach((card) => {
 
 products.addEventListener("click", (event) => {
   const card = event.target.closest(".product-card");
+  const cardId = parseInt(card.id.split("-")[1], 10);
   if (!card || card === null) {
     return;
   }
   if (event.target.tagName !== "BUTTON") {
-    displayProduct(card, carts);
+    displayProduct(card, carts, "src/pages/product.html");
+  } else if (!isProductInCart(cardId, carts)) {
+    addProductToCartAndSetControlQuantity(
+      card,
+      carts,
+      addToCartSuccessMessage,
+      cartsCount,
+    );
   }
-  addToCartOrControlQuantity(card, carts, addToCartSuccessMessage, cartsCount);
 });
 
 function submitMessage() {

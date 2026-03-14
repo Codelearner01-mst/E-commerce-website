@@ -3,26 +3,7 @@ import { ShowSucessMessage } from "../utils/shared.js";
 import { saveCarts } from "./saveUtils.js";
 import { productsData } from "../utils/productsStore.js";
 import { setProductQuantityControl } from "../utils/shared.js";
-//import { productHTML } from "../components/productItem";
-
-/**
- * Check whether a product (by id) already exists in `carts`.
- * Why: do not rely on object identity because `productsData` is recreated on page load.
- * @param {{id:number}} product - product to check
- * @returns {boolean}
- */
-function isProductInCart(product, carts) {
-  return carts.some((c) => c.id === product.id);
-}
-
-/**
- * Find the index of a cart item by product id.
- * @param {{id:number}} product
- * @returns {number} index in `carts` or -1
- */
-const getCartIndex = (product, carts) => {
-  return carts.findIndex((c) => c.id === product.id);
-};
+import { getCartIndex } from "../utils/helper.js";
 
 /**
  * Return a product object from `productsData` by id.
@@ -32,7 +13,7 @@ const getCartIndex = (product, carts) => {
 function productToAddToCartOrDisplay(id) {
   const product = productsData.find((product) => {
     const productId = product?.id;
-    //Tackle undefined and not a Number id. e.g.(id: null id:"abc" id2: 1)
+    //Tackle undefined and NaN. e.g.(id: null id:"abc" id2: 1)
     if (
       !productId ||
       typeof productId !== "number" ||
@@ -40,24 +21,29 @@ function productToAddToCartOrDisplay(id) {
     ) {
       return undefined;
     }
-
     return productId === id;
   });
   return product;
 }
 
-export function displayProduct(card, carts) {
+//Locate to the product page
+export function displayProduct(card, carts, href) {
   if (!carts || !Array.isArray(carts)) {
     return;
   }
   const productId = parseInt(card.id.split("-")[1], 10);
   const product = productToAddToCartOrDisplay(productId);
-  sessionStorage.setItem("currentProduct", JSON.stringify(product));
-  window.location.href = "product.html";
+  sessionStorage.setItem("currentProduct", JSON.stringify(product)); //Store the product object temporilary to display it in the product page
+  window.location.href = href;
   return;
 }
 
-export function addToCartOrControlQuantity(card, carts, msgEle, countEle) {
+export function addProductToCartAndSetControlQuantity(
+  card,
+  carts,
+  msgEle,
+  countEle,
+) {
   if (!carts || !msgEle || !countEle) {
     return;
   }
@@ -70,19 +56,19 @@ export function addToCartOrControlQuantity(card, carts, msgEle, countEle) {
     return;
   }
 
-  if (!isProductInCart(product, carts)) {
-    carts.push(product);
-    const index = getCartIndex(product, carts);
-    const cart = carts[index];
-    setProductQuantityControl(
-      card.querySelector(".quantity-control"),
-      cart,
-      carts,
-      msgEle,
-      countEle,
-    );
-  }
+  //Push product to cart and set up quantity controls..
+  carts.push(product);
+  const index = getCartIndex(product.id, carts);
+  const cart = carts[index];
+  setProductQuantityControl(
+    card.querySelector(".quantity-control"),
+    cart,
+    carts,
+    msgEle,
+    countEle,
+  );
+
   saveCarts(carts);
-  ShowSucessMessage(msgEle, true);
+  ShowSucessMessage(msgEle, `${product.name} added to cart successfully!`);
   displayCartsCount(countEle, carts);
 }
