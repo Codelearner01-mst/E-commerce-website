@@ -2,8 +2,10 @@ import { displayCartsCount } from "../utils/shared.js";
 import { ShowSucessMessage } from "../utils/shared.js";
 import { saveCarts } from "./saveUtils.js";
 import { productsData } from "../utils/productsStore.js";
-import { setProductQuantityControl } from "../utils/shared.js";
 import { getCartIndex } from "../utils/helper.js";
+import { increaseQuantity } from "./quantityUpdate.js";
+import { decreaseQuantity } from "./quantityUpdate.js";
+import { quantityControlItem } from "../components/quantityControlItem.js";
 
 /**
  * Return a product object from `productsData` by id.
@@ -35,16 +37,30 @@ export function displayProduct(card, carts, href) {
   const product = productToAddToCartOrDisplay(productId);
   sessionStorage.setItem("currentProduct", JSON.stringify(product)); //Store the product object temporilary to display it in the product page
   window.location.href = href;
-  return;
 }
 
-export function addProductToCartAndSetControlQuantity(
-  card,
-  carts,
-  msgEle,
-  countEle,
-) {
-  if (!carts || !msgEle || !countEle) {
+export const increaseCartQuantity = (id, carts) => {
+  if (!Array.isArray(carts)) {
+    return;
+  }
+  const index = getCartIndex(id, carts);
+  const cart = carts[index];
+  increaseQuantity(cart);
+  saveCarts(carts);
+};
+
+export const decreaseCartQuantity = (id, carts) => {
+  if (!Array.isArray(carts)) {
+    return;
+  }
+  const index = getCartIndex(id, carts);
+  const cart = carts[index];
+  decreaseQuantity(cart);
+  saveCarts(carts);
+};
+
+export function addProductToCart(card, carts, msgEle) {
+  if (!carts || !msgEle) {
     return;
   }
   const productId = parseInt(card.id.split("-")[1], 10);
@@ -55,20 +71,7 @@ export function addProductToCartAndSetControlQuantity(
   if (product === undefined) {
     return;
   }
-
-  //Push product to cart and set up quantity controls..
   carts.push(product);
-  const index = getCartIndex(product.id, carts);
-  const cart = carts[index];
-  setProductQuantityControl(
-    card.querySelector(".quantity-control"),
-    cart,
-    carts,
-    msgEle,
-    countEle,
-  );
-
-  saveCarts(carts);
   ShowSucessMessage(msgEle, `${product.name} added to cart successfully!`);
-  displayCartsCount(countEle, carts);
+  saveCarts(carts);
 }

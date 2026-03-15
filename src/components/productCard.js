@@ -11,7 +11,7 @@ export function productCardHTML(product) {
                 <h3 class="product-title">${product.name}</h3>
                 <div class="flex justify-between items-center">
                   <p class="product-price">${product.price}</p>
-                  <div class="quantity-control">
+                  <div class="cart-actions-container">
                     <button class="add-cart-btn btn-primary">
                       +Add To Cart
                     </button>

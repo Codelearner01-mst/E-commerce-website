@@ -1,7 +1,4 @@
 import { saveCarts } from "./saveUtils.js";
-import { increaseQuantity } from "./quantityUpdate.js";
-import { decreaseQuantity } from "./quantityUpdate.js";
-import { quantityControlItem } from "../components/quantityControlItem.js";
 
 export function cartsCounter(carts) {
   if (!carts || !Array.isArray(carts)) {
@@ -28,27 +25,6 @@ export function toggleDropdownMenu(dropdown) {
     return;
   }
   dropdown.classList.toggle("hidden");
-}
-
-//Set the quantity UI and control for product
-export function setProductQuantityControl(ele, cart, carts, msgEle, countEle) {
-  if (!Array.isArray(carts)) {
-    return;
-  }
-  ele.innerHTML = quantityControlItem(cart);
-  const quantityDisplay = ele.querySelector(".quantity-display");
-  ele.querySelector(".increase-btn").addEventListener("click", () => {
-    increaseQuantity(cart, quantityDisplay);
-    saveCarts(carts);
-    ShowSucessMessage(msgEle, "Cart updated successfully!");
-    displayCartsCount(countEle, carts);
-  });
-  ele.querySelector(".decrease-btn").addEventListener("click", () => {
-    decreaseQuantity(cart, quantityDisplay);
-    saveCarts(carts);
-    ShowSucessMessage(msgEle, "Cart updated successfully!");
-    displayCartsCount(countEle, carts);
-  });
 }
 
 export function ShowSucessMessage(ele, message) {

@@ -16,7 +16,7 @@ export function productHTML(product) {
        <div class="flex items-center flex-col justify-center gap-2.5">
          <p class="text-[1.4rem] font-medium">${product.name}</p>
          <p class="text-[1.4rem] font-medium">$${product.price}</p>
-         <div class="quantity-control text-[1.1rem] bg-amber-600 border border-amber-400 px-7 py-2.5">
+         <div class="cart-actions-container text-[1.1rem] bg-amber-600 border border-amber-400 px-7 py-2.5">
            <button id="add-cart-btn" class="text-white">ADD TO CART</button>
          </div>
        </div>
