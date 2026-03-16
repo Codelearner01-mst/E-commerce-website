@@ -1,7 +1,6 @@
 import { renderProduct } from "../components/render.js";
-import { addProductToCartAndSetControlQuantity } from "../utils/cart-controller.js";
+import { addProductToCart } from "../utils/cart-controller.js";
 import { savedCarts } from "../utils/saveUtils.js";
-import { setProductQuantityControl } from "../utils/shared.js";
 import { displayCartsCount } from "../utils/shared.js";
 import { getCartIndex } from "../utils/helper.js";
 import { isProductInCart } from "../utils/helper.js";
@@ -9,6 +8,10 @@ import { hamburgerHTML } from "../components/loadComponents/header/hamburgerItem
 import { navigationHTML } from "../components/loadComponents/header/navigationItem.js";
 import { cartCountHTML } from "../components/loadComponents/header/cartCountItem.js";
 import { footerHTML } from "../components/loadComponents/footer/footerItem.js";
+import { quantityControlItem } from "../components/quantityControlItem.js";
+import { decreaseCartQuantity } from "../utils/cart-controller.js";
+import { increaseCartQuantity } from "../utils/cart-controller.js";
+import { ShowSucessMessage } from "../utils/shared.js";
 
 const headerBar = document.getElementById("header-bar");
 const footer = document.getElementById("footer");
@@ -36,28 +39,45 @@ cartButton.addEventListener("click", () => {
 
 if (isProductInCart(currentProduct.id, carts)) {
   const index = getCartIndex(currentProduct.id, carts);
-  const card = productContainer.querySelector(".product-card");
-  setProductQuantityControl(
-    card.querySelector(".quantity-control"),
-    carts[index],
-    carts,
-    addToCartSuccessMessage,
-    cartsCount,
+  const cart = carts[index];
+  const cartActionsContainer = document.querySelector(
+    ".cart-actions-container",
   );
-  card.querySelector(".quantity-control").style.backgroundColor = "white";
-  card.querySelector(".quantity-control").style.border = "none";
+  cartActionsContainer.innerHTML = quantityControlItem();
+  document.querySelector(".quantity-display").textContent = cart.quantity;
+  document.querySelector(".quantity-control").style.backgroundColor = "white";
+  document.querySelector(".quantity-control").style.border = "none";
 }
 
 addTocartBtn.addEventListener("click", () => {
   const card = addTocartBtn.closest(".product-card");
-  addProductToCartAndSetControlQuantity(
-    card,
-    carts,
-    addToCartSuccessMessage,
-    cartsCount,
-  );
+  const cartActionsContainer = card.querySelector(".cart-actions-container");
+  addProductToCart(card, carts, addToCartSuccessMessage);
+  displayCartsCount(cartsCount, carts);
+  cartActionsContainer.innerHTML = quantityControlItem();
   card.querySelector(".quantity-control").style.backgroundColor = "white";
   card.querySelector(".quantity-control").style.border = "none";
+});
+
+const increaseBtn = document.querySelector(".increase-btn");
+const decreaseBtn = document.querySelector(".decrease-btn");
+
+increaseBtn.addEventListener("click", () => {
+  const index = getCartIndex(currentProduct.id, carts);
+  const cart = carts[index];
+  increaseCartQuantity(currentProduct.id, carts);
+  document.querySelector(".quantity-display").textContent = cart.quantity;
+  ShowSucessMessage(addToCartSuccessMessage, "Cart updated successfully!");
+  displayCartsCount(cartsCount, carts);
+});
+
+decreaseBtn.addEventListener("click", () => {
+  const index = getCartIndex(currentProduct.id, carts);
+  const cart = carts[index];
+  decreaseCartQuantity(currentProduct.id, carts);
+  document.querySelector(".quantity-display").textContent = cart.quantity;
+  ShowSucessMessage(addToCartSuccessMessage, "Cart updated successfully!");
+  displayCartsCount(cartsCount, carts);
 });
 
 displayCartsCount(cartsCount, carts);
