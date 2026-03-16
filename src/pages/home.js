@@ -82,7 +82,7 @@ products.addEventListener("click", (event) => {
     return;
   }
   if (event.target.tagName !== "BUTTON") {
-    displayProduct(card, carts, "src/pages/product.html");
+    displayProduct(card, "src/pages/product.html");
     return;
   }
 

@@ -9,27 +9,13 @@ import { productCardHTML } from "../components/productCard.js";
 
 const product = JSON.parse(sessionStorage.getItem("currentProduct"));
 
-export function renderCarts(
-  list,
-  carts,
-  countEle,
-  msgEle,
-  totalEle,
-  subTotalEle,
-) {
+export function renderCarts(list, carts) {
   if (!list || !carts) {
     return;
   }
 
   for (const cart of carts) {
-    const cartElement = CartItem(
-      cart,
-      carts,
-      countEle,
-      msgEle,
-      totalEle,
-      subTotalEle,
-    );
+    const cartElement = CartItem(cart);
     list.appendChild(cartElement);
   }
 }

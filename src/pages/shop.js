@@ -61,7 +61,7 @@ products.addEventListener("click", (event) => {
     return;
   }
   if (event.target.tagName !== "BUTTON") {
-    displayProduct(card, carts, "product.html");
+    displayProduct(card, "product.html");
     return;
   }
   if (event.target.classList.contains("decrease-btn")) {

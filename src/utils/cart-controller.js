@@ -1,11 +1,9 @@
-import { displayCartsCount } from "../utils/shared.js";
 import { ShowSucessMessage } from "../utils/shared.js";
 import { saveCarts } from "./saveUtils.js";
 import { productsData } from "../utils/productsStore.js";
 import { getCartIndex } from "../utils/helper.js";
 import { increaseQuantity } from "./quantityUpdate.js";
 import { decreaseQuantity } from "./quantityUpdate.js";
-import { quantityControlItem } from "../components/quantityControlItem.js";
 
 /**
  * Return a product object from `productsData` by id.
@@ -29,10 +27,7 @@ function productToAddToCartOrDisplay(id) {
 }
 
 //Locate to the product page
-export function displayProduct(card, carts, href) {
-  if (!carts || !Array.isArray(carts)) {
-    return;
-  }
+export function displayProduct(card, href) {
   const productId = parseInt(card.id.split("-")[1], 10);
   const product = productToAddToCartOrDisplay(productId);
   sessionStorage.setItem("currentProduct", JSON.stringify(product)); //Store the product object temporilary to display it in the product page
