@@ -25,7 +25,7 @@ footer.innerHTML = footerHTML();
 const carts = savedCarts();
 
 const productContainer = document.getElementById("product-container");
-renderProduct(productContainer);
+renderProduct(productContainer, "../images/");
 
 const addTocartBtn = document.getElementById("add-cart-btn");
 const cartButton = document.getElementById("cart-btn");

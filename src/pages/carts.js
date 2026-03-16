@@ -12,6 +12,7 @@ import { saveCarts } from "../utils/saveUtils.js";
 import { getCartIndex } from "../utils/helper.js";
 import { ShowSucessMessage } from "../utils/shared.js";
 import { displayProduct } from "../utils/cart-controller.js";
+import { productsData } from "../utils/productsStore.js";
 
 const headerBar = document.getElementById("header-bar");
 const footer = document.getElementById("footer");

@@ -15,17 +15,17 @@ export function renderCarts(list, carts) {
   }
 
   for (const cart of carts) {
-    const cartElement = CartItem(cart);
+    const cartElement = CartItem(cart, "../images/");
     list.appendChild(cartElement);
   }
 }
 
-export function renderProduct(containerEle) {
+export function renderProduct(containerEle, path) {
   if (typeof product !== "object" || product === null) {
     return;
   }
   const newSrc = product.image.replace("./src/images/", "");
-  product.image = newSrc;
+  product.image = path + newSrc;
   containerEle.appendChild(productHTML(product));
 }
 

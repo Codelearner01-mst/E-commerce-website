@@ -10,7 +10,7 @@
  * { id: number, name: string, price: number, image: string, quantity: number }
  */
 
-export function CartItem(cart) {
+export function CartItem(cart, path) {
   //Cart holds a particular product in the carts array
   /**
    * Create a cart item element.
@@ -19,7 +19,7 @@ export function CartItem(cart) {
    * @param {HTMLElement} ele - element used to display cart count
    * @returns {HTMLElement}
    */
-  const newSrc = cart.image.replace("./src/images/", "");
+  const newSrc = cart.image.replace("./src/images/", path);
 
   const cartDiv = document.createElement("div");
   cartDiv.className = "cart-card flex flex-row border-b border-gray-200 pb-4";
