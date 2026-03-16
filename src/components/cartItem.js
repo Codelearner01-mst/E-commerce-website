@@ -25,12 +25,14 @@ export function CartItem(cart, carts, countEle, msgEle, totalEle, subTotalEle) {
    * @param {HTMLElement} ele - element used to display cart count
    * @returns {HTMLElement}
    */
+  const newSrc = cart.image.replace("./src/images/", "");
+
   const cartDiv = document.createElement("div");
   cartDiv.className = "flex flex-row border-b border-gray-200 pb-4";
   cartDiv.innerHTML = `
     <div class="flex gap-2.5 flex-col ml-3.5 mr-9">
       <div class="w-20 h-20">
-        <img src="${cart.image}" alt="${cart.name}" class="object-cover h-full w-full" />
+        <img src="${newSrc}" alt="${cart.name}" class="object-cover h-full w-full" />
       </div>
       <p class="">${cart.name}</p>
       <p class="text-lg font-medium">$${cart.price}</p>

@@ -46,7 +46,9 @@ const hamburgerButton = document.getElementById("hamburger-btn");
 const dropDownMenu = document.getElementById("drop-menu");
 const productList = document.getElementById("product-list");
 
-renderProducts(productsData, productList, 4, "index.html");
+const imagePath = "./src/images/";
+
+renderProducts(productsData, imagePath, productList);
 
 const addToCartSuccessMessage = document.querySelector(".added-cart-success");
 

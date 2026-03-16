@@ -29,7 +29,9 @@ const products = document.querySelector(".product-list");
 const updateCartSuccessMessage = document.querySelector(".update-cart-success");
 const productList = document.getElementById("product-list");
 
-renderProducts(productsData, productList, productsData.length);
+const imagePath = "../images/";
+
+renderProducts(productsData, imagePath, productList, productsData.length);
 
 cartButton.addEventListener("click", () => {
   window.location.href = "carts.html";

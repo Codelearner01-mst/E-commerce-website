@@ -5,7 +5,7 @@ export const productsData = [
     id: 1,
     name: "Product 1",
     price: 29.99,
-    image: "../images/alex-azabache-y2ErhoE92KA-unsplash.jpg",
+    image: "alex-azabache-y2ErhoE92KA-unsplash.jpg",
     quantity: 1,
   },
   {
