@@ -13,6 +13,7 @@ import { quantityControlItem } from "../components/quantityControlItem.js";
 import { decreaseCartQuantity } from "../utils/cart-controller.js";
 import { increaseCartQuantity } from "../utils/cart-controller.js";
 import { ShowSucessMessage } from "../utils/shared.js";
+import { productsData } from "../utils/productsStore.js";
 
 const headerBar = document.getElementById("header-bar");
 const footer = document.getElementById("footer");
@@ -37,6 +38,10 @@ const hamburgerButton = document.getElementById("hamburger-btn");
 const dropDownMenu = document.getElementById("drop-menu");
 
 const currentProduct = JSON.parse(sessionStorage.getItem("currentProduct"));
+
+const index = getCartIndex(currentProduct.id, productsData);
+const product = productsData[index];
+product.image = "../images/" + product.image;
 
 cartButton.addEventListener("click", () => {
   window.location.href = "carts.html";
