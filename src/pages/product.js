@@ -1,3 +1,4 @@
+import { toggleDropdownMenu } from "../utils/shared.js";
 import { renderProduct } from "../components/render.js";
 import { addProductToCart } from "../utils/cart-controller.js";
 import { savedCarts } from "../utils/saveUtils.js";
@@ -31,6 +32,9 @@ const addTocartBtn = document.getElementById("add-cart-btn");
 const cartButton = document.getElementById("cart-btn");
 const addToCartSuccessMessage = document.querySelector(".added-cart-success");
 const cartsCount = document.getElementById("cart-count");
+
+const hamburgerButton = document.getElementById("hamburger-btn");
+const dropDownMenu = document.getElementById("drop-menu");
 
 const currentProduct = JSON.parse(sessionStorage.getItem("currentProduct"));
 
@@ -96,5 +100,9 @@ if (isProductInCart(currentProduct.id, carts)) {
     decreaseFunc();
   });
 }
+
+hamburgerButton.addEventListener("click", () => {
+  toggleDropdownMenu(dropDownMenu);
+});
 
 displayCartsCount(cartsCount, carts);
