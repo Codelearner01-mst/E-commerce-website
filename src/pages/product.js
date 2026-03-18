@@ -31,6 +31,7 @@ const addTocartBtn = document.getElementById("add-cart-btn");
 const cartButton = document.getElementById("cart-btn");
 const addToCartSuccessMessage = document.querySelector(".added-cart-success");
 const cartsCount = document.getElementById("cart-count");
+
 const currentProduct = JSON.parse(sessionStorage.getItem("currentProduct"));
 
 cartButton.addEventListener("click", () => {
@@ -45,8 +46,24 @@ if (isProductInCart(currentProduct.id, carts)) {
   );
   cartActionsContainer.innerHTML = quantityControlItem();
   document.querySelector(".quantity-display").textContent = cart.quantity;
-  document.querySelector(".quantity-control").style.backgroundColor = "white";
-  document.querySelector(".quantity-control").style.border = "none";
+}
+
+function decreaseFunc() {
+  const index = getCartIndex(currentProduct.id, carts);
+  const cart = carts[index];
+  decreaseCartQuantity(currentProduct.id, carts);
+  document.querySelector(".quantity-display").textContent = cart.quantity;
+  ShowSucessMessage(addToCartSuccessMessage, "Cart updated successfully!");
+  displayCartsCount(cartsCount, carts);
+}
+
+function increaseFunc() {
+  const index = getCartIndex(currentProduct.id, carts);
+  const cart = carts[index];
+  increaseCartQuantity(currentProduct.id, carts);
+  document.querySelector(".quantity-display").textContent = cart.quantity;
+  ShowSucessMessage(addToCartSuccessMessage, "Cart updated successfully!");
+  displayCartsCount(cartsCount, carts);
 }
 
 addTocartBtn.addEventListener("click", () => {
@@ -55,29 +72,29 @@ addTocartBtn.addEventListener("click", () => {
   addProductToCart(card, carts, addToCartSuccessMessage);
   displayCartsCount(cartsCount, carts);
   cartActionsContainer.innerHTML = quantityControlItem();
-  card.querySelector(".quantity-control").style.backgroundColor = "white";
-  card.querySelector(".quantity-control").style.border = "none";
+
+  const increaseBtn = document.querySelector(".increase-btn");
+  const decreaseBtn = document.querySelector(".decrease-btn");
+
+  increaseBtn.addEventListener("click", () => {
+    increaseFunc();
+  });
+  decreaseBtn.addEventListener("click", () => {
+    decreaseFunc();
+  });
 });
 
-const increaseBtn = document.querySelector(".increase-btn");
-const decreaseBtn = document.querySelector(".decrease-btn");
+if (isProductInCart(currentProduct.id, carts)) {
+  const increaseBtn = document.querySelector(".increase-btn");
+  const decreaseBtn = document.querySelector(".decrease-btn");
 
-increaseBtn.addEventListener("click", () => {
-  const index = getCartIndex(currentProduct.id, carts);
-  const cart = carts[index];
-  increaseCartQuantity(currentProduct.id, carts);
-  document.querySelector(".quantity-display").textContent = cart.quantity;
-  ShowSucessMessage(addToCartSuccessMessage, "Cart updated successfully!");
-  displayCartsCount(cartsCount, carts);
-});
+  increaseBtn.addEventListener("click", () => {
+    increaseFunc();
+  });
 
-decreaseBtn.addEventListener("click", () => {
-  const index = getCartIndex(currentProduct.id, carts);
-  const cart = carts[index];
-  decreaseCartQuantity(currentProduct.id, carts);
-  document.querySelector(".quantity-display").textContent = cart.quantity;
-  ShowSucessMessage(addToCartSuccessMessage, "Cart updated successfully!");
-  displayCartsCount(cartsCount, carts);
-});
+  decreaseBtn.addEventListener("click", () => {
+    decreaseFunc();
+  });
+}
 
 displayCartsCount(cartsCount, carts);

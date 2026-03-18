@@ -17,7 +17,7 @@ export function productHTML(product) {
          <p class="text-[1.4rem] font-medium">${product.name}</p>
          <p class="text-[1.4rem] font-medium">$${product.price}</p>
           <div class="cart-actions-container">
-            <button class="add-cart-btn btn-primary">
+            <button id="add-cart-btn" class="add-cart-btn btn-primary">
               +Add To Cart
             </button>
           </div>
