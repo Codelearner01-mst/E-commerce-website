@@ -4,6 +4,7 @@ import { addProductToCart } from "../utils/cart-controller.js";
 import { savedCarts } from "../utils/saveUtils.js";
 import { displayCartsCount } from "../utils/shared.js";
 import { getCartIndex } from "../utils/helper.js";
+import { getProductInCart } from "../utils/helper.js";
 import { isProductInCart } from "../utils/helper.js";
 import { hamburgerHTML } from "../components/loadComponents/header/hamburgerItem.js";
 import { navigationHTML } from "../components/loadComponents/header/navigationItem.js";
@@ -14,6 +15,7 @@ import { decreaseCartQuantity } from "../utils/cart-controller.js";
 import { increaseCartQuantity } from "../utils/cart-controller.js";
 import { ShowSucessMessage } from "../utils/shared.js";
 import { productsData } from "../utils/productsStore.js";
+import { runCartActionsConfirmation } from "../utils/toast/notify.js";
 
 const headerBar = document.getElementById("header-bar");
 const footer = document.getElementById("footer");
@@ -48,8 +50,7 @@ cartButton.addEventListener("click", () => {
 });
 
 if (isProductInCart(currentProduct.id, carts)) {
-  const index = getCartIndex(currentProduct.id, carts);
-  const cart = carts[index];
+  const cart = getProductInCart(carts, currentProduct.id);
   const cartActionsContainer = document.querySelector(
     ".cart-actions-container",
   );
@@ -58,21 +59,27 @@ if (isProductInCart(currentProduct.id, carts)) {
 }
 
 function decreaseFunc() {
-  const index = getCartIndex(currentProduct.id, carts);
-  const cart = carts[index];
+  const cart = getProductInCart(carts, currentProduct.id);
   decreaseCartQuantity(currentProduct.id, carts);
   document.querySelector(".quantity-display").textContent = cart.quantity;
-  ShowSucessMessage(addToCartSuccessMessage, "Cart updated successfully!");
-  displayCartsCount(cartsCount, carts);
+  runCartActionsConfirmation(
+    addToCartSuccessMessage,
+    "Cart updated successfully!",
+    carts,
+    cartsCount,
+  );
 }
 
 function increaseFunc() {
-  const index = getCartIndex(currentProduct.id, carts);
-  const cart = carts[index];
+  const cart = getProductInCart(carts, currentProduct.id);
   increaseCartQuantity(currentProduct.id, carts);
   document.querySelector(".quantity-display").textContent = cart.quantity;
-  ShowSucessMessage(addToCartSuccessMessage, "Cart updated successfully!");
-  displayCartsCount(cartsCount, carts);
+  runCartActionsConfirmation(
+    addToCartSuccessMessage,
+    "Cart updated successfully!",
+    carts,
+    cartsCount,
+  );
 }
 
 addTocartBtn.addEventListener("click", () => {

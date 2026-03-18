@@ -10,9 +10,10 @@ import { footerHTML } from "../components/loadComponents/footer/footerItem.js";
 import { cartCountHTML } from "../components/loadComponents/header/cartCountItem.js";
 import { saveCarts } from "../utils/saveUtils.js";
 import { getCartIndex } from "../utils/helper.js";
+import { getProductInCart } from "../utils/helper.js";
 import { ShowSucessMessage } from "../utils/shared.js";
 import { displayProduct } from "../utils/cart-controller.js";
-import { productsData } from "../utils/productsStore.js";
+import { runCartActionsConfirmation } from "../utils/toast/notify.js";
 
 const headerBar = document.getElementById("header-bar");
 const footer = document.getElementById("footer");
@@ -49,8 +50,8 @@ cartList.addEventListener("click", (event) => {
 
   const card = target.closest(".cart-card");
   const cardId = parseInt(card.id.split("-")[1], 10);
-  const index = getCartIndex(cardId, carts);
-  const cart = carts[index];
+
+  const cart = getProductInCart(carts, cardId);
 
   if (target.classList.contains("decrease-btn")) {
     decreaseCartQuantity(cardId, carts);
@@ -60,8 +61,12 @@ cartList.addEventListener("click", (event) => {
     const result = calculateSubtotal(carts);
     totalAmount.textContent = result;
     subtotalAmount.textContent = result;
-    ShowSucessMessage(updateCartSuccessMessage, "Cart updated successfully!");
-    displayCartsCount(cartCountSpan, carts);
+    runCartActionsConfirmation(
+      updateCartSuccessMessage,
+      "Cart updated successfully!",
+      carts,
+      cartCountSpan,
+    );
     return;
   }
 
@@ -73,22 +78,29 @@ cartList.addEventListener("click", (event) => {
     const result = calculateSubtotal(carts);
     totalAmount.textContent = result;
     subtotalAmount.textContent = result;
-    ShowSucessMessage(updateCartSuccessMessage, "Cart updated successfully!");
-    displayCartsCount(cartCountSpan, carts);
+    runCartActionsConfirmation(
+      updateCartSuccessMessage,
+      "Cart updated successfully!",
+      carts,
+      cartCountSpan,
+    );
     return;
   }
 
   if (target.classList.contains("delete-btn")) {
     card.remove();
+    const index = getCartIndex(cardId, carts);
     if (index > -1) {
       carts.splice(index, 1);
       const result = calculateSubtotal(carts);
       totalAmount.textContent = result;
       subtotalAmount.textContent = result;
-      displayCartsCount(cartCountSpan, carts);
-      ShowSucessMessage(
+
+      runCartActionsConfirmation(
         updateCartSuccessMessage,
         `${cart.name} remove from cart!`,
+        carts,
+        cartCountSpan,
       );
       saveCarts(carts);
       return;

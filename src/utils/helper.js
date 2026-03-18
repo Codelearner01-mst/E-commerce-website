@@ -16,3 +16,8 @@ export const getCartIndex = (id, carts) => {
 export const isProductInCart = (id, carts) => {
   return carts.some((c) => c.id === id);
 };
+
+export function getProductInCart(carts, id) {
+  const index = getCartIndex(id, carts);
+  return carts[index];
+}

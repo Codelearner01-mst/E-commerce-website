@@ -3,6 +3,7 @@ import { displayCartsCount, toggleDropdownMenu } from "../utils/shared.js";
 import { displayProduct } from "../utils/cart-controller.js";
 import { addProductToCart } from "../utils/cart-controller.js";
 import { getCartIndex } from "../utils/helper.js";
+import { getProductInCart } from "../utils/helper.js";
 import { isProductInCart } from "../utils/helper.js";
 import { hamburgerHTML } from "../components/loadComponents/header/hamburgerItem.js";
 import { navigationHTML } from "../components/loadComponents/header/navigationItem.js";
@@ -14,6 +15,7 @@ import { quantityControlItem } from "../components/quantityControlItem.js";
 import { decreaseCartQuantity } from "../utils/cart-controller.js";
 import { increaseCartQuantity } from "../utils/cart-controller.js";
 import { ShowSucessMessage } from "../utils/shared.js";
+import { runCartActionsConfirmation } from "../utils/toast/notify.js";
 
 const headerBar = document.getElementById("header-bar");
 const footer = document.getElementById("footer");
@@ -44,8 +46,7 @@ const carts = savedCarts();
 //Set quantity control for all products already in cart when page reloads
 products.querySelectorAll(".product-card").forEach((card) => {
   const cardId = parseInt(card.id.split("-")[1], 10);
-  const index = getCartIndex(cardId, carts);
-  const cart = carts[index];
+  const cart = getProductInCart(carts, cardId);
   if (isProductInCart(cardId, carts)) {
     const cartActionsContainer = card.querySelector(".cart-actions-container");
     cartActionsContainer.innerHTML = quantityControlItem();
@@ -57,8 +58,7 @@ products.addEventListener("click", (event) => {
   const card = event.target.closest(".product-card");
   const cardId = parseInt(card.id.split("-")[1], 10);
   const cartActionsContainer = card.querySelector(".cart-actions-container");
-  const index = getCartIndex(cardId, carts);
-  const cart = carts[index];
+  const cart = getProductInCart(carts, cardId);
   if (!card || card === null) {
     return;
   }
@@ -69,16 +69,24 @@ products.addEventListener("click", (event) => {
   if (event.target.classList.contains("decrease-btn")) {
     decreaseCartQuantity(cardId, carts);
     card.querySelector(".quantity-display").textContent = cart.quantity;
-    ShowSucessMessage(updateCartSuccessMessage, "Cart updated successfully!");
-    displayCartsCount(cartCount, carts);
+    runCartActionsConfirmation(
+      updateCartSuccessMessage,
+      "Cart updated successfully!",
+      carts,
+      cartCount,
+    );
     return;
   }
 
   if (event.target.classList.contains("increase-btn")) {
     increaseCartQuantity(cardId, carts);
     card.querySelector(".quantity-display").textContent = cart.quantity;
-    ShowSucessMessage(updateCartSuccessMessage, "Cart updated successfully!");
-    displayCartsCount(cartCount, carts);
+    runCartActionsConfirmation(
+      updateCartSuccessMessage,
+      "Cart updated successfully!",
+      carts,
+      cartCount,
+    );
     return;
   }
 

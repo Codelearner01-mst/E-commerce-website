@@ -10,7 +10,7 @@ export function productCardHTML(product) {
               <div class="product-info">
                 <h3 class="product-title">${product.name}</h3>
                 <div class="flex justify-between items-center">
-                  <p class="product-price">${product.price}</p>
+                  <p class="product-price">$${product.price}</p>
                   <div class="cart-actions-container">
                     <button class="add-cart-btn btn-primary">
                       +Add To Cart
