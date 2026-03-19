@@ -48,14 +48,18 @@ cartButton.addEventListener("click", () => {
   window.location.href = "carts.html";
 });
 
-if (isProductInCart(currentProduct.id, carts)) {
-  const cart = getProductInCart(carts, currentProduct.id);
-  const cartActionsContainer = document.querySelector(
-    ".cart-actions-container",
-  );
-  cartActionsContainer.innerHTML = quantityControlItem();
-  document.querySelector(".quantity-display").textContent = cart.quantity;
-}
+window.addEventListener("pageshow", (event) => {
+  const currentProduct = JSON.parse(sessionStorage.getItem("currentProduct"));
+  if (isProductInCart(currentProduct.id, carts)) {
+    const cart = getProductInCart(carts, currentProduct.id);
+    const cartActionsContainer = document.querySelector(
+      ".cart-actions-container",
+    );
+    cartActionsContainer.innerHTML = quantityControlItem();
+    document.querySelector(".quantity-display").textContent = cart.quantity;
+  }
+  displayCartsCount(cartsCount, carts);
+});
 
 function decreaseFunc() {
   const cart = getProductInCart(carts, currentProduct.id);

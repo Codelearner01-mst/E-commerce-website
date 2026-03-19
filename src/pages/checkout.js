@@ -34,7 +34,10 @@ const totalAmount = document.getElementById("total-amount");
 
 const carts = savedCarts();
 
-renderCartsDisplayOnly(carts, cartList);
+window.addEventListener("pageshow", (event) => {
+  const carts = savedCarts();
+  renderCartsDisplayOnly(carts, cartList);
+});
 
 cartButton.addEventListener("click", () => {
   window.location.href = "carts.html";

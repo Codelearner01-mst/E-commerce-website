@@ -42,14 +42,19 @@ cartButton.addEventListener("click", () => {
 const carts = savedCarts();
 
 //Set quantity control for all products already in cart when page reloads
-products.querySelectorAll(".product-card").forEach((card) => {
-  const cardId = parseInt(card.id.split("-")[1], 10);
-  const cart = getProductInCart(carts, cardId);
-  if (isProductInCart(cardId, carts)) {
-    const cartActionsContainer = card.querySelector(".cart-actions-container");
-    cartActionsContainer.innerHTML = quantityControlItem();
-    card.querySelector(".quantity-display").textContent = cart.quantity;
-  }
+window.addEventListener("pageshow", (event) => {
+  products.querySelectorAll(".product-card").forEach((card) => {
+    const cardId = parseInt(card.id.split("-")[1], 10);
+    const cart = getProductInCart(carts, cardId);
+    if (isProductInCart(cardId, carts)) {
+      const cartActionsContainer = card.querySelector(
+        ".cart-actions-container",
+      );
+      cartActionsContainer.innerHTML = quantityControlItem();
+      card.querySelector(".quantity-display").textContent = cart.quantity;
+    }
+  });
+  displayCartsCount(cartCount, carts);
 });
 
 products.addEventListener("click", (event) => {
