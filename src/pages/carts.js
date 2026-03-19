@@ -11,7 +11,6 @@ import { cartCountHTML } from "../components/loadComponents/header/cartCountItem
 import { saveCarts } from "../utils/saveUtils.js";
 import { getCartIndex } from "../utils/helper.js";
 import { getProductInCart } from "../utils/helper.js";
-import { ShowSucessMessage } from "../utils/shared.js";
 import { displayProduct } from "../utils/cart-controller.js";
 import { runCartActionsConfirmation } from "../utils/toast/notify.js";
 

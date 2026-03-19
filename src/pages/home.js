@@ -26,7 +26,6 @@ import { renderProducts } from "../components/render.js";
 import { quantityControlItem } from "../components/quantityControlItem.js";
 import { decreaseCartQuantity } from "../utils/cart-controller.js";
 import { increaseCartQuantity } from "../utils/cart-controller.js";
-import { ShowSucessMessage } from "../utils/shared.js";
 import { runCartActionsConfirmation } from "../utils/toast/notify.js";
 
 const headerBar = document.getElementById("header-bar");
@@ -64,14 +63,20 @@ function goToNewPage() {
 
 cartButton.addEventListener("click", goToNewPage);
 
-products.querySelectorAll(".product-card").forEach((card) => {
-  const cardId = parseInt(card.id.split("-")[1], 10);
-  const cart = getProductInCart(carts, cardId);
-  if (isProductInCart(cardId, carts)) {
-    const cartActionsContainer = card.querySelector(".cart-actions-container");
-    cartActionsContainer.innerHTML = quantityControlItem();
-    card.querySelector(".quantity-display").textContent = cart.quantity;
-  }
+window.addEventListener("pageshow", (event) => {
+  const carts = savedCarts();
+  products.querySelectorAll(".product-card").forEach((card) => {
+    const cardId = parseInt(card.id.split("-")[1], 10);
+    const cart = getProductInCart(carts, cardId);
+    if (isProductInCart(cardId, carts)) {
+      const cartActionsContainer = card.querySelector(
+        ".cart-actions-container",
+      );
+      cartActionsContainer.innerHTML = quantityControlItem();
+      card.querySelector(".quantity-display").textContent = cart.quantity;
+    }
+  });
+  displayCartsCount(cartsCount, carts);
 });
 
 products.addEventListener("click", (event) => {

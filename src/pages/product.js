@@ -13,7 +13,6 @@ import { footerHTML } from "../components/loadComponents/footer/footerItem.js";
 import { quantityControlItem } from "../components/quantityControlItem.js";
 import { decreaseCartQuantity } from "../utils/cart-controller.js";
 import { increaseCartQuantity } from "../utils/cart-controller.js";
-import { ShowSucessMessage } from "../utils/shared.js";
 import { productsData } from "../utils/productsStore.js";
 import { runCartActionsConfirmation } from "../utils/toast/notify.js";
 

@@ -2,7 +2,6 @@ import { savedCarts } from "../utils/saveUtils.js";
 import { displayCartsCount, toggleDropdownMenu } from "../utils/shared.js";
 import { displayProduct } from "../utils/cart-controller.js";
 import { addProductToCart } from "../utils/cart-controller.js";
-import { getCartIndex } from "../utils/helper.js";
 import { getProductInCart } from "../utils/helper.js";
 import { isProductInCart } from "../utils/helper.js";
 import { hamburgerHTML } from "../components/loadComponents/header/hamburgerItem.js";
@@ -14,7 +13,6 @@ import { renderProducts } from "../components/render.js";
 import { quantityControlItem } from "../components/quantityControlItem.js";
 import { decreaseCartQuantity } from "../utils/cart-controller.js";
 import { increaseCartQuantity } from "../utils/cart-controller.js";
-import { ShowSucessMessage } from "../utils/shared.js";
 import { runCartActionsConfirmation } from "../utils/toast/notify.js";
 
 const headerBar = document.getElementById("header-bar");
