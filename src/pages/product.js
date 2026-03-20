@@ -55,8 +55,21 @@ window.addEventListener("pageshow", (event) => {
     const cartActionsContainer = document.querySelector(
       ".cart-actions-container",
     );
-    cartActionsContainer.innerHTML = quantityControlItem();
+    // 1. Render the HTML and pass the cart object
+    cartActionsContainer.innerHTML = quantityControlItem(cart);
     document.querySelector(".quantity-display").textContent = cart.quantity;
+
+    // 2. Attach listeners because the buttons now exist
+    const increaseBtn = document.querySelector(".increase-btn");
+    const decreaseBtn = document.querySelector(".decrease-btn");
+
+    increaseBtn.addEventListener("click", () => {
+      increaseFunc();
+    });
+
+    decreaseBtn.addEventListener("click", () => {
+      decreaseFunc();
+    });
   }
   displayCartsCount(cartsCount, carts);
 });
@@ -90,7 +103,7 @@ addTocartBtn.addEventListener("click", () => {
   const cartActionsContainer = card.querySelector(".cart-actions-container");
   addProductToCart(card, carts, addToCartSuccessMessage);
   displayCartsCount(cartsCount, carts);
-  cartActionsContainer.innerHTML = quantityControlItem();
+  cartActionsContainer.innerHTML = quantityControlItem({ quantity: 1 });
 
   const increaseBtn = document.querySelector(".increase-btn");
   const decreaseBtn = document.querySelector(".decrease-btn");
@@ -102,19 +115,6 @@ addTocartBtn.addEventListener("click", () => {
     decreaseFunc();
   });
 });
-
-if (isProductInCart(currentProduct.id, carts)) {
-  const increaseBtn = document.querySelector(".increase-btn");
-  const decreaseBtn = document.querySelector(".decrease-btn");
-
-  increaseBtn.addEventListener("click", () => {
-    increaseFunc();
-  });
-
-  decreaseBtn.addEventListener("click", () => {
-    decreaseFunc();
-  });
-}
 
 hamburgerButton.addEventListener("click", () => {
   toggleDropdownMenu(dropDownMenu);
