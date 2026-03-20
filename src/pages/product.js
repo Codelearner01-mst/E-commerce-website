@@ -21,7 +21,7 @@ const footer = document.getElementById("footer");
 
 headerBar.insertAdjacentHTML("beforeEnd", cartCountHTML());
 headerBar.insertAdjacentHTML("beforeEnd", hamburgerHTML());
-headerBar.insertAdjacentHTML("beforeEnd", navigationHTML());
+headerBar.insertAdjacentHTML("beforeEnd", navigationHTML("./shop.html"));
 
 footer.innerHTML = footerHTML();
 

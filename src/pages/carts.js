@@ -38,9 +38,8 @@ const resultContainer = document.getElementById("result-container");
 const subtotalAmount = document.getElementById("subtotal-amount");
 const totalAmount = document.getElementById("total-amount");
 const checkoutButton = document.getElementById("checkout-btn");
-window.addEventListener("pageshow", (event) => {
-  renderCarts(cartList, carts);
-});
+
+renderCarts(cartList, carts);
 
 cartList.addEventListener("click", (event) => {
   const target = event.target;
