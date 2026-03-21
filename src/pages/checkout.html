@@ -10,122 +10,128 @@
 </head>
 
 <body>
-  <header
-    id="header-bar"
+  <header id="header-bar"
     class="fixed top-0 left-0 right-0 bg-white/90 border-gray-100 flex justify-between items-center px-4 md:px-8 py-4 z-50 transition-all duration-300">
     <h1 class="text-black text-2xl md:text-3xl font-serif tracking-widest uppercase">
       Vision Jewelry
     </h1>
-    
+
   </header>
   <main class="mt-24">
     <div class="bg-gray-100 py-6">
       <h2 class="ml-3 text-xl font-medium">Check Out</h2>
     </div>
-    <div class="mt-20">
-      <h2 class="font-medium ml-3 mb-8 border-b border-gray-200 pb-4">
-        BILLING DETAILS
-      </h2>
-    </div>
-    <section>
-      <form class="p-5" id="checkout-form">
-        <div class="mb-6">
-          <label for="firstname" class="block mb-2">First Name</label>
-          <input type="text" id="firstname" name="firstname" class="input-field" required />
-        </div>
-        <div class="mb-6">
-          <label for="lastname" class="block mb-2">Last Name</label>
-          <input type="text" id="lastname" name="lastname" class="input-field" required />
-        </div>
-        <div class="mb-6">
-          <label for="phone-number" class="block mb-2">Phone number</label>
-          <input type="tel" id="phone-number" name="phoneNumber" class="input-field" pattern="[0-9]{10}" required />
-        </div>
-        <div class="mb-6">
-          <label for="country" class="block mb-2">Country</label>
-          <input type="text" id="country" name="country" class="input-field" required />
-        </div>
-        <div class="mb-6">
-          <label for="address" class="block mb-2">Address</label>
-          <input type="text" id="address" name="address" class="input-field" required />
-        </div>
-        <div class="mb-6">
-          <label for="email" class="block mb-2">Email</label>
-          <input type="email" id="email" name="email" class="input-field" required />
-        </div>
-        <div class="mb-6">
-          <label for="city" class="block mb-2">City</label>
-          <input type="text" id="city" name="city" class="input-field" required />
-        </div>
-        <div class="mb-6">
-          <label for="desciption" class="block mb-2">Message</label>
-          <textarea id="desciption" name="desciption" class="input-field" required rows="5"></textarea>
-        </div>
+    <section class="mt-20">
+      <form class="p-5 lg:p-0 lg:flex lg:gap-12 lg:max-w-7xl lg:mx-auto xl:px-8" id="checkout-form">
+        <!-- Left flex wrapper (2/3 width) -->
+        <div class="lg:w-2/3 w-full flex flex-col">
+          <div class="mb-4">
+            <h2 class="font-medium ml-3 mb-8 border-b border-gray-200 pb-4 uppercase">
+              BILLING DETAILS
+            </h2>
+          </div>
+          <div class="mb-6">
+            <label for="firstname" class="block mb-2">First Name</label>
+            <input type="text" id="firstname" name="firstname" class="input-field" required />
+          </div>
+          <div class="mb-6">
+            <label for="lastname" class="block mb-2">Last Name</label>
+            <input type="text" id="lastname" name="lastname" class="input-field" required />
+          </div>
+          <div class="mb-6">
+            <label for="phone-number" class="block mb-2">Phone number</label>
+            <input type="tel" id="phone-number" name="phoneNumber" class="input-field" pattern="[0-9]{10}" required />
+          </div>
+          <div class="mb-6">
+            <label for="country" class="block mb-2">Country</label>
+            <input type="text" id="country" name="country" class="input-field" required />
+          </div>
+          <div class="mb-6">
+            <label for="address" class="block mb-2">Address</label>
+            <input type="text" id="address" name="address" class="input-field" required />
+          </div>
+          <div class="mb-6">
+            <label for="email" class="block mb-2">Email</label>
+            <input type="email" id="email" name="email" class="input-field" required />
+          </div>
+          <div class="mb-6">
+            <label for="city" class="block mb-2">City</label>
+            <input type="text" id="city" name="city" class="input-field" required />
+          </div>
+          <div class="mb-6">
+            <label for="desciption" class="block mb-2">Message</label>
+            <textarea id="desciption" name="desciption" class="input-field" required rows="5"></textarea>
+          </div>
 
-        <!-- Payment Methods -->
-        <div class="mb-10 mt-10">
-          <h2 class="font-medium ml-3 mb-6 border-b border-gray-200 pb-4">
-            PAYMENT METHOD
-          </h2>
-          <div class="flex flex-col gap-4 px-4">
-            <label
-              class="flex items-center gap-3 cursor-pointer border border-gray-200 p-4 rounded-lg hover:border-gray-400 transition-all has-[:checked]:border-black has-[:checked]:bg-gray-50">
-              <input type="radio" name="payment" value="credit-card" checked class="w-4 h-4 text-black accent-black">
-              <i class="fa-regular fa-credit-card text-2xl text-gray-700 w-8 text-center"></i>
-              <div class="flex flex-col">
-                <span class="font-medium">Credit / Debit Card</span>
-                <span class="text-xs text-gray-500">Secure payment via Stripe</span>
-              </div>
-            </label>
-            <label
-              class="flex items-center gap-3 cursor-pointer border border-gray-200 p-4 rounded-lg hover:border-gray-400 transition-all has-[:checked]:border-black has-[:checked]:bg-gray-50">
-              <input type="radio" name="payment" value="paypal" class="w-4 h-4 text-black accent-black">
-              <i class="fa-brands fa-paypal text-2xl text-blue-600 w-8 text-center"></i>
-              <span class="font-medium">PayPal</span>
-            </label>
-            <label
-              class="flex items-center gap-3 cursor-pointer border border-gray-200 p-4 rounded-lg hover:border-gray-400 transition-all has-[:checked]:border-black has-[:checked]:bg-gray-50">
-              <input type="radio" name="payment" value="cod" class="w-4 h-4 text-black accent-black">
-              <i class="fa-solid fa-money-bill-wave text-xl text-green-600 w-8 text-center"></i>
-              <span class="font-medium">Cash on Delivery</span>
-            </label>
+          <!-- Payment Methods -->
+          <div class="mb-10 mt-10">
+            <h2 class="font-medium ml-3 mb-6 border-b border-gray-200 pb-4">
+              PAYMENT METHOD
+            </h2>
+            <div class="flex flex-col gap-4 px-4">
+              <label
+                class="flex items-center gap-3 cursor-pointer border border-gray-200 p-4 rounded-lg hover:border-gray-400 transition-all has-[:checked]:border-black has-[:checked]:bg-gray-50">
+                <input type="radio" name="payment" value="credit-card" checked class="w-4 h-4 text-black accent-black">
+                <i class="fa-regular fa-credit-card text-2xl text-gray-700 w-8 text-center"></i>
+                <div class="flex flex-col">
+                  <span class="font-medium">Credit / Debit Card</span>
+                  <span class="text-xs text-gray-500">Secure payment via Stripe</span>
+                </div>
+              </label>
+              <label
+                class="flex items-center gap-3 cursor-pointer border border-gray-200 p-4 rounded-lg hover:border-gray-400 transition-all has-[:checked]:border-black has-[:checked]:bg-gray-50">
+                <input type="radio" name="payment" value="paypal" class="w-4 h-4 text-black accent-black">
+                <i class="fa-brands fa-paypal text-2xl text-blue-600 w-8 text-center"></i>
+                <span class="font-medium">PayPal</span>
+              </label>
+              <label
+                class="flex items-center gap-3 cursor-pointer border border-gray-200 p-4 rounded-lg hover:border-gray-400 transition-all has-[:checked]:border-black has-[:checked]:bg-gray-50">
+                <input type="radio" name="payment" value="cod" class="w-4 h-4 text-black accent-black">
+                <i class="fa-solid fa-money-bill-wave text-xl text-green-600 w-8 text-center"></i>
+                <span class="font-medium">Cash on Delivery</span>
+              </label>
+            </div>
           </div>
         </div>
 
-        <div class="bg-yellow-100 py-4 mx-4 mb-12">
-          <div class="px-8">
-            <div>
-              <h1 class="text-2xl font-medium mb-8">YOUR ORDER</h1>
-            </div>
-            <div class="flex flex-col gap-2">
-              <div class="flex flex-row justify-between mb-1">
-                <div>
-                  <p>Product</p>
-                </div>
+        <!-- Right flex wrapper (1/3 width) -->
+        <div class="lg:w-1/3 w-full mt-10 lg:mt-0">
+          <div class="bg-yellow-100 py-4 mx-4 lg:mx-0 mb-12 rounded-md shadow-sm xl:sticky xl:top-32">
+            <div class="px-8">
+              <div>
+                <h1 class="text-2xl font-medium mb-8">YOUR ORDER</h1>
+              </div>
+              <div class="flex flex-col gap-2">
+                <div class="flex flex-row justify-between mb-1">
+                  <div>
+                    <p>Product</p>
+                  </div>
 
-                <div id="totals">
-                  <p>Total</p>
+                  <div id="totals">
+                    <p>Total</p>
+                  </div>
+                </div>
+                <div id="carts">
+
+                </div>
+                <div class="mt-4">
+                  <div class="flex flex-row justify-between">
+                    <p class="">Subtotal</p>
+                    <p id="subtotal-amount" class="font-bold">$0.00</p>
+                  </div>
+                  <div class="flex flex-row justify-between">
+                    <p class="">Total</p>
+                    <p id="total-amount" class="font-bold">$0.00</p>
+                  </div>
                 </div>
               </div>
-              <div id="carts">
-              
-              </div>
-              <div class="mt-4">
-                <div class="flex flex-row justify-between">
-                  <p class="">Subtotal</p>
-                  <p id="subtotal-amount" class="font-bold">$0.00</p>
-                </div>
-                <div class="flex flex-row justify-between">
-                  <p class="">Total</p>
-                  <p id="total-amount" class="font-bold">$0.00</p>
-                </div>
-              </div>
+              <button type="submit" id="place-order-btn"
+                class="w-full text-center bg-black font-sans text-white px-4 py-3 mt-8.5 mb-1.5 hover:bg-gray-800 transition rounded-sm">
+                PLACE ORDER
+              </button>
             </div>
-            <button type="submit" id="place-order-btn"
-              class="w-full text-center bg-black font-sans text-white px-4 py-2 mt-8.5 mb-1.5 hover:bg-gray-800 transition">
-              PLACE ORDER
-            </button>
           </div>
+        </div>
       </form>
   </main>
 
@@ -163,7 +169,7 @@
     </div>
   </div>
 
- <footer id="footer" class="bg-gray-900 text-gray-100 py-12 px-4"></footer>
+  <footer id="footer" class="bg-gray-900 text-gray-100 py-12 px-4"></footer>
 </body>
 <script type="module" src="checkout.js"></script>
 

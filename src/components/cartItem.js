@@ -33,16 +33,17 @@ export function CartItem(cart, path) {
       <p class="text-lg font-medium">$${cart.price}</p>
     </div>
     <div class="flex items-center gap-6.5">
-     <div class="flex gap-6">
-        <button class="text-gray-400 decrease-btn">&#10094;</button>
-        <span class="quantity-display">${cart.quantity}</span>
-        <button class="text-gray-400 increase-btn">&#10095;</button>
-    </div>
+      <div class="flex items-center bg-white border border-yellow-700 rounded-sm w-max h-9 overflow-hidden shadow-sm">
+        <button class="decrease-btn w-9 h-full flex items-center justify-center text-yellow-800 bg-transparent hover:bg-yellow-800 hover:text-white transition-colors duration-300 text-xl font-light focus:outline-none cursor-pointer">&#8722;</button>
+        <span class="quantity-display flex-1 px-4 font-serif text-gray-900 text-base min-w-[3rem] text-center select-none border-x border-yellow-700/30 h-full flex items-center justify-center">${cart.quantity}</span>
+        <button class="increase-btn w-9 h-full flex items-center justify-center text-yellow-800 bg-transparent hover:bg-yellow-800 hover:text-white transition-colors duration-300 text-xl font-light focus:outline-none cursor-pointer">&#43;</button>
+      </div>
       <div>
         <p id="total-price" class="text-lg font-medium total-price">$${cart.price * cart.quantity}</p>
       </div>
-      <button class="bg-gray-100 rounded-full p-1.5 delete-btn">
-       remove
+      <button class="delete-btn flex items-center gap-2 text-sm font-medium text-gray-400 hover:text-red-700 transition-colors duration-300 uppercase tracking-widest focus:outline-none ml-2">
+        <i class="fa-regular fa-trash-can text-lg"></i>
+        <span class="hidden sm:inline">Remove</span>
       </button>
     </div>
   `;

@@ -7,11 +7,11 @@ export function productHTML(product) {
     product !== null
   ) {
     const div = document.createElement("div");
-    div.className = "product-card";
+    div.className = "product-card lg:flex lg:gap-12 lg:max-w-6xl lg:mx-auto xl:px-8 w-full";
     div.id = `product-${product.id}`;
     div.innerHTML = `
-         <div class="xs:w-[26rem] h-90 w-full mx-auto left-26 sm:w-[28rem] sm:h-[31rem] mb-8 overflow-hidden">
-           <img class="product-image" src="${product.image}" alt="${product.name}">
+         <div class="xs:w-[26rem] h-90 w-full mx-auto sm:w-[28rem] sm:h-[31rem] lg:w-[35rem] lg:h-[38rem] lg:mx-0 mb-8 overflow-hidden rounded-md shadow-sm">
+           <img class="product-image w-full h-full object-cover" src="${product.image}" alt="${product.name}">
          </div>
        <div class="flex items-center flex-col justify-center gap-2.5">
          <p class="text-[1.4rem] font-medium">${product.name}</p>
