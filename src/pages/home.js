@@ -53,7 +53,7 @@ const imagePath = "./src/images/";
 
 renderProducts(productsData, imagePath, productList);
 
-const addToCartSuccessMessage = document.querySelector(".added-cart-success");
+const successMsgEle = document.querySelector(".added-cart-success");
 
 const carts = savedCarts();
 
@@ -92,31 +92,23 @@ products.addEventListener("click", (event) => {
     return;
   }
 
+  const updateMessage = "Cart updated successfully!";
+
   if (event.target.classList.contains("decrease-btn")) {
     decreaseCartQuantity(cardId, carts);
     card.querySelector(".quantity-display").textContent = cart.quantity;
-    runCartActionsConfirmation(
-      addToCartSuccessMessage,
-      "Cart updated successfully!",
-      carts,
-      cartsCount,
-    );
+    runCartActionsConfirmation(successMsgEle, updateMessage, carts, cartsCount);
     return;
   }
 
   if (event.target.classList.contains("increase-btn")) {
     increaseCartQuantity(cardId, carts);
     card.querySelector(".quantity-display").textContent = cart.quantity;
-    runCartActionsConfirmation(
-      addToCartSuccessMessage,
-      "Cart updated successfully!",
-      carts,
-      cartsCount,
-    );
+    runCartActionsConfirmation(successMsgEle, updateMessage, carts, cartsCount);
     return;
   }
 
-  addProductToCart(card, carts, addToCartSuccessMessage);
+  addProductToCart(card, carts, successMsgEle);
   displayCartsCount(cartsCount, carts);
   cartActionsContainer.innerHTML = quantityControlItem();
 });

@@ -25,7 +25,7 @@ footer.innerHTML = footerHTML();
 
 const carts = savedCarts();
 
-const cartCountSpan = document.getElementById("cart-count");
+const cartCount = document.getElementById("cart-count");
 const cartButton = document.getElementById("cart-btn");
 const cartList = document.getElementById("carts-list");
 const emptyCartMessage = document.getElementById("empty-cart-message");
@@ -40,6 +40,24 @@ const totalAmount = document.getElementById("total-amount");
 const checkoutButton = document.getElementById("checkout-btn");
 
 renderCarts(cartList, carts);
+
+function toggleHiddenOnEmptyCarts() {
+  if (carts.length === 0) {
+    emptyCartMessage.classList.remove("hidden");
+    resultContainer.classList.add("hidden");
+  } else {
+    emptyCartMessage.classList.add("hidden");
+    resultContainer.classList.remove("hidden");
+  }
+}
+
+function resultAmount() {
+  const result = calculateSubtotal(carts);
+  totalAmount.textContent = result;
+  subtotalAmount.textContent = result;
+}
+
+toggleHiddenOnEmptyCarts();
 
 cartList.addEventListener("click", (event) => {
   const target = event.target;
@@ -57,14 +75,12 @@ cartList.addEventListener("click", (event) => {
     card.querySelector(".quantity-display").textContent = cart.quantity;
     card.querySelector(".total-price").textContent =
       `$${cart.price * cart.quantity.toFixed(2)}`;
-    const result = calculateSubtotal(carts);
-    totalAmount.textContent = result;
-    subtotalAmount.textContent = result;
+    resultAmount();
     runCartActionsConfirmation(
       updateCartSuccessMessage,
       "Cart updated successfully!",
       carts,
-      cartCountSpan,
+      cartCount,
     );
     return;
   }
@@ -74,14 +90,12 @@ cartList.addEventListener("click", (event) => {
     card.querySelector(".quantity-display").textContent = cart.quantity;
     card.querySelector(".total-price").textContent =
       `$${cart.price * cart.quantity.toFixed(2)}`;
-    const result = calculateSubtotal(carts);
-    totalAmount.textContent = result;
-    subtotalAmount.textContent = result;
+    resultAmount();
     runCartActionsConfirmation(
       updateCartSuccessMessage,
       "Cart updated successfully!",
       carts,
-      cartCountSpan,
+      cartCount,
     );
     return;
   }
@@ -91,17 +105,15 @@ cartList.addEventListener("click", (event) => {
     const index = getCartIndex(cardId, carts);
     if (index > -1) {
       carts.splice(index, 1);
-      const result = calculateSubtotal(carts);
-      totalAmount.textContent = result;
-      subtotalAmount.textContent = result;
-
+      resultAmount();
       runCartActionsConfirmation(
         updateCartSuccessMessage,
         `${cart.name} remove from cart!`,
         carts,
-        cartCountSpan,
+        cartCount,
       );
       saveCarts(carts);
+      toggleHiddenOnEmptyCarts();
       return;
     }
   }
@@ -120,15 +132,7 @@ const result = calculateSubtotal(carts);
 subtotalAmount.textContent = result;
 totalAmount.textContent = result;
 
-if (carts.length === 0) {
-  emptyCartMessage.classList.remove("hidden");
-  resultContainer.classList.add("hidden");
-} else {
-  emptyCartMessage.classList.add("hidden");
-  resultContainer.classList.remove("hidden");
-}
-
-displayCartsCount(cartCountSpan, carts);
+displayCartsCount(cartCount, carts);
 
 hamburgerButton.addEventListener("click", () => {
   toggleDropdownMenu(dropDownMenu);
