@@ -60,8 +60,8 @@ function resultAmount() {
 toggleHiddenOnEmptyCarts();
 
 cartList.addEventListener("click", (event) => {
-  const target = event.target;
-  if (target.tagName !== "BUTTON" && target.tagName !== "IMG") {
+  const target = event.target.closest("button") || event.target.closest("img");
+  if (!target) {
     return;
   }
 
@@ -71,6 +71,7 @@ cartList.addEventListener("click", (event) => {
   const cart = getProductInCart(carts, cardId);
 
   if (target.classList.contains("decrease-btn")) {
+
     decreaseCartQuantity(cardId, carts);
     card.querySelector(".quantity-display").textContent = cart.quantity;
     card.querySelector(".total-price").textContent =
@@ -86,6 +87,7 @@ cartList.addEventListener("click", (event) => {
   }
 
   if (target.classList.contains("increase-btn")) {
+
     increaseCartQuantity(cardId, carts);
     card.querySelector(".quantity-display").textContent = cart.quantity;
     card.querySelector(".total-price").textContent =
