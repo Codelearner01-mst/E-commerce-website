@@ -14,8 +14,9 @@ export function productHTML(product) {
            <img class="product-image w-full h-full object-cover" src="${product.image}" alt="${product.name}">
          </div>
        <div class="flex items-center flex-col justify-center gap-2.5">
-         <p class="text-[1.4rem] font-medium">${product.name}</p>
-         <p class="text-[1.4rem] font-medium">$${product.price}</p>
+         <h1 class="text-3xl md:text-4xl font-serif tracking-widest uppercase text-gray-900 text-center">${product.name}</h1>
+         <p class="text-2xl text-yellow-700 font-medium">$${product.price}</p>
+         <p class="text-[1.1rem] text-gray-600 font-sans text-center max-w-2xl px-4 my-2 leading-relaxed">${product.description}</p>
           <div class="cart-actions-container">
             <button id="add-cart-btn" class="add-cart-btn btn-primary">
               +Add To Cart
