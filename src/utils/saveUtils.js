@@ -4,9 +4,9 @@ export function saveCarts(carts) {
   }
 }
 
-export function loadCarts() {
+export function savedCarts() {
   try {
-    return JSON.parse(localStorage.getItem("carts"));
+    return JSON.parse(localStorage.getItem("carts")) || [];
   } catch (error) {
     return [];
   }

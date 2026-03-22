@@ -1,10 +1,32 @@
 import { renderCarts } from "../components/render.js";
-import { loadCarts } from "../utils/saveUtils.js";
+import { savedCarts } from "../utils/saveUtils.js";
 import { displayCartsCount, toggleDropdownMenu } from "../utils/shared.js";
+import { decreaseCartQuantity } from "../utils/cart-controller.js";
+import { increaseCartQuantity } from "../utils/cart-controller.js";
+import { calculateSubtotal } from "../utils/calculateTotal.js";
+import { hamburgerHTML } from "../components/loadComponents/header/hamburgerItem.js";
+import { navigationHTML } from "../components/loadComponents/header/navigationItem.js";
+import { footerHTML } from "../components/loadComponents/footer/footerItem.js";
+import { cartCountHTML } from "../components/loadComponents/header/cartCountItem.js";
+import { saveCarts } from "../utils/saveUtils.js";
+import { getCartIndex } from "../utils/helper.js";
+import { getProductInCart } from "../utils/helper.js";
+import { displayProduct } from "../utils/cart-controller.js";
+import { runCartActionsConfirmation } from "../utils/toast/notify.js";
 
-const carts = loadCarts();
+const headerBar = document.getElementById("header-bar");
+const footer = document.getElementById("footer");
 
-const cartCountSpan = document.getElementById("cart-count");
+headerBar.insertAdjacentHTML("beforeEnd", cartCountHTML());
+headerBar.insertAdjacentHTML("beforeEnd", hamburgerHTML());
+headerBar.insertAdjacentHTML("beforeEnd", navigationHTML("./shop.html"));
+
+footer.innerHTML = footerHTML();
+
+const carts = savedCarts();
+
+const cartCount = document.getElementById("cart-count");
+const cartButton = document.getElementById("cart-btn");
 const cartList = document.getElementById("carts-list");
 const emptyCartMessage = document.getElementById("empty-cart-message");
 const updateCartSuccessMessage = document.querySelector(".update-cart-success");
@@ -17,32 +39,102 @@ const subtotalAmount = document.getElementById("subtotal-amount");
 const totalAmount = document.getElementById("total-amount");
 const checkoutButton = document.getElementById("checkout-btn");
 
-renderCarts(cartList, carts, cartCountSpan, updateCartSuccessMessage);
+renderCarts(cartList, carts);
 
-const totalPriceElement = document.querySelectorAll(".total-price"); //Get the total amount of each product in cart
-
-function calculateSubtotal() {
-  let sum = 0;
-  totalPriceElement.forEach((ele) => {
-    const priceText = ele.textContent.replace("$", ""); //Replace "$" with empty space to avoid NaN error on strings like $23,$30 when turning it to a float number
-    const price = parseFloat(priceText);
-    sum += price;
-  });
-  return `$${sum.toFixed(2)}`;
+function toggleHiddenOnEmptyCarts() {
+  if (carts.length === 0) {
+    emptyCartMessage.classList.remove("hidden");
+    resultContainer.classList.add("hidden");
+  } else {
+    emptyCartMessage.classList.add("hidden");
+    resultContainer.classList.remove("hidden");
+  }
 }
-const result = calculateSubtotal();
+
+function resultAmount() {
+  const result = calculateSubtotal(carts);
+  totalAmount.textContent = result;
+  subtotalAmount.textContent = result;
+}
+
+toggleHiddenOnEmptyCarts();
+
+cartList.addEventListener("click", (event) => {
+  const target = event.target.closest("button") || event.target.closest("img");
+  if (!target) {
+    return;
+  }
+
+  const card = target.closest(".cart-card");
+  const cardId = parseInt(card.id.split("-")[1], 10);
+
+  const cart = getProductInCart(carts, cardId);
+
+  if (target.classList.contains("decrease-btn")) {
+
+    decreaseCartQuantity(cardId, carts);
+    card.querySelector(".quantity-display").textContent = cart.quantity;
+    card.querySelector(".total-price").textContent =
+      `$${cart.price * cart.quantity.toFixed(2)}`;
+    resultAmount();
+    runCartActionsConfirmation(
+      updateCartSuccessMessage,
+      "Cart updated successfully!",
+      carts,
+      cartCount,
+    );
+    return;
+  }
+
+  if (target.classList.contains("increase-btn")) {
+
+    increaseCartQuantity(cardId, carts);
+    card.querySelector(".quantity-display").textContent = cart.quantity;
+    card.querySelector(".total-price").textContent =
+      `$${cart.price * cart.quantity.toFixed(2)}`;
+    resultAmount();
+    runCartActionsConfirmation(
+      updateCartSuccessMessage,
+      "Cart updated successfully!",
+      carts,
+      cartCount,
+    );
+    return;
+  }
+
+  if (target.classList.contains("delete-btn")) {
+    card.remove();
+    const index = getCartIndex(cardId, carts);
+    if (index > -1) {
+      carts.splice(index, 1);
+      resultAmount();
+      runCartActionsConfirmation(
+        updateCartSuccessMessage,
+        `${cart.name} remove from cart!`,
+        carts,
+        cartCount,
+      );
+      saveCarts(carts);
+      toggleHiddenOnEmptyCarts();
+      return;
+    }
+  }
+  displayProduct(card, "./product.html");
+});
+
+checkoutButton.addEventListener("click", () => {
+  window.location.href = "checkout.html";
+});
+
+cartButton.addEventListener("click", () => {
+  window.location.href = "carts.html";
+});
+
+const result = calculateSubtotal(carts);
 subtotalAmount.textContent = result;
 totalAmount.textContent = result;
 
-if (carts.length === 0) {
-  emptyCartMessage.classList.remove("hidden");
-  resultContainer.classList.add("hidden");
-} else {
-  emptyCartMessage.classList.add("hidden");
-  resultContainer.classList.remove("hidden");
-}
-
-displayCartsCount(cartCountSpan, carts);
+displayCartsCount(cartCount, carts);
 
 hamburgerButton.addEventListener("click", () => {
   toggleDropdownMenu(dropDownMenu);

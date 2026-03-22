@@ -9,13 +9,8 @@
  * Expected `cart` shape:
  * { id: number, name: string, price: number, image: string, quantity: number }
  */
-import { saveCarts } from "../utils/saveUtils.js";
-import { displayCartsCount } from "../utils/shared.js";
-import { ShowSucessMessage } from "../utils/shared.js";
-import { decreaseQuantity } from "../utils/shared.js";
-import { increaseQuantity } from "../utils/shared.js";
 
-export function CartItem(cart, carts, countEle, msgEle) {
+export function CartItem(cart, path) {
   //Cart holds a particular product in the carts array
   /**
    * Create a cart item element.
@@ -24,80 +19,45 @@ export function CartItem(cart, carts, countEle, msgEle) {
    * @param {HTMLElement} ele - element used to display cart count
    * @returns {HTMLElement}
    */
+  const newSrc = cart.image.replace("./src/images/", path);
+
   const cartDiv = document.createElement("div");
-  cartDiv.className = "flex flex-row border-b border-gray-200 pb-4";
+  cartDiv.className = "cart-card flex flex-row border-b border-gray-200 pb-4";
+  cartDiv.id = `product-${cart.id}`;
   cartDiv.innerHTML = `
     <div class="flex gap-2.5 flex-col ml-3.5 mr-9">
       <div class="w-20 h-20">
-        <img src="${cart.image}" alt="${cart.name}" class="object-cover h-full w-full" />
+        <img src="${newSrc}" alt="${cart.name}" class="object-cover h-full w-full" />
       </div>
       <p class="">${cart.name}</p>
       <p class="text-lg font-medium">$${cart.price}</p>
     </div>
     <div class="flex items-center gap-6.5">
-      <div class="flex gap-6">
-        <button class="text-gray-400 decrease-btn">&#10094;</button>
-        <span class="quantity-display">${cart.quantity}</span>
-        <button class="text-gray-400 increase-btn">&#10095;</button>
+      <div class="flex items-center bg-white border border-yellow-700 rounded-sm w-max h-9 overflow-hidden shadow-sm">
+        <button class="decrease-btn w-9 h-full flex items-center justify-center text-yellow-800 bg-transparent hover:bg-yellow-800 hover:text-white transition-colors duration-300 text-xl font-light focus:outline-none cursor-pointer">&#8722;</button>
+        <span class="quantity-display flex-1 px-4 font-serif text-gray-900 text-base min-w-[3rem] text-center select-none border-x border-yellow-700/30 h-full flex items-center justify-center">${cart.quantity}</span>
+        <button class="increase-btn w-9 h-full flex items-center justify-center text-yellow-800 bg-transparent hover:bg-yellow-800 hover:text-white transition-colors duration-300 text-xl font-light focus:outline-none cursor-pointer">&#43;</button>
       </div>
       <div>
         <p id="total-price" class="text-lg font-medium total-price">$${cart.price * cart.quantity}</p>
       </div>
-      <button class="bg-gray-100 rounded-full p-1.5 delete-btn">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M6 18L18 6M6 6l12 12"
-          />
-        </svg>
+      <button class="delete-btn flex items-center gap-2 text-sm font-medium text-gray-400 hover:text-red-700 transition-colors duration-300 uppercase tracking-widest focus:outline-none ml-2">
+        <i class="fa-regular fa-trash-can text-lg"></i>
+        <span class="hidden sm:inline">Remove</span>
       </button>
     </div>
   `;
 
-  if (!msgEle || !countEle) {
+  return cartDiv;
+}
+
+export function cartsDisplayOnlyItem(cart, numbering) {
+  if (typeof cart !== "object" && Array.isArray(cart) && cart === null) {
     return;
   }
-
-  const decreaseBtn = cartDiv.querySelector(".decrease-btn");
-  const increaseBtn = cartDiv.querySelector(".increase-btn");
-  const deleteBtn = cartDiv.querySelector(".delete-btn");
-  const quantityDisplay = cartDiv.querySelector(".quantity-display");
-  const totalPrice = cartDiv.querySelector(".total-price");
-
-  decreaseBtn.addEventListener("click", () => {
-    decreaseQuantity(cart, quantityDisplay);
-    totalPrice.textContent = `$${cart.price * cart.quantity.toFixed(2)}`;
-    displayCartsCount(countEle, carts);
-    ShowSucessMessage(msgEle);
-    saveCarts(carts);
-  });
-
-  increaseBtn.addEventListener("click", () => {
-    increaseQuantity(cart, quantityDisplay);
-    totalPrice.textContent = `$${cart.price * cart.quantity}`;
-    displayCartsCount(countEle, carts);
-    ShowSucessMessage(msgEle);
-    saveCarts(carts);
-  });
-
-  deleteBtn.addEventListener("click", () => {
-    cartDiv.remove();
-    const index = carts.findIndex((c) => c.id === cart.id);
-    if (index > -1) {
-      carts.splice(index, 1);
-      displayCartsCount(countEle, carts);
-      ShowSucessMessage(msgEle);
-      saveCarts(carts);
-    }
-  });
-
+  const cartDiv = document.createElement("div");
+  cartDiv.className = "flex flex-row justify-between font-light";
+  cartDiv.innerHTML = `<p><span>${numbering}</span>. ${cart.name}</p>
+                <p>$${cart.price}</p>`;
   return cartDiv;
 }
