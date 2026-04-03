@@ -29,7 +29,7 @@ const cartCount = document.getElementById("cart-count");
 const cartButton = document.getElementById("cart-btn");
 const cartList = document.getElementById("carts-list");
 const emptyCartMessage = document.getElementById("empty-cart-message");
-const updateCartSuccessMessage = document.querySelector(".update-cart-success");
+const toastEle = document.querySelector(".update-cart-success");
 
 const hamburgerButton = document.getElementById("hamburger-btn");
 const dropDownMenu = document.getElementById("drop-menu");
@@ -91,29 +91,23 @@ cartList.addEventListener("click", (event) => {
   const cardId = parseInt(card.id.split("-")[1], 10);
   const cart = getProductInCart(carts, cardId);
 
+  let toastMsg = "Cart updated successfully!";
+
   if (target.classList.contains("decrease-btn")) {
     decreaseCartQuantity(cardId, carts);
     if (cart.quantity === 1) {
       const decreaseBtn = target
         .closest(".cart-btns-box")
         .querySelector(".decrease-btn");
-      card.querySelector(".quantity-display").textContent = cart.quantity;
       //disable decrease button when quantity reaches 1
       disableButton(decreaseBtn);
-      return;
-    } else {
-      card.querySelector(".total-price").textContent =
-        `$${cart.price * cart.quantity.toFixed(2)}`;
-      resultAmount();
-      runCartActionsConfirmation(
-        updateCartSuccessMessage,
-        "Cart updated successfully!",
-        carts,
-        cartCount,
-      );
-      card.querySelector(".quantity-display").textContent = cart.quantity;
-      return;
     }
+    card.querySelector(".total-price").textContent =
+      `$${cart.price * cart.quantity.toFixed(2)}`;
+    resultAmount();
+    runCartActionsConfirmation(toastEle, toastMsg, carts, cartCount);
+    card.querySelector(".quantity-display").textContent = cart.quantity;
+    return;
   }
 
   if (target.classList.contains("increase-btn")) {
@@ -126,27 +120,18 @@ cartList.addEventListener("click", (event) => {
     card.querySelector(".total-price").textContent =
       `$${cart.price * cart.quantity.toFixed(2)}`;
     resultAmount();
-    runCartActionsConfirmation(
-      updateCartSuccessMessage,
-      "Cart updated successfully!",
-      carts,
-      cartCount,
-    );
+    runCartActionsConfirmation(toastEle, toastMsg, carts, cartCount);
     return;
   }
 
   if (target.classList.contains("delete-btn")) {
+    toastMsg = `${cart.name} remove from cart!`;
     card.remove();
     const index = getCartIndex(cardId, carts);
     if (index > -1) {
       carts.splice(index, 1);
       resultAmount();
-      runCartActionsConfirmation(
-        updateCartSuccessMessage,
-        `${cart.name} remove from cart!`,
-        carts,
-        cartCount,
-      );
+      runCartActionsConfirmation(toastEle, toastMsg, carts, cartCount);
       saveCarts(carts);
       toggleHiddenOnEmptyCarts();
       return;

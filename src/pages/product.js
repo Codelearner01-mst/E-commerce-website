@@ -34,7 +34,7 @@ renderProduct(productContainer, "../images/");
 
 const addTocartBtn = document.getElementById("add-cart-btn");
 const cartButton = document.getElementById("cart-btn");
-const addToCartSuccessMessage = document.querySelector(".added-cart-success");
+const toastEle = document.querySelector(".added-cart-success");
 const cartsCount = document.getElementById("cart-count");
 
 const hamburgerButton = document.getElementById("hamburger-btn");
@@ -76,6 +76,8 @@ window.addEventListener("pageshow", (event) => {
   displayCartsCount(cartsCount, carts);
 });
 
+const toastMsg = "Cart updated successfully!";
+
 function decreaseFunc() {
   const cart = getProductInCart(carts, currentProduct.id);
   if (cart.quantity === 1) {
@@ -84,21 +86,11 @@ function decreaseFunc() {
       ".cart-actions-container",
     );
     cartActionsContainer.innerHTML = AddToCartHtml();
-    runCartActionsConfirmation(
-      addToCartSuccessMessage,
-      "Cart updated successfully!",
-      carts,
-      cartsCount,
-    );
+    runCartActionsConfirmation(toastEle, toastMsg, carts, cartsCount);
   } else {
     decreaseCartQuantity(currentProduct.id, carts);
     document.querySelector(".quantity-display").textContent = cart.quantity;
-    runCartActionsConfirmation(
-      addToCartSuccessMessage,
-      "Cart updated successfully!",
-      carts,
-      cartsCount,
-    );
+    runCartActionsConfirmation(toastEle, toastMsg, carts, cartsCount);
   }
 }
 
@@ -106,18 +98,13 @@ function increaseFunc() {
   const cart = getProductInCart(carts, currentProduct.id);
   increaseCartQuantity(currentProduct.id, carts);
   document.querySelector(".quantity-display").textContent = cart.quantity;
-  runCartActionsConfirmation(
-    addToCartSuccessMessage,
-    "Cart updated successfully!",
-    carts,
-    cartsCount,
-  );
+  runCartActionsConfirmation(toastEle, toastMsg, carts, cartsCount);
 }
 
 addTocartBtn.addEventListener("click", () => {
   const card = addTocartBtn.closest(".product-card");
   const cartActionsContainer = card.querySelector(".cart-actions-container");
-  addProductToCart(card, carts, addToCartSuccessMessage);
+  addProductToCart(card, carts, toastEle);
   displayCartsCount(cartsCount, carts);
   cartActionsContainer.innerHTML = quantityControlItem({ quantity: 1 });
 
