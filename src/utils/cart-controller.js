@@ -54,6 +54,18 @@ export const decreaseCartQuantity = (id, carts) => {
   saveCarts(carts);
 };
 
+export function removeProductFromCart(id, carts) {
+  if (!Array.isArray(carts)) {
+    return;
+  }
+  const index = getCartIndex(id, carts);
+  if (index === -1) {
+    return;
+  }
+  carts.splice(index, 1);
+  saveCarts(carts);
+}
+
 export function addProductToCart(card, carts, msgEle) {
   if (!carts || !msgEle) {
     return;

@@ -59,35 +59,68 @@ function resultAmount() {
 
 toggleHiddenOnEmptyCarts();
 
+function disableButton(btn) {
+  btn.disabled = true;
+  btn.classList.remove("cursor-pointer");
+  btn.classList.add("cursor-not-allowed", "opacity-50");
+}
+
+function enableButton(btn) {
+  btn.disabled = false;
+  btn.classList.add("cursor-pointer");
+  btn.classList.remove("cursor-not-allowed", "opacity-50");
+}
+
+document.querySelectorAll(".cart-card").forEach((card) => {
+  const cardId = parseInt(card.id.split("-")[1], 10);
+  const cart = getProductInCart(carts, cardId);
+  if (cart.quantity < 2) {
+    const decreaseBtn = card.querySelector(".decrease-btn");
+    disableButton(decreaseBtn);
+  }
+});
+
 cartList.addEventListener("click", (event) => {
   const target = event.target.closest("button") || event.target.closest("img");
+
   if (!target) {
     return;
   }
 
   const card = target.closest(".cart-card");
   const cardId = parseInt(card.id.split("-")[1], 10);
-
   const cart = getProductInCart(carts, cardId);
 
   if (target.classList.contains("decrease-btn")) {
-
     decreaseCartQuantity(cardId, carts);
-    card.querySelector(".quantity-display").textContent = cart.quantity;
-    card.querySelector(".total-price").textContent =
-      `$${cart.price * cart.quantity.toFixed(2)}`;
-    resultAmount();
-    runCartActionsConfirmation(
-      updateCartSuccessMessage,
-      "Cart updated successfully!",
-      carts,
-      cartCount,
-    );
-    return;
+    if (cart.quantity === 1) {
+      const decreaseBtn = target
+        .closest(".cart-btns-box")
+        .querySelector(".decrease-btn");
+      card.querySelector(".quantity-display").textContent = cart.quantity;
+      //disable decrease button when quantity reaches 1
+      disableButton(decreaseBtn);
+      return;
+    } else {
+      card.querySelector(".total-price").textContent =
+        `$${cart.price * cart.quantity.toFixed(2)}`;
+      resultAmount();
+      runCartActionsConfirmation(
+        updateCartSuccessMessage,
+        "Cart updated successfully!",
+        carts,
+        cartCount,
+      );
+      card.querySelector(".quantity-display").textContent = cart.quantity;
+      return;
+    }
   }
 
   if (target.classList.contains("increase-btn")) {
-
+    const decreaseBtn = target
+      .closest(".cart-btns-box")
+      .querySelector(".decrease-btn");
+    enableButton(decreaseBtn);
     increaseCartQuantity(cardId, carts);
     card.querySelector(".quantity-display").textContent = cart.quantity;
     card.querySelector(".total-price").textContent =

@@ -15,6 +15,7 @@ import { savedCarts } from "../utils/saveUtils.js";
 import { displayCartsCount } from "../utils/shared.js";
 import { displayProduct } from "../utils/cart-controller.js";
 import { addProductToCart } from "../utils/cart-controller.js";
+import { removeProductFromCart } from "../utils/cart-controller.js";
 import { getProductInCart } from "../utils/helper.js";
 import { isProductInCart } from "../utils/helper.js";
 import { productsData } from "../utils/productsStore.js";
@@ -27,6 +28,7 @@ import { quantityControlItem } from "../components/quantityControlItem.js";
 import { decreaseCartQuantity } from "../utils/cart-controller.js";
 import { increaseCartQuantity } from "../utils/cart-controller.js";
 import { runCartActionsConfirmation } from "../utils/toast/notify.js";
+import { AddToCartHtml } from "../components/addToCartButton.js";
 
 const headerBar = document.getElementById("header-bar");
 const footer = document.getElementById("footer");
@@ -95,9 +97,25 @@ products.addEventListener("click", (event) => {
   const updateMessage = "Cart updated successfully!";
 
   if (event.target.classList.contains("decrease-btn")) {
-    decreaseCartQuantity(cardId, carts);
-    card.querySelector(".quantity-display").textContent = cart.quantity;
-    runCartActionsConfirmation(successMsgEle, updateMessage, carts, cartsCount);
+    if (cart.quantity === 1) {
+      removeProductFromCart(cardId, carts);
+      cartActionsContainer.innerHTML = AddToCartHtml();
+      runCartActionsConfirmation(
+        successMsgEle,
+        updateMessage,
+        carts,
+        cartsCount,
+      );
+    } else {
+      decreaseCartQuantity(cardId, carts);
+      card.querySelector(".quantity-display").textContent = cart.quantity;
+      runCartActionsConfirmation(
+        successMsgEle,
+        updateMessage,
+        carts,
+        cartsCount,
+      );
+    }
     return;
   }
 

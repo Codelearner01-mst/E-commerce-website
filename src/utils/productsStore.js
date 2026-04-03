@@ -7,7 +7,8 @@ export const productsData = [
     price: 29.99,
     image: "alex-azabache-y2ErhoE92KA-unsplash.jpg",
     quantity: 1,
-    description: "An elegant piece crafted with precision, featuring a timeless minimalist design perfect for any everyday occasion."
+    description:
+      "An elegant piece crafted with precision, featuring a timeless minimalist design perfect for any everyday occasion.",
   },
   {
     id: 2,
@@ -15,7 +16,8 @@ export const productsData = [
     price: 39.99,
     image: "cornelia-ng-2zHQhfEpisc-unsplash.jpg",
     quantity: 1,
-    description: "A stunning statement accessory adorned with brilliant cuts, designed to capture light and attention."
+    description:
+      "A stunning statement accessory adorned with brilliant cuts, designed to capture light and attention.",
   },
   {
     id: 3,
@@ -23,7 +25,8 @@ export const productsData = [
     price: 49.99,
     image: "luisana-galicia-rGz2Z6tVaeg-unsplash.jpg",
     quantity: 1,
-    description: "A breathtaking arrangement of fine stones, embodying absolute luxury and premium craftsmanship."
+    description:
+      "A breathtaking arrangement of fine stones, embodying absolute luxury and premium craftsmanship.",
   },
   {
     id: 4,
@@ -31,7 +34,8 @@ export const productsData = [
     price: 29.99,
     image: "sabrianna-uiKSc7-NM2s-unsplash.jpg",
     quantity: 1,
-    description: "Delicate and refined, this piece seamlessly blends modern aesthetics with classic jewelry traditions."
+    description:
+      "Delicate and refined, this piece seamlessly blends modern aesthetics with classic jewelry traditions.",
   },
   {
     id: 5,
@@ -39,7 +43,8 @@ export const productsData = [
     price: 39.99,
     image: "alexis-antoine-r7JZGKGhrf0-unsplash.jpg",
     quantity: 1,
-    description: "A bold and sophisticated piece ensuring you stand out in the highest of societies. Radiates warmth and elegance."
+    description:
+      "A bold and sophisticated piece ensuring you stand out in the highest of societies. Radiates warmth and elegance.",
   },
   {
     id: 6,
@@ -47,7 +52,8 @@ export const productsData = [
     price: 49.99,
     image: "atul-mohan-TmOPo7TpLzw-unsplash - Copy.jpg",
     quantity: 1,
-    description: "Unparalleled prestige in a small package. Intricately polished to a mirror-like finish for maximum shine."
+    description:
+      "Unparalleled prestige in a small package. Intricately polished to a mirror-like finish for maximum shine.",
   },
   {
     id: 7,
@@ -55,7 +61,8 @@ export const productsData = [
     price: 29.99,
     image: "carmen-alarcon-PHcEof5kfqk-unsplash.jpg",
     quantity: 1,
-    description: "A romantic and graceful accessory, beautifully shaped to accent natural beauty and grace."
+    description:
+      "A romantic and graceful accessory, beautifully shaped to accent natural beauty and grace.",
   },
   {
     id: 8,
@@ -63,7 +70,8 @@ export const productsData = [
     price: 39.99,
     image: "sabrianna-ZWwC_6VfdAU-unsplash.jpg",
     quantity: 1,
-    description: "Forged with passion, featuring a unique silhouette that challenges traditional jewelry standards."
+    description:
+      "Forged with passion, featuring a unique silhouette that challenges traditional jewelry standards.",
   },
   {
     id: 9,
@@ -71,7 +79,8 @@ export const productsData = [
     price: 49.99,
     image: "sabrianna-a9HPsYvWr-E-unsplash.jpg",
     quantity: 1,
-    description: "A majestic centerpiece for your collection. Truly a masterpiece of modern gemological crafting."
+    description:
+      "A majestic centerpiece for your collection. Truly a masterpiece of modern gemological crafting.",
   },
   {
     id: 10,
@@ -79,7 +88,8 @@ export const productsData = [
     price: 29.99,
     image: "sabrianna-x_iL7y7VV4M-unsplash.jpg",
     quantity: 1,
-    description: "A charming, lightweight adornment. Perfectly balanced to provide all-day comfort without sacrificing style."
+    description:
+      "A charming, lightweight adornment. Perfectly balanced to provide all-day comfort without sacrificing style.",
   },
   {
     id: 11,
@@ -87,7 +97,8 @@ export const productsData = [
     price: 39.99,
     image: "sabrianna-wh_rZqPiCuw-unsplash.jpg",
     quantity: 1,
-    description: "An instant classic. This exquisite piece serves as the perfect gift for a loved one or yourself."
+    description:
+      "An instant classic. This exquisite piece serves as the perfect gift for a loved one or yourself.",
   },
   {
     id: 12,
@@ -95,6 +106,7 @@ export const productsData = [
     price: 49.99,
     image: "sabrianna-lbqW0O09RAM-unsplash.jpg",
     quantity: 1,
-    description: "The crown jewel of any ensemble. Features a stunning array of intricate details and mesmerizing beauty."
+    description:
+      "The crown jewel of any ensemble. Features a stunning array of intricate details and mesmerizing beauty.",
   },
 ];

@@ -6,11 +6,13 @@ import { displayCartsCount } from "../utils/shared.js";
 import { getCartIndex } from "../utils/helper.js";
 import { getProductInCart } from "../utils/helper.js";
 import { isProductInCart } from "../utils/helper.js";
+import { removeProductFromCart } from "../utils/cart-controller.js";
 import { hamburgerHTML } from "../components/loadComponents/header/hamburgerItem.js";
 import { navigationHTML } from "../components/loadComponents/header/navigationItem.js";
 import { cartCountHTML } from "../components/loadComponents/header/cartCountItem.js";
 import { footerHTML } from "../components/loadComponents/footer/footerItem.js";
 import { quantityControlItem } from "../components/quantityControlItem.js";
+import { AddToCartHtml } from "../components/addToCartButton.js";
 import { decreaseCartQuantity } from "../utils/cart-controller.js";
 import { increaseCartQuantity } from "../utils/cart-controller.js";
 import { productsData } from "../utils/productsStore.js";
@@ -76,14 +78,28 @@ window.addEventListener("pageshow", (event) => {
 
 function decreaseFunc() {
   const cart = getProductInCart(carts, currentProduct.id);
-  decreaseCartQuantity(currentProduct.id, carts);
-  document.querySelector(".quantity-display").textContent = cart.quantity;
-  runCartActionsConfirmation(
-    addToCartSuccessMessage,
-    "Cart updated successfully!",
-    carts,
-    cartsCount,
-  );
+  if (cart.quantity === 1) {
+    removeProductFromCart(currentProduct.id, carts);
+    const cartActionsContainer = document.querySelector(
+      ".cart-actions-container",
+    );
+    cartActionsContainer.innerHTML = AddToCartHtml();
+    runCartActionsConfirmation(
+      addToCartSuccessMessage,
+      "Cart updated successfully!",
+      carts,
+      cartsCount,
+    );
+  } else {
+    decreaseCartQuantity(currentProduct.id, carts);
+    document.querySelector(".quantity-display").textContent = cart.quantity;
+    runCartActionsConfirmation(
+      addToCartSuccessMessage,
+      "Cart updated successfully!",
+      carts,
+      cartsCount,
+    );
+  }
 }
 
 function increaseFunc() {
