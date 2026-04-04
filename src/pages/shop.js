@@ -22,7 +22,10 @@ const footer = document.getElementById("footer");
 
 headerBar.insertAdjacentHTML("beforeEnd", cartCountHTML());
 headerBar.insertAdjacentHTML("beforeEnd", hamburgerHTML());
-headerBar.insertAdjacentHTML("beforeEnd", navigationHTML("#products"));
+headerBar.insertAdjacentHTML(
+  "beforeEnd",
+  navigationHTML("#products", "./about.html", "./contact.html"),
+);
 
 footer.innerHTML = footerHTML();
 
@@ -30,13 +33,12 @@ const cartCount = document.getElementById("cart-count");
 const hamburgerButton = document.getElementById("hamburger-btn");
 const cartButton = document.getElementById("cart-btn");
 const dropDownMenu = document.getElementById("drop-menu");
-const products = document.querySelector(".product-list");
+const products = document.getElementById("product-list");
 const message = document.querySelector(".update-cart-success");
-const productList = document.getElementById("product-list");
 
 const imagePath = "../images/";
 
-renderProducts(productsData, imagePath, productList, productsData.length);
+renderProducts(productsData, imagePath, products, productsData.length);
 
 cartButton.addEventListener("click", () => {
   window.location.href = "carts.html";
@@ -50,10 +52,8 @@ window.addEventListener("pageshow", (event) => {
     const cardId = parseInt(card.id.split("-")[1], 10);
     const cart = getProductInCart(carts, cardId);
     if (isProductInCart(cardId, carts)) {
-      const cartActionsContainer = card.querySelector(
-        ".cart-actions-container",
-      );
-      cartActionsContainer.innerHTML = quantityControlItem();
+      const cartBtnsContainer = card.querySelector(".cart-btns-container");
+      cartBtnsContainer.innerHTML = quantityControlItem();
       card.querySelector(".quantity-display").textContent = cart.quantity;
     }
   });
@@ -63,7 +63,7 @@ window.addEventListener("pageshow", (event) => {
 products.addEventListener("click", (event) => {
   const card = event.target.closest(".product-card");
   const cardId = parseInt(card.id.split("-")[1], 10);
-  const cartActionsContainer = card.querySelector(".cart-actions-container");
+  const cartBtnsContainer = card.querySelector(".cart-btns-container");
   const cart = getProductInCart(carts, cardId);
   if (!card || card === null) {
     return;
@@ -77,7 +77,7 @@ products.addEventListener("click", (event) => {
   if (event.target.classList.contains("decrease-btn")) {
     if (cart.quantity === 1) {
       removeProductFromCart(cardId, carts);
-      cartActionsContainer.innerHTML = AddToCartHtml();
+      cartBtnsContainer.innerHTML = AddToCartHtml();
       runCartActionsConfirmation(message, updateMessage, carts, cartCount);
     } else {
       decreaseCartQuantity(cardId, carts);
@@ -96,7 +96,7 @@ products.addEventListener("click", (event) => {
 
   addProductToCart(card, carts, message);
   displayCartsCount(cartCount, carts);
-  cartActionsContainer.innerHTML = quantityControlItem();
+  cartBtnsContainer.innerHTML = quantityControlItem();
 });
 
 displayCartsCount(cartCount, carts);

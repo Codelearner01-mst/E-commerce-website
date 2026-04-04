@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact — Vision Jewelry</title>
+    <link rel="stylesheet" href="../styles/output.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <style>
+      :root {
+        --gold: #a07840;
+        --gold-light: #c6a97d;
+        --cream: #faf8f5;
+      }
+
+      .page-banner {
+        position: relative;
+        height: 52vh;
+        min-height: 320px;
+        display: flex;
+        align-items: flex-end;
+        padding-bottom: 3.5rem;
+        background-size: cover;
+        background-position: center 30%;
+      }
+      .page-banner-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.65) 0%,
+          rgba(0, 0, 0, 0.2) 60%,
+          transparent 100%
+        );
+      }
+      .page-banner-content {
+        position: relative;
+        z-index: 10;
+        padding: 0 1.5rem;
+        width: 100%;
+        max-width: 1120px;
+        margin: 0 auto;
+      }
+      @media (min-width: 640px) {
+        .page-banner-content {
+          padding: 0 3rem;
+        }
+      }
+      @media (min-width: 1024px) {
+        .page-banner-content {
+          padding: 0 5rem;
+        }
+      }
+      .page-eyebrow {
+        display: block;
+        font-size: 0.6rem;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        color: var(--gold-light);
+        margin-bottom: 0.6rem;
+      }
+      .page-title {
+        font-family: serif;
+        font-size: clamp(2.2rem, 5vw, 3.5rem);
+        font-weight: 400;
+        color: white;
+        letter-spacing: 0.02em;
+        line-height: 1.1;
+      }
+
+      .gold-rule {
+        width: 2.5rem;
+        height: 1px;
+        background: var(--gold);
+        display: block;
+        margin-bottom: 1rem;
+      }
+      .gold-rule-center {
+        margin: 0 auto 1rem;
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 4rem;
+        max-width: 1060px;
+        margin: 0 auto;
+        padding: 5rem 1.5rem;
+      }
+      @media (min-width: 768px) {
+        .contact-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 6rem;
+          padding: 7rem 2.5rem;
+        }
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+      .form-label {
+        font-size: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: #999;
+      }
+      .form-input {
+        width: 100%;
+        padding: 0.7rem 0;
+        border: none;
+        border-bottom: 1px solid #ddd;
+        background: transparent;
+        font-size: 0.9rem;
+        color: #111;
+        outline: none;
+        transition: border-color 0.2s;
+        border-radius: 0;
+        font-family: inherit;
+      }
+      .form-input:focus {
+        border-bottom-color: #111;
+      }
+      .form-input::placeholder {
+        color: #ccc;
+        font-size: 0.85rem;
+      }
+      textarea.form-input {
+        resize: none;
+        padding-top: 0.5rem;
+      }
+
+      .submit-btn {
+        background: #111;
+        color: white;
+        border: none;
+        padding: 1rem 2.5rem;
+        border-radius: 9999px;
+        font-size: 0.68rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.3s;
+        font-family: inherit;
+        width: 100%;
+        margin-top: 0.75rem;
+      }
+      .submit-btn:hover {
+        background: var(--gold);
+      }
+
+      .info-item {
+        display: flex;
+        gap: 1.25rem;
+        align-items: flex-start;
+        padding: 1.5rem 0;
+        border-bottom: 1px solid #f0ece6;
+      }
+      .info-item:first-child {
+        border-top: 1px solid #f0ece6;
+      }
+      .info-icon {
+        width: 2.25rem;
+        height: 2.25rem;
+        border: 1px solid #f0ece6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--gold);
+        font-size: 0.8rem;
+        flex-shrink: 0;
+        margin-top: 0.15rem;
+      }
+      .info-label {
+        font-size: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: #bbb;
+        margin-bottom: 0.35rem;
+      }
+      .info-value {
+        font-size: 0.9rem;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      .form-success {
+        display: none;
+        text-align: center;
+        padding: 3rem 1rem;
+      }
+      .form-success.visible {
+        display: block;
+      }
+      .form-success-icon {
+        font-size: 2rem;
+        color: var(--gold);
+        margin-bottom: 1rem;
+      }
+
+      .nav-link {
+        position: relative;
+        font-family: serif;
+        font-size: 1rem;
+        color: #1a1a1a;
+        letter-spacing: 0.04em;
+        transition: color 0.25s;
+      }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        width: 0;
+        height: 1px;
+        background: var(--gold);
+        transition: width 0.3s;
+      }
+      .nav-link:hover {
+        color: var(--gold);
+      }
+      .nav-link:hover::after {
+        width: 100%;
+      }
+    </style>
+  </head>
+
+  <body class="bg-white">
+    <header
+      id="header-bar"
+      class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-5 md:px-10 py-5 bg-white/95 backdrop-blur-sm border-b border-gray-100/80 transition-all duration-300"
+    >
+      <a
+        href="../../index.html"
+        class="text-gray-900 text-xl md:text-2xl font-serif tracking-[0.22em] uppercase"
+        >Vision Jewelry</a
+      >
+    </header>
+
+    <main class="pt-[73px]">
+      <div
+        class="page-banner"
+        style="
+          background-image: url(&quot;../images/alex-azabache-y2ErhoE92KA-unsplash.jpg&quot;);
+        "
+      >
+        <div class="page-banner-overlay"></div>
+        <div class="page-banner-content">
+          <span class="page-eyebrow">Reach Out</span>
+          <h1 class="page-title">Get in Touch</h1>
+        </div>
+      </div>
+
+      <section>
+        <div class="contact-grid">
+          <!-- Form -->
+          <div>
+            <span class="gold-rule"></span>
+            <h2
+              class="font-serif text-2xl font-medium text-gray-900 tracking-wide mb-2 leading-snug"
+            >
+              Send Us a Message
+            </h2>
+            <p class="text-gray-400 text-sm font-light mb-8 leading-relaxed">
+              We'd love to hear from you. Fill in the form and we'll get back to
+              you within one business day.
+            </p>
+
+            <form id="contact-form" class="flex flex-col gap-7" novalidate>
+              <div class="form-group">
+                <label class="form-label" for="name">Full Name</label>
+                <input
+                  class="form-input"
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Jane Smith"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="email">Email Address</label>
+                <input
+                  class="form-input"
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="jane@example.com"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="subject">Subject</label>
+                <input
+                  class="form-input"
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  placeholder="Order enquiry, custom piece, etc."
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="message">Message</label>
+                <textarea
+                  class="form-input"
+                  id="message"
+                  name="message"
+                  rows="5"
+                  placeholder="Tell us how we can help..."
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+
+            <div class="form-success" id="form-success">
+              <div class="form-success-icon">
+                <i class="fa-solid fa-check-circle"></i>
+              </div>
+              <h3 class="font-serif text-xl text-gray-900 mb-2">
+                Message Sent
+              </h3>
+              <p class="text-gray-400 text-sm font-light">
+                Thank you for reaching out. We'll be in touch within one
+                business day.
+              </p>
+            </div>
+          </div>
+
+          <!-- Info -->
+          <div class="flex flex-col justify-start pt-0 md:pt-14">
+            <div class="info-item">
+              <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
+              <div>
+                <p class="info-label">Email</p>
+                <p class="info-value">hello@visionjewelry.com</p>
+                <p class="info-value">support@visionjewelry.com</p>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
+              <div>
+                <p class="info-label">Phone</p>
+                <p class="info-value">+1 (800) 555 – 0142</p>
+                <p class="info-value" style="font-size: 0.8rem; color: #aaa">
+                  Mon – Fri, 9am – 5pm EST
+                </p>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon">
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+              <div>
+                <p class="info-label">Studio</p>
+                <p class="info-value">
+                  18 Goldsmiths Row<br />New York, NY 10001
+                </p>
+              </div>
+            </div>
+            <div class="info-item" style="border-bottom: none">
+              <div class="info-icon">
+                <i class="fa-brands fa-instagram"></i>
+              </div>
+              <div>
+                <p class="info-label">Social</p>
+                <div class="flex gap-4 mt-1">
+                  <a
+                    href="#"
+                    class="text-sm text-gray-400 hover:text-amber-700 transition-colors"
+                    ><i class="fab fa-instagram"></i
+                  ></a>
+                  <a
+                    href="#"
+                    class="text-sm text-gray-400 hover:text-amber-700 transition-colors"
+                    ><i class="fab fa-facebook-f"></i
+                  ></a>
+                  <a
+                    href="#"
+                    class="text-sm text-gray-400 hover:text-amber-700 transition-colors"
+                    ><i class="fab fa-pinterest-p"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="mt-6 p-5"
+              style="background: var(--cream); border: 1px solid #ede8df"
+            >
+              <p class="text-xs uppercase tracking-[0.2em] text-gray-400 mb-3">
+                Store Hours
+              </p>
+              <div class="flex flex-col gap-1.5 text-sm text-gray-600">
+                <div class="flex justify-between">
+                  <span>Monday – Friday</span><span>10:00 – 18:00</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>Saturday</span><span>11:00 – 17:00</span>
+                </div>
+                <div class="flex justify-between text-gray-400">
+                  <span>Sunday</span><span>Closed</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-gray-900 text-gray-400 py-14 px-5">
+      <div
+        class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start gap-10"
+      >
+        <div>
+          <h2
+            class="font-serif text-white text-xl tracking-[0.2em] uppercase mb-2"
+          >
+            Vision Jewelry
+          </h2>
+          <p class="text-xs tracking-[0.15em] uppercase text-gray-500">
+            Fine Handcrafted Jewelry
+          </p>
+        </div>
+        <div class="flex flex-col gap-3 text-sm">
+          <a href="./shop.html" class="hover:text-white transition-colors"
+            >Shop</a
+          >
+          <a href="./about.html" class="hover:text-white transition-colors"
+            >About</a
+          >
+          <a href="./contact.html" class="text-white">Contact</a>
+        </div>
+        <div class="flex flex-col gap-3">
+          <p class="text-xs tracking-[0.15em] uppercase mb-1">Follow</p>
+          <div class="flex gap-5 text-sm">
+            <a href="#" class="hover:text-white transition-colors"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a href="#" class="hover:text-white transition-colors"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="#" class="hover:text-white transition-colors"
+              ><i class="fab fa-pinterest-p"></i
+            ></a>
+          </div>
+        </div>
+        <p class="text-xs tracking-[0.1em] text-gray-600 md:self-end">
+          © 2026 Vision Jewelry. All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      document
+        .getElementById("contact-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          this.style.display = "none";
+          document.getElementById("form-success").classList.add("visible");
+        });
+    </script>
+  </body>
+</html>

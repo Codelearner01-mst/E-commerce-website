@@ -37,23 +37,26 @@ headerBar.insertAdjacentHTML("beforeEnd", cartCountHTML());
 headerBar.insertAdjacentHTML("beforeEnd", hamburgerHTML());
 headerBar.insertAdjacentHTML(
   "beforeEnd",
-  navigationHTML("./src/pages/shop.html"),
+  navigationHTML(
+    "./src/pages/shop.html",
+    "./src/pages/about.html",
+    "./src/pages/contact.html",
+  ),
 );
 
 footer.innerHTML = footerHTML();
 
 const cartsCount = document.getElementById("cart-count");
-const products = document.querySelector(".product-list");
 const cartButton = document.getElementById("cart-btn");
 const messageForm = document.getElementById("message-form");
 
 const hamburgerButton = document.getElementById("hamburger-btn");
 const dropDownMenu = document.getElementById("drop-menu");
-const productList = document.getElementById("product-list");
+const products = document.getElementById("product-list");
 
 const imagePath = "./src/images/";
 
-renderProducts(productsData, imagePath, productList);
+renderProducts(productsData, imagePath, products);
 
 const successMsgEle = document.querySelector(".added-cart-success");
 
@@ -71,10 +74,8 @@ window.addEventListener("pageshow", (event) => {
     const cardId = parseInt(card.id.split("-")[1], 10);
     const cart = getProductInCart(carts, cardId);
     if (isProductInCart(cardId, carts)) {
-      const cartActionsContainer = card.querySelector(
-        ".cart-actions-container",
-      );
-      cartActionsContainer.innerHTML = quantityControlItem();
+      const cartBtnsContainer = card.querySelector(".cart-btns-container");
+      cartBtnsContainer.innerHTML = quantityControlItem();
       card.querySelector(".quantity-display").textContent = cart.quantity;
     }
   });
@@ -83,7 +84,7 @@ window.addEventListener("pageshow", (event) => {
 
 products.addEventListener("click", (event) => {
   const card = event.target.closest(".product-card");
-  const cartActionsContainer = card.querySelector(".cart-actions-container");
+  const cartBtnsContainer = card.querySelector(".cart-btns-container");
   const cardId = parseInt(card.id.split("-")[1], 10);
   const cart = getProductInCart(carts, cardId);
   if (!card || card === null) {
@@ -99,7 +100,7 @@ products.addEventListener("click", (event) => {
   if (event.target.classList.contains("decrease-btn")) {
     if (cart.quantity === 1) {
       removeProductFromCart(cardId, carts);
-      cartActionsContainer.innerHTML = AddToCartHtml();
+      cartBtnsContainer.innerHTML = AddToCartHtml();
       runCartActionsConfirmation(
         successMsgEle,
         updateMessage,
@@ -128,7 +129,7 @@ products.addEventListener("click", (event) => {
 
   addProductToCart(card, carts, successMsgEle);
   displayCartsCount(cartsCount, carts);
-  cartActionsContainer.innerHTML = quantityControlItem();
+  cartBtnsContainer.innerHTML = quantityControlItem();
 });
 
 function submitMessage() {

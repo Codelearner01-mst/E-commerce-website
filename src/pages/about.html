@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us — Vision Jewelry</title>
+    <link rel="stylesheet" href="../styles/output.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <style>
+      :root {
+        --gold: #a07840;
+        --gold-light: #c6a97d;
+        --cream: #faf8f5;
+      }
+
+      /* Page hero banner */
+      .page-banner {
+        position: relative;
+        height: 52vh;
+        min-height: 320px;
+        display: flex;
+        align-items: flex-end;
+        padding-bottom: 3.5rem;
+        background-size: cover;
+        background-position: center 30%;
+      }
+      .page-banner-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.65) 0%,
+          rgba(0, 0, 0, 0.2) 60%,
+          transparent 100%
+        );
+      }
+      .page-banner-content {
+        position: relative;
+        z-index: 10;
+        padding: 0 1.5rem;
+        width: 100%;
+        max-width: 1120px;
+        margin: 0 auto;
+      }
+      @media (min-width: 640px) {
+        .page-banner-content {
+          padding: 0 3rem;
+        }
+      }
+      @media (min-width: 1024px) {
+        .page-banner-content {
+          padding: 0 5rem;
+        }
+      }
+
+      .page-eyebrow {
+        display: block;
+        font-size: 0.6rem;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        color: var(--gold-light);
+        margin-bottom: 0.6rem;
+      }
+      .page-title {
+        font-family: serif;
+        font-size: clamp(2.2rem, 5vw, 3.5rem);
+        font-weight: 400;
+        color: white;
+        letter-spacing: 0.02em;
+        line-height: 1.1;
+      }
+
+      /* Gold rule */
+      .gold-rule {
+        width: 2.5rem;
+        height: 1px;
+        background: var(--gold);
+        display: block;
+        margin-bottom: 1rem;
+      }
+      .gold-rule-center {
+        margin: 0 auto 1rem;
+      }
+
+      /* Stat strip */
+      .stat-strip {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        border-top: 1px solid #ede8df;
+        border-bottom: 1px solid #ede8df;
+        background: var(--cream);
+      }
+      @media (min-width: 768px) {
+        .stat-strip {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
+      .stat-item {
+        padding: 3rem 1.5rem;
+        text-align: center;
+        border-right: 1px solid #ede8df;
+      }
+      .stat-item:last-child {
+        border-right: none;
+      }
+      @media (max-width: 767px) {
+        .stat-item:nth-child(2) {
+          border-right: none;
+        }
+        .stat-item:nth-child(3) {
+          border-top: 1px solid #ede8df;
+        }
+        .stat-item:nth-child(4) {
+          border-top: 1px solid #ede8df;
+          border-right: none;
+        }
+      }
+      .stat-number {
+        font-family: serif;
+        font-size: 2.5rem;
+        font-weight: 400;
+        color: #111;
+        display: block;
+      }
+      .stat-label {
+        font-size: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: #aaa;
+        margin-top: 0.4rem;
+        display: block;
+      }
+
+      /* Story split */
+      .story-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        align-items: center;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 5rem 1.5rem;
+      }
+      @media (min-width: 768px) {
+        .story-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 6rem;
+          padding: 7rem 2.5rem;
+        }
+      }
+
+      .story-image {
+        overflow: hidden;
+        aspect-ratio: 4/5;
+        background: #f5f2ef;
+      }
+      .story-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.9s ease;
+      }
+      .story-image:hover img {
+        transform: scale(1.03);
+      }
+
+      /* Values grid */
+      .values-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-top: 3.5rem;
+      }
+      @media (min-width: 640px) {
+        .values-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media (min-width: 1024px) {
+        .values-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      .value-card {
+        padding: 2rem 2rem 2.25rem;
+        border: 1px solid #f0ece6;
+        display: flex;
+        flex-direction: column;
+        gap: 0.65rem;
+      }
+      .value-icon {
+        font-size: 1rem;
+        color: var(--gold);
+      }
+      .value-heading {
+        font-family: serif;
+        font-size: 1.1rem;
+        font-weight: 400;
+        color: #111;
+        letter-spacing: 0.03em;
+      }
+      .value-body {
+        font-size: 0.875rem;
+        color: #888;
+        line-height: 1.85;
+      }
+
+      /* Nav */
+      .nav-link {
+        position: relative;
+        font-family: serif;
+        font-size: 1rem;
+        color: #1a1a1a;
+        letter-spacing: 0.04em;
+        transition: color 0.25s;
+      }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        width: 0;
+        height: 1px;
+        background: var(--gold);
+        transition: width 0.3s;
+      }
+      .nav-link:hover {
+        color: var(--gold);
+      }
+      .nav-link:hover::after {
+        width: 100%;
+      }
+    </style>
+  </head>
+
+  <body class="bg-white">
+    <!-- Header -->
+    <header
+      id="header-bar"
+      class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-5 md:px-10 py-5 bg-white/95 backdrop-blur-sm border-b border-gray-100/80 transition-all duration-300"
+    >
+      <a
+        href="../../index.html"
+        class="text-gray-900 text-xl md:text-2xl font-serif tracking-[0.22em] uppercase"
+      >
+        Vision Jewelry
+      </a>
+    </header>
+
+    <main class="pt-[73px]">
+      <!-- Banner -->
+      <div
+        class="page-banner"
+        style="
+          background-image: url(&quot;../images/segal-jewelry-NsH-CvU0deg-unsplash.jpg&quot;);
+        "
+      >
+        <div class="page-banner-overlay"></div>
+        <div class="page-banner-content">
+          <span class="page-eyebrow">Who We Are</span>
+          <h1 class="page-title">Our Story</h1>
+        </div>
+      </div>
+
+      <!-- Intro -->
+      <section class="px-5 py-20">
+        <div class="max-w-2xl mx-auto text-center">
+          <span class="gold-rule gold-rule-center"></span>
+          <h2
+            class="text-2xl md:text-3xl font-serif font-medium text-gray-900 tracking-wide mb-6 leading-snug"
+          >
+            Crafted with Purpose,<br />Worn with Pride
+          </h2>
+          <p class="text-gray-500 text-base leading-relaxed font-light mb-5">
+            Vision Jewelry was founded on a simple belief — that jewelry should
+            tell a story. We have been dedicated to creating pieces that
+            celebrate life's most precious moments, from the everyday to the
+            extraordinary.
+          </p>
+          <p class="text-gray-500 text-base leading-relaxed font-light">
+            Our expert artisans work with only the finest ethically sourced
+            materials, combining traditional goldsmithing techniques with modern
+            design sensibilities.
+          </p>
+        </div>
+      </section>
+
+      <!-- Stats -->
+      <div class="stat-strip">
+        <div class="stat-item">
+          <span class="stat-number">14+</span>
+          <span class="stat-label">Years of Craft</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">4k</span>
+          <span class="stat-label">Pieces Made</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">Handcrafted</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">38</span>
+          <span class="stat-label">Countries Shipped</span>
+        </div>
+      </div>
+
+      <!-- Story split -->
+      <section
+        style="background: var(--cream); border-bottom: 1px solid #ede8df"
+      >
+        <div class="story-grid">
+          <div class="story-image">
+            <img
+              src="../images/atul-mohan-TmOPo7TpLzw-unsplash - Copy.jpg"
+              alt="Artisan at work"
+            />
+          </div>
+          <div class="flex flex-col gap-5 justify-center">
+            <span class="gold-rule"></span>
+            <h3
+              class="font-serif text-2xl md:text-3xl font-medium text-gray-900 tracking-wide leading-snug"
+            >
+              From the Hands<br />of Our Artisans
+            </h3>
+            <p class="text-gray-500 text-sm leading-relaxed font-light">
+              Each piece begins as a sketch — an idea shaped by years of study
+              and a deep respect for traditional goldsmithing. Our artisans
+              spend days, sometimes weeks, perfecting a single design before it
+              ever meets metal.
+            </p>
+            <p class="text-gray-500 text-sm leading-relaxed font-light">
+              We work with responsibly sourced gold and gemstones, ensuring that
+              beauty never comes at a cost to people or the planet.
+            </p>
+            <a
+              href="./shop.html"
+              class="inline-flex items-center gap-1 text-xs uppercase tracking-[0.22em] font-medium text-gray-900 border-b border-gray-900 pb-0.5 w-fit hover:text-amber-800 hover:border-amber-800 transition-all duration-300 mt-2"
+            >
+              Shop the Collection →
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Values -->
+      <section class="px-5 py-20">
+        <div class="max-w-5xl mx-auto">
+          <div class="text-center">
+            <span class="gold-rule gold-rule-center"></span>
+            <h2
+              class="text-2xl md:text-3xl font-serif font-medium text-gray-900 tracking-wide"
+            >
+              What We Stand For
+            </h2>
+          </div>
+          <div class="values-grid">
+            <div class="value-card">
+              <span class="value-icon"><i class="fa-solid fa-gem"></i></span>
+              <h4 class="value-heading">Uncompromising Quality</h4>
+              <p class="value-body">
+                Every piece is inspected by hand before it leaves our workshop.
+                We hold ourselves to standards that go beyond industry norms.
+              </p>
+            </div>
+            <div class="value-card">
+              <span class="value-icon"><i class="fa-solid fa-leaf"></i></span>
+              <h4 class="value-heading">Ethical Sourcing</h4>
+              <p class="value-body">
+                We partner only with suppliers who share our commitment to fair
+                labor practices and responsible, transparent mining.
+              </p>
+            </div>
+            <div class="value-card">
+              <span class="value-icon"
+                ><i class="fa-solid fa-hands-holding-heart"></i
+              ></span>
+              <h4 class="value-heading">Made with Care</h4>
+              <p class="value-body">
+                Jewelry is personal. We design with intention, knowing that each
+                piece may mark a milestone, a memory, or a promise.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA strip -->
+      <section
+        class="px-5 py-16 text-center"
+        style="background: var(--cream); border-top: 1px solid #ede8df"
+      >
+        <span class="gold-rule gold-rule-center"></span>
+        <h2
+          class="text-2xl font-serif font-medium text-gray-900 tracking-wide mb-4"
+        >
+          Ready to Find Your Piece?
+        </h2>
+        <p class="text-gray-400 text-sm font-light mb-8 max-w-sm mx-auto">
+          Browse our full collection of handcrafted jewelry and accessories.
+        </p>
+        <a
+          href="./shop.html"
+          class="inline-block bg-gray-900 text-white px-8 py-3.5 rounded-full text-xs uppercase tracking-[0.2em] font-medium hover:bg-amber-800 transition-all duration-300"
+        >
+          Shop Now
+        </a>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-14 px-5">
+      <div
+        class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start gap-10"
+      >
+        <div>
+          <h2
+            class="font-serif text-white text-xl tracking-[0.2em] uppercase mb-2"
+          >
+            Vision Jewelry
+          </h2>
+          <p class="text-xs tracking-[0.15em] uppercase text-gray-500">
+            Fine Handcrafted Jewelry
+          </p>
+        </div>
+        <div class="flex flex-col gap-3 text-sm">
+          <a href="./shop.html" class="hover:text-white transition-colors"
+            >Shop</a
+          >
+          <a href="./about.html" class="text-white">About</a>
+          <a href="./contact.html" class="hover:text-white transition-colors"
+            >Contact</a
+          >
+        </div>
+        <div class="flex flex-col gap-3">
+          <p class="text-xs tracking-[0.15em] uppercase mb-1">Follow</p>
+          <div class="flex gap-5 text-sm">
+            <a href="#" class="hover:text-white transition-colors"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a href="#" class="hover:text-white transition-colors"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="#" class="hover:text-white transition-colors"
+              ><i class="fab fa-pinterest-p"></i
+            ></a>
+          </div>
+        </div>
+        <p class="text-xs tracking-[0.1em] text-gray-600 md:self-end">
+          © 2026 Vision Jewelry. All rights reserved.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

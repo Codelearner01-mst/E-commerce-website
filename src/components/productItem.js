@@ -1,4 +1,4 @@
-//Product HTML to display when user clicked on product
+// Product HTML displayed when user clicks on a product
 
 export function productHTML(product) {
   if (
@@ -7,24 +7,62 @@ export function productHTML(product) {
     product !== null
   ) {
     const div = document.createElement("div");
-    div.className =
-      "product-card lg:flex lg:gap-12 lg:max-w-6xl lg:mx-auto xl:px-8 w-full";
+    div.className = "product-card w-full";
     div.id = `product-${product.id}`;
     div.innerHTML = `
-         <div class="xs:w-[26rem] h-90 w-full mx-auto sm:w-[28rem] sm:h-[31rem] lg:w-[35rem] lg:h-[38rem] lg:mx-0 mb-8 overflow-hidden rounded-md shadow-sm">
-           <img class="product-image w-full h-full object-cover" src="${product.image}" alt="${product.name}">
-         </div>
-       <div class="flex items-center flex-col justify-center gap-2.5">
-         <h1 class="text-3xl md:text-4xl font-serif tracking-widest uppercase text-gray-900 text-center">${product.name}</h1>
-         <p class="text-2xl text-yellow-700 font-medium">$${product.price}</p>
-         <p class="text-[1.1rem] text-gray-600 font-sans text-center max-w-2xl px-4 my-2 leading-relaxed">${product.description}</p>
-          <div class="cart-actions-container">
-            <button id="add-cart-btn" class="add-cart-btn btn-primary">
-              +Add To Cart
+      <div class="lg:grid lg:grid-cols-2 lg:gap-16 lg:max-w-6xl lg:mx-auto xl:px-8 w-full">
+
+        <!-- Image -->
+        <div class="relative overflow-hidden bg-gray-50
+                    xs:w-[26rem] h-[26rem] w-full
+                    sm:w-[28rem] sm:h-[34rem]
+                    lg:w-full lg:h-[44rem] lg:mx-0 mb-10 lg:mb-0">
+          <img
+            class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+            src="${product.image}"
+            alt="${product.name}"
+          />
+        </div>
+
+        <!-- Info -->
+        <div class="flex flex-col justify-center gap-5 px-4 lg:px-0 lg:py-8">
+          <span class="eyebrow">Vision Jewelry</span>
+
+          <h1 class="text-3xl md:text-4xl lg:text-[2.6rem] font-serif font-medium
+                     tracking-wide text-gray-900 leading-tight">
+            ${product.name}
+          </h1>
+
+          <p class="text-2xl font-sans font-medium text-amber-800 tracking-wide">
+            $${product.price}
+          </p>
+
+          <!-- Divider -->
+          <div class="w-12 h-px bg-amber-700 my-1"></div>
+
+          <p class="text-[1rem] text-gray-500 font-sans leading-relaxed max-w-md">
+            ${product.description}
+          </p>
+
+          <div class="cart-btns-container flex flex-col gap-3 mt-4 max-w-sm">
+            <button id="add-cart-btn" class="add-cart-btn btn-primary-full">
+              Add to Cart
+            </button>
+            <button class="btn-secondary">
+              Save to Wishlist
             </button>
           </div>
-       </div>
-   `;
+
+          <!-- Details strip -->
+          <div class="mt-6 pt-6 border-t border-gray-100 flex flex-col gap-2 text-xs text-gray-400 uppercase tracking-[0.15em]">
+            <p>✦ &nbsp;Handcrafted with care</p>
+            <p>✦ &nbsp;Free shipping on orders over $150</p>
+            <p>✦ &nbsp;30-day returns</p>
+          </div>
+        </div>
+
+      </div>
+    `;
     return div;
   }
   return {};
