@@ -1,22 +1,16 @@
 export function followUsHTML() {
-  return `<div>
-            <h4 class="text-white font-semibold mb-4">Follow Us</h4>
-            <ul class="space-y-2">
-              <li>
-                <a href="#" class="text-gray-400 hover:text-white transition"
-                  >Facebook</a
-                >
-              </li>
-              <li>
-                <a href="#" class="text-gray-400 hover:text-white transition"
-                  >Instagram</a
-                >
-              </li>
-              <li>
-                <a href="#" class="text-gray-400 hover:text-white transition"
-                  >Twitter</a
-                >
-              </li>
-            </ul>
-          </div>`;
+  return ` <div class="flex flex-col gap-3">
+          <p class="text-xs tracking-[0.15em] uppercase mb-1">Follow</p>
+          <div class="flex gap-5 text-sm">
+            <a href="#" class="hover:text-white transition-colors"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a href="#" class="hover:text-white transition-colors"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="#" class="hover:text-white transition-colors"
+              ><i class="fab fa-pinterest-p"></i
+            ></a>
+          </div>
+        </div>`;
 }

@@ -13,8 +13,8 @@ export function productHTML(product) {
       <div class="lg:grid lg:grid-cols-2 lg:gap-16 lg:max-w-6xl lg:mx-auto xl:px-8 w-full">
 
         <!-- Image -->
-        <div class="relative overflow-hidden bg-gray-50
-                    xs:w-[26rem] h-[26rem] w-full
+        <div class="relative overflow-hidden bg-gray-50  w-full
+                    xs:w-[26rem] h-[26rem]
                     sm:w-[28rem] sm:h-[34rem]
                     lg:w-full lg:h-[44rem] lg:mx-0 mb-10 lg:mb-0">
           <img

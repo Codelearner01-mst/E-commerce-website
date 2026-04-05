@@ -1,8 +1,12 @@
 export function titleHTML() {
-  return ` <div>
-            <h3 class="text-white font-bold text-lg mb-4">Vision Jewelry</h3>
-            <p class="text-gray-400">
-              Creating timeless pieces for life's precious moments.
-            </p>
-          </div>`;
+  return `<div>
+          <h2
+            class="font-serif text-white text-xl tracking-[0.2em] uppercase mb-2"
+          >
+            Vision Jewelry
+          </h2>
+          <p class="text-xs tracking-[0.15em] uppercase text-gray-500">
+            Fine Handcrafted Jewelry
+          </p>
+        </div>`;
 }
