@@ -9,10 +9,8 @@ import { hamburgerHTML } from "../components/loadComponents/header/hamburgerItem
 import { navigationHTML } from "../components/loadComponents/header/navigationItem.js";
 import { cartCountHTML } from "../components/loadComponents/header/cartCountItem.js";
 import { footerHTML } from "../components/loadComponents/footer/footerItem.js";
-import { AddToCartHtml } from "../components/addToCartButton.js";
 import { productsData } from "../utils/productsStore.js";
 import { renderProducts } from "../components/render.js";
-import { quantityControlItem } from "../components/quantityControlItem.js";
 import { decreaseCartQuantity } from "../utils/cart-controller.js";
 import { increaseCartQuantity } from "../utils/cart-controller.js";
 import { runCartActionsConfirmation } from "../utils/toast/notify.js";
@@ -52,8 +50,9 @@ window.addEventListener("pageshow", (event) => {
     const cardId = parseInt(card.id.split("-")[1], 10);
     const cart = getProductInCart(carts, cardId);
     if (isProductInCart(cardId, carts)) {
-      const cartBtnsContainer = card.querySelector(".cart-btns-container");
-      cartBtnsContainer.innerHTML = quantityControlItem();
+      card.querySelector(".add-cart-btn").classList.add("hidden");
+      card.querySelector(".quantity-control-btns").classList.remove("hidden");
+      card.querySelector(".quantity-control-btns").classList.add("flex");
       card.querySelector(".quantity-display").textContent = cart.quantity;
     }
   });
@@ -63,7 +62,6 @@ window.addEventListener("pageshow", (event) => {
 products.addEventListener("click", (event) => {
   const card = event.target.closest(".product-card");
   const cardId = parseInt(card.id.split("-")[1], 10);
-  const cartBtnsContainer = card.querySelector(".cart-btns-container");
   const cart = getProductInCart(carts, cardId);
   if (!card || card === null) {
     return;
@@ -77,7 +75,8 @@ products.addEventListener("click", (event) => {
   if (event.target.classList.contains("decrease-btn")) {
     if (cart.quantity === 1) {
       removeProductFromCart(cardId, carts);
-      cartBtnsContainer.innerHTML = AddToCartHtml();
+      card.querySelector(".add-cart-btn").classList.remove("hidden");
+      card.querySelector(".quantity-control-btns").classList.add("hidden");
       runCartActionsConfirmation(message, updateMessage, carts, cartCount);
     } else {
       decreaseCartQuantity(cardId, carts);
@@ -96,7 +95,9 @@ products.addEventListener("click", (event) => {
 
   addProductToCart(card, carts, message);
   displayCartsCount(cartCount, carts);
-  cartBtnsContainer.innerHTML = quantityControlItem();
+  card.querySelector(".add-cart-btn").classList.add("hidden");
+  card.querySelector(".quantity-control-btns").classList.remove("hidden");
+  card.querySelector(".quantity-control-btns").classList.add("flex");
 });
 
 displayCartsCount(cartCount, carts);

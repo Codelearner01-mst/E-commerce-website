@@ -57,9 +57,11 @@ window.addEventListener("pageshow", (event) => {
   const currentProduct = JSON.parse(sessionStorage.getItem("currentProduct"));
   if (isProductInCart(currentProduct.id, carts)) {
     const cart = getProductInCart(carts, currentProduct.id);
-    const cartBtnsContainer = document.querySelector(".cart-btns-container");
+
     // 1. Render the HTML and pass the cart object
-    cartBtnsContainer.innerHTML = quantityControlItem(cart);
+    document.querySelector(".add-cart-btn").classList.add("hidden");
+    document.querySelector(".quantity-control-btns").classList.remove("hidden");
+    document.querySelector(".quantity-control-btns").classList.add("flex");
     document.querySelector(".quantity-display").textContent = cart.quantity;
 
     // 2. Attach listeners because the buttons now exist
@@ -83,8 +85,8 @@ function decreaseFunc() {
   const cart = getProductInCart(carts, currentProduct.id);
   if (cart.quantity === 1) {
     removeProductFromCart(currentProduct.id, carts);
-    const cartBtnsContainer = document.querySelector(".cart-btns-container");
-    cartBtnsContainer.innerHTML = AddToCartHtml();
+    document.querySelector(".add-cart-btn").classList.remove("hidden");
+    document.querySelector(".quantity-control-btns").classList.add("hidden");
     runCartActionsConfirmation(toastEle, toastMsg, carts, cartsCount);
   } else {
     decreaseCartQuantity(currentProduct.id, carts);
@@ -102,7 +104,9 @@ function increaseFunc() {
 
 addTocartBtn.addEventListener("click", () => {
   const card = addTocartBtn.closest(".product-card");
-  const cartBtnsContainer = card.querySelector(".cart-btns-container");
+  card.querySelector(".add-cart-btn").classList.add("hidden");
+  card.querySelector(".quantity-control-btns").classList.remove("hidden");
+  card.querySelector(".quantity-control-btns").classList.add("flex");
   addProductToCart(card, carts, toastEle);
   displayCartsCount(cartsCount, carts);
   cartBtnsContainer.innerHTML = quantityControlItem({ quantity: 1 });
