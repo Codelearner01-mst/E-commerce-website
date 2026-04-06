@@ -8,7 +8,7 @@
 @layer components {
   /* ── Product Card ─────────────────────────────────────────── */
   .product-card {
-    @apply bg-white overflow-hidden transition-all duration-500;
+    @apply bg-white overflow-hidden shadow-xs transition-all duration-500;
   }
 
   .product-card:hover .product-image {

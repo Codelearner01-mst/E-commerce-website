@@ -19,7 +19,7 @@ headerBar.insertAdjacentHTML(
   navigationHTML("./shop.html", "./about.html", "./contact.html"),
 );
 
-footer.innerHTML = footerHTML();
+footer.innerHTML = footerHTML("./shop.html", "./about.html", "./contact.htm");
 
 const cartsCount = document.getElementById("cart-count");
 const cartButton = document.getElementById("cart-btn");

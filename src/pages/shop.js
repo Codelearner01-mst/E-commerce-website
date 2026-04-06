@@ -27,7 +27,7 @@ headerBar.insertAdjacentHTML(
   navigationHTML("#products", "./about.html", "./contact.html"),
 );
 
-footer.innerHTML = footerHTML();
+footer.innerHTML = footerHTML("#products", "./about.html", "./contact.html");
 
 const cartCount = document.getElementById("cart-count");
 const hamburgerButton = document.getElementById("hamburger-btn");

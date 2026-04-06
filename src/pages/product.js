@@ -28,7 +28,7 @@ headerBar.insertAdjacentHTML(
   navigationHTML("./shop.html", "./about.html", "./contact.html"),
 );
 
-footer.innerHTML = footerHTML();
+footer.innerHTML = footerHTML("./shop.html", "./about.html", "./contact.html");
 
 const carts = savedCarts();
 

@@ -3,12 +3,12 @@ import { linksHTML } from "./LinksItem.js";
 import { followUsHTML } from "./followUsItem.js";
 import { supportHTML } from "./supportItem.js";
 
-export function footerHTML() {
+export function footerHTML(shopPath, aboutPath, contactPath) {
   return `<div
              class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start gap-10" >
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           ${titleHTML()}
-          ${linksHTML()}
+          ${linksHTML(shopPath, aboutPath, contactPath)}
           ${supportHTML()}
           ${followUsHTML()}
         </div>

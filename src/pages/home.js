@@ -44,7 +44,11 @@ headerBar.insertAdjacentHTML(
   ),
 );
 
-footer.innerHTML = footerHTML();
+footer.innerHTML = footerHTML(
+  "./src/pages/shop.html",
+  "./src/pages/about.html",
+  "./src/pages/contact.html",
+);
 
 const cartsCount = document.getElementById("cart-count");
 const cartButton = document.getElementById("cart-btn");
