@@ -11,8 +11,6 @@ import { hamburgerHTML } from "../components/loadComponents/header/hamburgerItem
 import { navigationHTML } from "../components/loadComponents/header/navigationItem.js";
 import { cartCountHTML } from "../components/loadComponents/header/cartCountItem.js";
 import { footerHTML } from "../components/loadComponents/footer/footerItem.js";
-import { quantityControlItem } from "../components/quantityControlItem.js";
-import { AddToCartHtml } from "../components/addToCartButton.js";
 import { decreaseCartQuantity } from "../utils/cart-controller.js";
 import { increaseCartQuantity } from "../utils/cart-controller.js";
 import { productsData } from "../utils/productsStore.js";
@@ -109,7 +107,6 @@ addTocartBtn.addEventListener("click", () => {
   card.querySelector(".quantity-control-btns").classList.add("flex");
   addProductToCart(card, carts, toastEle);
   displayCartsCount(cartsCount, carts);
-  cartBtnsContainer.innerHTML = quantityControlItem({ quantity: 1 });
 
   const increaseBtn = document.querySelector(".increase-btn");
   const decreaseBtn = document.querySelector(".decrease-btn");

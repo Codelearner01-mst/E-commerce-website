@@ -48,10 +48,10 @@ export function productHTML(product) {
             <button id="add-cart-btn" class="add-cart-btn btn-primary-full">
               Add to Cart
             </button>
-             <div class="quantity-control-btns hidden items-center bg-white border rounded-2xl border-yellow-700  w-max h-9 overflow-hidden shadow-sm">
-                <button class="decrease-btn w-15 h-full flex items-center justify-center text-yellow-800 bg-transparent hover:bg-yellow-800 hover:text-white transition-colors duration-300 text-xl font-light focus:outline-none cursor-pointer">&#8722;</button>
-                <span class="quantity-display flex-1 px-4 font-serif text-gray-900 text-base min-w-[3rem] text-center select-none border-x border-yellow-700/30 h-full flex items-center justify-center">1</span>
-                <button class="increase-btn w-15 h-full flex items-center justify-center text-yellow-800 bg-transparent hover:bg-yellow-800 hover:text-white transition-colors duration-300 text-xl font-light focus:outline-none cursor-pointer">&#43;</button>
+             <div class="quantity-control-btns hidden items-center bg-white border rounded-2xl border-yellow-700  h-9 w-1/2 mx-auto px-6 py-3 overflow-hidden shadow-sm">
+                <button class="decrease-btn text-yellow-800 bg-transparent hover:bg-yellow-800 hover:text-white transition-colors duration-300 text-xl font-light focus:outline-none cursor-pointer">&#8722;</button>
+                <span class="quantity-display flex-1  font-serif text-gray-900 text-lg text-center select-none border-x border-yellow-700/30 h-full flex items-center justify-center">1</span>
+                <button class="increase-btn text-yellow-800 text-2xl bg-transparent hover:bg-yellow-800 hover:text-white transition-colors duration-300 font-light focus:outline-none cursor-pointer">&#43;</button>
              </div>
             <button class="btn-secondary">
               Save to Wishlist
