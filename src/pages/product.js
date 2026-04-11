@@ -15,6 +15,10 @@ import { decreaseCartQuantity } from "../utils/cart-controller.js";
 import { increaseCartQuantity } from "../utils/cart-controller.js";
 import { productsData } from "../utils/productsStore.js";
 import { runCartActionsConfirmation } from "../utils/toast/notify.js";
+import {
+  ShowQuantityControlButtons,
+  showAddToCartButton,
+} from "../utils/toggler.js";
 
 const headerBar = document.getElementById("header-bar");
 const footer = document.getElementById("footer");
@@ -55,14 +59,14 @@ window.addEventListener("pageshow", (event) => {
   const currentProduct = JSON.parse(sessionStorage.getItem("currentProduct"));
   if (isProductInCart(currentProduct.id, carts)) {
     const cart = getProductInCart(carts, currentProduct.id);
-
-    // 1. Render the HTML and pass the cart object
-    document.querySelector(".add-cart-btn").classList.add("hidden");
-    document.querySelector(".quantity-control-btns").classList.remove("hidden");
-    document.querySelector(".quantity-control-btns").classList.add("flex");
+    const quantityControlsBtn = document.querySelector(
+      ".quantity-control-btns",
+    );
+    const addToCartBtn = document.querySelector(".add-cart-btn");
+    ShowQuantityControlButtons(quantityControlsBtn, addToCartBtn);
     document.querySelector(".quantity-display").textContent = cart.quantity;
 
-    // 2. Attach listeners because the buttons now exist
+    // Attach listeners because the buttons now exist
     const increaseBtn = document.querySelector(".increase-btn");
     const decreaseBtn = document.querySelector(".decrease-btn");
 
@@ -82,9 +86,12 @@ const toastMsg = "Cart updated successfully!";
 function decreaseFunc() {
   const cart = getProductInCart(carts, currentProduct.id);
   if (cart.quantity === 1) {
+    const addToCartBtn = document.querySelector(".add-cart-btn");
+    const quantityControlsBtn = document.querySelector(
+      ".quantity-control-btns",
+    );
     removeProductFromCart(currentProduct.id, carts);
-    document.querySelector(".add-cart-btn").classList.remove("hidden");
-    document.querySelector(".quantity-control-btns").classList.add("hidden");
+    showAddToCartButton(quantityControlsBtn, addToCartBtn);
     runCartActionsConfirmation(toastEle, toastMsg, carts, cartsCount);
   } else {
     decreaseCartQuantity(currentProduct.id, carts);
@@ -102,10 +109,11 @@ function increaseFunc() {
 
 addTocartBtn.addEventListener("click", () => {
   const card = addTocartBtn.closest(".product-card");
-  card.querySelector(".add-cart-btn").classList.add("hidden");
-  card.querySelector(".quantity-control-btns").classList.remove("hidden");
-  card.querySelector(".quantity-control-btns").classList.add("flex");
+  const addToCartBtn = card.querySelector(".add-cart-btn");
+  const quantityControlsBtn = card.querySelector(".quantity-control-btns");
+
   addProductToCart(card, carts, toastEle);
+  ShowQuantityControlButtons(quantityControlsBtn, addToCartBtn);
   displayCartsCount(cartsCount, carts);
 
   const increaseBtn = document.querySelector(".increase-btn");
