@@ -36,6 +36,18 @@ export function ShowSucessMessage(ele, message) {
     clearTimeout(ele.hideTimeout);
   }
 
+  const closeBtn = ele.querySelector(".toast-close");
+  if (closeBtn) {
+    closeBtn.onclick = () => {
+      if (ele.hideTimeout) {
+        clearTimeout(ele.hideTimeout);
+        ele.hideTimeout = null;
+      }
+      ele.classList.remove("opacity-100", "translate-y-0");
+      ele.classList.add("opacity-0", "-translate-y-full", "pointer-events-none");
+    };
+  }
+
   ele.querySelector("p").textContent = message;
   // To make it fade out immediately before fading in again, we disable transition
   // and force it to its hidden state.
