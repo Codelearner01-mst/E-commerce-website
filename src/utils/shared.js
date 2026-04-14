@@ -36,7 +36,23 @@ export function ShowSucessMessage(ele, message) {
     clearTimeout(ele.hideTimeout);
   }
 
-  ele.querySelector("p").textContent = message;
+  const messageEle = ele.querySelector("p");
+  if (messageEle) {
+    messageEle.textContent = message;
+  }
+  
+  const closeBtn = ele.querySelector(".toast-close-btn");
+  if (closeBtn) {
+    closeBtn.onclick = () => {
+      if (ele.hideTimeout) {
+        clearTimeout(ele.hideTimeout);
+        ele.hideTimeout = null;
+      }
+      ele.classList.remove("opacity-100", "translate-y-0");
+      ele.classList.add("opacity-0", "-translate-y-full", "pointer-events-none");
+    };
+  }
+
   // To make it fade out immediately before fading in again, we disable transition
   // and force it to its hidden state.
   ele.classList.add("transition-none");
