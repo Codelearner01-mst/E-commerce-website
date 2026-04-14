@@ -36,7 +36,7 @@ export function ShowSucessMessage(ele, message) {
     clearTimeout(ele.hideTimeout);
   }
 
-  const closeBtn = ele.querySelector(".toast-close");
+  const closeBtn = ele.querySelector(".toast-close-btn");
   if (closeBtn) {
     closeBtn.onclick = () => {
       if (ele.hideTimeout) {
