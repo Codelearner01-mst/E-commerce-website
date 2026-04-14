@@ -36,6 +36,11 @@ export function ShowSucessMessage(ele, message) {
     clearTimeout(ele.hideTimeout);
   }
 
+  const messageEle = ele.querySelector("p");
+  if (messageEle) {
+    messageEle.textContent = message;
+  }
+  
   const closeBtn = ele.querySelector(".toast-close-btn");
   if (closeBtn) {
     closeBtn.onclick = () => {
@@ -48,7 +53,6 @@ export function ShowSucessMessage(ele, message) {
     };
   }
 
-  ele.querySelector("p").textContent = message;
   // To make it fade out immediately before fading in again, we disable transition
   // and force it to its hidden state.
   ele.classList.add("transition-none");
