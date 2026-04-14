@@ -30,6 +30,18 @@ const cartButton = document.getElementById("cart-btn");
 const cartList = document.getElementById("carts-list");
 const emptyCartMessage = document.getElementById("empty-cart-message");
 const toastEle = document.querySelector(".update-cart-success");
+const toastCloseBtn = toastEle.querySelector(".toast-close-btn");
+
+function hideToast() {
+  if (toastEle.hideTimeout) {
+    clearTimeout(toastEle.hideTimeout);
+    toastEle.hideTimeout = null;
+  }
+  toastEle.classList.remove("opacity-100", "translate-y-0");
+  toastEle.classList.add("opacity-0", "-translate-y-full", "pointer-events-none");
+}
+
+toastCloseBtn.addEventListener("click", hideToast);
 
 const hamburgerButton = document.getElementById("hamburger-btn");
 const dropDownMenu = document.getElementById("drop-menu");
