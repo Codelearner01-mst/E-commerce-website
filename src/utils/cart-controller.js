@@ -79,6 +79,6 @@ export function addProductToCart(card, carts, msgEle) {
     return;
   }
   carts.push(product);
-  ShowSucessMessage(msgEle, `${product.name} added to cart successfully!`);
+  ShowSucessMessage(`${product.name} added to cart successfully!`);
   saveCarts(carts);
 }

@@ -54,7 +54,6 @@ window.addEventListener("pageshow", (event) => {
   const carts = savedCarts();
   products.querySelectorAll(".product-card").forEach((card) => {
     const cardId = parseInt(card.id.split("-")[1], 10);
-
     const cart = getProductInCart(carts, cardId);
     if (isProductInCart(cardId, carts)) {
       const quantityControlsBtn = card.querySelector(".quantity-control-btns");

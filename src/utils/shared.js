@@ -1,4 +1,5 @@
 import { saveCarts } from "./saveUtils.js";
+import toastItem from "../components/toastItem.js";
 
 export function cartsCounter(carts) {
   if (!carts || !Array.isArray(carts)) {
@@ -27,37 +28,34 @@ export function toggleDropdownMenu(dropdown) {
   dropdown.classList.toggle("hidden");
 }
 
-export function ShowSucessMessage(ele, message) {
-  if (!ele || ele === null) {
-    return;
-  }
+export function ShowSucessMessage(message) {
+  const toast = toastItem(message);
 
-  if (ele.hideTimeout) {
+  if (toast.hideTimeout) {
     clearTimeout(ele.hideTimeout);
   }
 
-  const messageEle = ele.querySelector("p");
-  if (messageEle) {
-    messageEle.textContent = message;
-  }
-  
-  const closeBtn = ele.querySelector(".toast-close-btn");
+  const closeBtn = toast.querySelector(".toast-close-btn");
   if (closeBtn) {
     closeBtn.onclick = () => {
-      if (ele.hideTimeout) {
-        clearTimeout(ele.hideTimeout);
-        ele.hideTimeout = null;
+      if (toast.hideTimeout) {
+        clearTimeout(toast.hideTimeout);
+        toast.hideTimeout = null;
       }
-      ele.classList.remove("opacity-100", "translate-y-0");
-      ele.classList.add("opacity-0", "-translate-y-full", "pointer-events-none");
+      toast.classList.remove("opacity-100", "translate-y-0");
+      toast.classList.add(
+        "opacity-0",
+        "-translate-y-full",
+        "pointer-events-none",
+      );
     };
   }
 
   // To make it fade out immediately before fading in again, we disable transition
   // and force it to its hidden state.
-  ele.classList.add("transition-none");
-  ele.classList.remove("opacity-100", "translate-y-0");
-  ele.classList.add(
+  toast.classList.add("transition-none");
+  toast.classList.remove("opacity-100", "translate-y-0");
+  toast.classList.add(
     "opacity-0",
     "-translate-y-full",
     "-translate-y-4",
@@ -66,24 +64,28 @@ export function ShowSucessMessage(ele, message) {
   );
 
   // Force a browser reflow to apply the hidden state instantly
-  void ele.offsetWidth;
+  void toast.offsetWidth;
 
   // Re-enable transition for the fade-in effect
-  ele.classList.remove("transition-none");
+  toast.classList.remove("transition-none");
 
   // Show the toast smoothly by adding visible classes
-  ele.classList.remove(
+  toast.classList.remove(
     "opacity-0",
     "pointer-events-none",
     "-translate-y-full",
     "-translate-y-4",
     "-translate-y-2",
   );
-  ele.classList.add("opacity-100", "translate-y-0");
+  toast.classList.add("opacity-100", "translate-y-0");
 
   // Hide the toast after 4 seconds to feel snappy but give enough time to read
-  ele.hideTimeout = setTimeout(() => {
-    ele.classList.remove("opacity-100", "translate-y-0");
-    ele.classList.add("opacity-0", "-translate-y-full", "pointer-events-none");
+  toast.hideTimeout = setTimeout(() => {
+    toast.classList.remove("opacity-100", "translate-y-0");
+    toast.classList.add(
+      "opacity-0",
+      "-translate-y-full",
+      "pointer-events-none",
+    );
   }, 4000);
 }

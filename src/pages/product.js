@@ -111,7 +111,6 @@ addTocartBtn.addEventListener("click", () => {
   const card = addTocartBtn.closest(".product-card");
   const addToCartBtn = card.querySelector(".add-cart-btn");
   const quantityControlsBtn = card.querySelector(".quantity-control-btns");
-
   addProductToCart(card, carts, toastEle);
   ShowQuantityControlButtons(quantityControlsBtn, addToCartBtn);
   displayCartsCount(cartsCount, carts);
