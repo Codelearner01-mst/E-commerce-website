@@ -66,10 +66,7 @@ export function removeProductFromCart(id, carts) {
   saveCarts(carts);
 }
 
-export function addProductToCart(card, carts, msgEle) {
-  if (!carts || !msgEle) {
-    return;
-  }
+export function addProductToCart(card, carts) {
   const productId = parseInt(card.id.split("-")[1], 10);
   if (isNaN(productId)) {
     return;

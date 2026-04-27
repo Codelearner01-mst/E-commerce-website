@@ -135,7 +135,7 @@ products.addEventListener("click", (event) => {
     return;
   }
 
-  addProductToCart(card, carts, successMsgEle);
+  addProductToCart(card, carts);
   displayCartsCount(cartsCount, carts);
   ShowQuantityControlButtons(quantityControlsBtn, addToCartBtn);
 });
