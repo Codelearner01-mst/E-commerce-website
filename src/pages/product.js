@@ -92,11 +92,11 @@ function decreaseFunc() {
     );
     removeProductFromCart(currentProduct.id, carts);
     showAddToCartButton(quantityControlsBtn, addToCartBtn);
-    runCartActionsConfirmation(toastEle, toastMsg, carts, cartsCount);
+    runCartActionsConfirmation(toastMsg, carts, cartsCount);
   } else {
     decreaseCartQuantity(currentProduct.id, carts);
     document.querySelector(".quantity-display").textContent = cart.quantity;
-    runCartActionsConfirmation(toastEle, toastMsg, carts, cartsCount);
+    runCartActionsConfirmation(toastMsg, carts, cartsCount);
   }
 }
 
@@ -104,14 +104,14 @@ function increaseFunc() {
   const cart = getProductInCart(carts, currentProduct.id);
   increaseCartQuantity(currentProduct.id, carts);
   document.querySelector(".quantity-display").textContent = cart.quantity;
-  runCartActionsConfirmation(toastEle, toastMsg, carts, cartsCount);
+  runCartActionsConfirmation(toastMsg, carts, cartsCount);
 }
 
 addTocartBtn.addEventListener("click", () => {
   const card = addTocartBtn.closest(".product-card");
   const addToCartBtn = card.querySelector(".add-cart-btn");
   const quantityControlsBtn = card.querySelector(".quantity-control-btns");
-  addProductToCart(card, carts, toastEle);
+  addProductToCart(card, carts);
   ShowQuantityControlButtons(quantityControlsBtn, addToCartBtn);
   displayCartsCount(cartsCount, carts);
 

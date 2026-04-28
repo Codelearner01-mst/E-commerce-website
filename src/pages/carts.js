@@ -29,19 +29,6 @@ const cartCount = document.getElementById("cart-count");
 const cartButton = document.getElementById("cart-btn");
 const cartList = document.getElementById("carts-list");
 const emptyCartMessage = document.getElementById("empty-cart-message");
-const toastEle = document.querySelector(".update-cart-success");
-const toastCloseBtn = toastEle.querySelector(".toast-close-btn");
-
-function hideToast() {
-  if (toastEle.hideTimeout) {
-    clearTimeout(toastEle.hideTimeout);
-    toastEle.hideTimeout = null;
-  }
-  toastEle.classList.remove("opacity-100", "translate-y-0");
-  toastEle.classList.add("opacity-0", "-translate-y-full", "pointer-events-none");
-}
-
-toastCloseBtn.addEventListener("click", hideToast);
 
 const hamburgerButton = document.getElementById("hamburger-btn");
 const dropDownMenu = document.getElementById("drop-menu");
@@ -117,7 +104,7 @@ cartList.addEventListener("click", (event) => {
     card.querySelector(".total-price").textContent =
       `$${cart.price * cart.quantity.toFixed(2)}`;
     resultAmount();
-    runCartActionsConfirmation(toastEle, toastMsg, carts, cartCount);
+    runCartActionsConfirmation(toastMsg, carts, cartCount);
     card.querySelector(".quantity-display").textContent = cart.quantity;
     return;
   }
@@ -132,7 +119,7 @@ cartList.addEventListener("click", (event) => {
     card.querySelector(".total-price").textContent =
       `$${cart.price * cart.quantity.toFixed(2)}`;
     resultAmount();
-    runCartActionsConfirmation(toastEle, toastMsg, carts, cartCount);
+    runCartActionsConfirmation(toastMsg, carts, cartCount);
     return;
   }
 
@@ -143,7 +130,7 @@ cartList.addEventListener("click", (event) => {
     if (index > -1) {
       carts.splice(index, 1);
       resultAmount();
-      runCartActionsConfirmation(toastEle, toastMsg, carts, cartCount);
+      runCartActionsConfirmation(toastMsg, carts, cartCount);
       saveCarts(carts);
       toggleHiddenOnEmptyCarts();
       return;

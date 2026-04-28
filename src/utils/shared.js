@@ -70,7 +70,6 @@ export function ShowSucessMessage(message) {
       }, 500);
     };
   }
-  console.log(toast.parentNode)
 
   // To make it fade out immediately before fading in again, we disable transition
   // and force it to its hidden state.

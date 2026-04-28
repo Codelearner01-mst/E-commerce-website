@@ -36,7 +36,6 @@ const hamburgerButton = document.getElementById("hamburger-btn");
 const cartButton = document.getElementById("cart-btn");
 const dropDownMenu = document.getElementById("drop-menu");
 const products = document.getElementById("product-list");
-const message = document.querySelector(".update-cart-success");
 
 const imagePath = "../images/";
 
@@ -47,7 +46,7 @@ cartButton.addEventListener("click", () => {
 });
 const carts = savedCarts();
 
-const updateMessage = "Cart updated successfully!";
+const toastMsg = "Cart updated successfully!";
 
 //Set quantity control for all products already in cart when page reloads
 window.addEventListener("pageshow", (event) => {
@@ -84,11 +83,11 @@ products.addEventListener("click", (event) => {
     if (cart.quantity === 1) {
       removeProductFromCart(cardId, carts);
       showAddToCartButton(quantityControlsBtn, addToCartBtn);
-      runCartActionsConfirmation(message, updateMessage, carts, cartCount);
+      runCartActionsConfirmation(toastMsg, carts, cartCount);
     } else {
       decreaseCartQuantity(cardId, carts);
       card.querySelector(".quantity-display").textContent = cart.quantity;
-      runCartActionsConfirmation(message, updateMessage, carts, cartCount);
+      runCartActionsConfirmation(toastMsg, carts, cartCount);
     }
     return;
   }
@@ -96,11 +95,11 @@ products.addEventListener("click", (event) => {
   if (event.target.classList.contains("increase-btn")) {
     increaseCartQuantity(cardId, carts);
     card.querySelector(".quantity-display").textContent = cart.quantity;
-    runCartActionsConfirmation(message, updateMessage, carts, cartCount);
+    runCartActionsConfirmation(toastMsg, carts, cartCount);
     return;
   }
 
-  addProductToCart(card, carts, message);
+  addProductToCart(card, carts);
   displayCartsCount(cartCount, carts);
   ShowQuantityControlButtons(quantityControlsBtn, addToCartBtn);
 });

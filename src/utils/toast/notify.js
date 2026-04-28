@@ -1,7 +1,7 @@
 import { ShowSucessMessage } from "../shared.js";
 import { displayCartsCount } from "../shared.js";
 
-export function runCartActionsConfirmation(msgEle, msg, carts, countEle) {
-  ShowSucessMessage(msgEle, msg);
+export function runCartActionsConfirmation(msg, carts, countEle) {
+  ShowSucessMessage(msg);
   displayCartsCount(countEle, carts);
 }

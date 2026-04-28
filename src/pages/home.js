@@ -64,8 +64,6 @@ const imagePath = "./src/images/";
 
 renderProducts(productsData, imagePath, products);
 
-const successMsgEle = document.querySelector(".added-cart-success");
-
 const carts = savedCarts();
 
 function goToNewPage() {
@@ -103,27 +101,17 @@ products.addEventListener("click", (event) => {
     return;
   }
 
-  const updateMessage = "Cart updated successfully!";
+  const toastMsg = "Cart updated successfully!";
 
   if (event.target.classList.contains("decrease-btn")) {
     if (cart.quantity === 1) {
       removeProductFromCart(cardId, carts);
       showAddToCartButton(quantityControlsBtn, addToCartBtn);
-      runCartActionsConfirmation(
-        successMsgEle,
-        updateMessage,
-        carts,
-        cartsCount,
-      );
+      runCartActionsConfirmation(toastMsg, carts, cartsCount);
     } else {
       decreaseCartQuantity(cardId, carts);
       card.querySelector(".quantity-display").textContent = cart.quantity;
-      runCartActionsConfirmation(
-        successMsgEle,
-        updateMessage,
-        carts,
-        cartsCount,
-      );
+      runCartActionsConfirmation(toastMsg, carts, cartsCount);
     }
     return;
   }
@@ -131,7 +119,7 @@ products.addEventListener("click", (event) => {
   if (event.target.classList.contains("increase-btn")) {
     increaseCartQuantity(cardId, carts);
     card.querySelector(".quantity-display").textContent = cart.quantity;
-    runCartActionsConfirmation(successMsgEle, updateMessage, carts, cartsCount);
+    runCartActionsConfirmation(toastMsg, carts, cartsCount);
     return;
   }
 
