@@ -7,7 +7,7 @@
 
 @layer components {
   .product-list {
-    @apply bg-green-300;
+    @apply bg-white;
   }
   /* ── Product Card ─────────────────────────────────────────── */
   .product-card {
