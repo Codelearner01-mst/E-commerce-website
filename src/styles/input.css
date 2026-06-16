@@ -6,9 +6,12 @@
 }
 
 @layer components {
+  .product-list {
+    @apply bg-green-300;
+  }
   /* ── Product Card ─────────────────────────────────────────── */
   .product-card {
-    @apply bg-white overflow-hidden shadow-xs transition-all duration-500;
+    @apply bg-white shadow-md transition-all duration-500;
   }
 
   .product-card:hover .product-image {
@@ -21,8 +24,7 @@
 
   .product-image-container {
     @apply overflow-hidden relative mx-auto
-            xl:h-67 lg:h-65 h-65.5
-           sm:w-61.75 md:w-[328px] lg:w-[209px] xl:w-[267px];
+            h-65.5;
   }
 
   /* subtle dark veil on image hover */
