@@ -7,25 +7,22 @@ export function productHTML(product) {
     product !== null
   ) {
     const div = document.createElement("div");
-    div.className = "product-card w-full";
+    div.className = "product-card w-full ";
     div.id = `product-${product.id}`;
     div.innerHTML = `
-      <div class="lg:grid lg:grid-cols-2 lg:gap-16 lg:max-w-6xl lg:mx-auto xl:px-8 w-full">
+ <div class="px-4 md:px-8 lg:px-12 xl:px-16 py-12 md:grid md:grid-cols-2 md:gap-8 lg:gap-16 md:max-w-5xl lg:max-w-6xl md:mx-auto w-full">
 
-        <!-- Image -->
-        <div class="relative overflow-hidden bg-gray-50  w-full
-                    xs:w-[26rem] h-[26rem]
-                    sm:w-[28rem] sm:h-[34rem]
-                    lg:w-full lg:h-[44rem] lg:mx-0 mb-10 lg:mb-0">
-          <img
-            class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-            src="${product.image}"
-            alt="${product.name}"
-          />
-        </div>
+  <!-- Image -->
+  <div class="relative overflow-hidden bg-gray-50 w-full mb-10 md:mb-0 rounded-md h-96 md:h-full min-h-[400px]">
+    <img
+      class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+      src="${product.image}"
+      alt="${product.name}"
+    />
+  </div>
 
-        <!-- Info -->
-        <div class="flex flex-col justify-center gap-5 px-4 lg:px-0 lg:py-8">
+  <!-- Info -->
+  <div class="flex flex-col justify-center gap-5 px-4 md:px-0 lg:py-8">
           <span class="eyebrow">Vision Jewelry</span>
 
           <h1 class="text-3xl md:text-4xl lg:text-[2.6rem] font-serif font-medium
