@@ -6,6 +6,16 @@
 }
 
 @layer components {
+  .cat-btn {
+    @apply relative text-gray-700 text-sm uppercase tracking-[0.3em] font-medium
+         px-5 py-2 rounded-full border border-transparent
+         hover:text-amber-800 hover:border-amber-800/40 hover:bg-amber-50/50
+         transition-all duration-300 cursor-pointer;
+  }
+
+  .cat-btn.active {
+    @apply text-amber-800 border-amber-800 bg-amber-50;
+  }
   .product-list {
     @apply bg-white;
   }

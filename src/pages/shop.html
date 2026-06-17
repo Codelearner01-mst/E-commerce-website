@@ -23,14 +23,6 @@
       </h1>
     </header>
     <main class="pt-28 bg-gray-50 pb-20">
-      <div class="flex items-center justify-center">
-        <input
-          type="text"
-          placeholder="Search for products..."
-          id="search-input"
-          class="px-4 py-3 w-[70%] text-lg border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-        />
-      </div>
       <div class="mt-8 mb-16 px-4">
         <div
           class="bg-blue-50 rounded-lg p-8 border-l-4 border-blue-400 text-center max-w-2xl mx-auto"
@@ -42,6 +34,25 @@
             Explore our complete range of exquisite, handcrafted jewelry.
           </p>
         </div>
+        <div class="flex items-center justify-center mt-8">
+          <input
+            type="text"
+            placeholder="Search for products..."
+            id="search-input"
+            class="px-4 py-3 w-[70%] text-lg border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+        </div>
+      </div>
+      <!--Categories-->
+
+      <div
+        class="py-6 max-w-3xl mx-auto flex flex-wrap items-center justify-center gap-3 px-4"
+      >
+        <button class="cat-btn active" data-category="all">All</button>
+        <button class="cat-btn" data-category="rings">Rings</button>
+        <button class="cat-btn" data-category="necklaces">Necklaces</button>
+        <button class="cat-btn" data-category="earrings">Earrings</button>
+        <button class="cat-btn" data-category="bracelets">Bracelets</button>
       </div>
       <section id="products" class="px-4 mt-5 py-12 bg-gray-50">
         <div class="max-w-7xl mx-auto">

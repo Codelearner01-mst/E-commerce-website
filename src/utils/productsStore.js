@@ -9,6 +9,7 @@ export const productsData = [
     quantity: 1,
     description:
       "An elegant piece crafted with precision, featuring a timeless minimalist design perfect for any everyday occasion.",
+    category: "necklaces",
   },
   {
     id: 2,
@@ -18,6 +19,7 @@ export const productsData = [
     quantity: 1,
     description:
       "A stunning statement accessory adorned with brilliant cuts, designed to capture light and attention.",
+    category: "necklaces",
   },
   {
     id: 3,
@@ -27,6 +29,7 @@ export const productsData = [
     quantity: 1,
     description:
       "A breathtaking arrangement of fine stones, embodying absolute luxury and premium craftsmanship.",
+    category: "bracelets",
   },
   {
     id: 4,
@@ -36,6 +39,7 @@ export const productsData = [
     quantity: 1,
     description:
       "Delicate and refined, this piece seamlessly blends modern aesthetics with classic jewelry traditions.",
+    category: "rings",
   },
   {
     id: 5,
@@ -45,6 +49,7 @@ export const productsData = [
     quantity: 1,
     description:
       "A bold and sophisticated piece ensuring you stand out in the highest of societies. Radiates warmth and elegance.",
+    category: "necklaces",
   },
   {
     id: 6,
@@ -54,6 +59,7 @@ export const productsData = [
     quantity: 1,
     description:
       "Unparalleled prestige in a small package. Intricately polished to a mirror-like finish for maximum shine.",
+    category: "necklaces",
   },
   {
     id: 7,
@@ -63,6 +69,7 @@ export const productsData = [
     quantity: 1,
     description:
       "A romantic and graceful accessory, beautifully shaped to accent natural beauty and grace.",
+    category: "necklaces",
   },
   {
     id: 8,
@@ -72,6 +79,7 @@ export const productsData = [
     quantity: 1,
     description:
       "Forged with passion, featuring a unique silhouette that challenges traditional jewelry standards.",
+    category: "rings",
   },
   {
     id: 9,
@@ -81,6 +89,7 @@ export const productsData = [
     quantity: 1,
     description:
       "A majestic centerpiece for your collection. Truly a masterpiece of modern gemological crafting.",
+    category: "rings",
   },
   {
     id: 10,
@@ -90,6 +99,7 @@ export const productsData = [
     quantity: 1,
     description:
       "A charming, lightweight adornment. Perfectly balanced to provide all-day comfort without sacrificing style.",
+    category: "earrings",
   },
   {
     id: 11,
@@ -99,6 +109,7 @@ export const productsData = [
     quantity: 1,
     description:
       "An instant classic. This exquisite piece serves as the perfect gift for a loved one or yourself.",
+    category: "rings",
   },
   {
     id: 12,
@@ -108,5 +119,6 @@ export const productsData = [
     quantity: 1,
     description:
       "The crown jewel of any ensemble. Features a stunning array of intricate details and mesmerizing beauty.",
+    category: "necklaces",
   },
 ];
