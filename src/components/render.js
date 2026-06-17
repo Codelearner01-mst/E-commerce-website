@@ -46,6 +46,6 @@ export function renderProducts(products, path, list, number = 4) {
     const product = products[i];
     product.image = path + product.image;
     const productCard = productCardHTML(product);
-    list.insertAdjacentHTML("beforeEnd", productCard);
+    list.innerHTML += productCard;
   }
 }
