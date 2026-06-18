@@ -12,7 +12,6 @@
          hover:text-amber-800 hover:border-amber-800/40 hover:bg-amber-50/50
          transition-all duration-300 cursor-pointer;
   }
-
   .cat-btn.active {
     @apply text-amber-800 border-amber-800 bg-amber-50;
   }
