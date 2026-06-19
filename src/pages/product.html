@@ -1,39 +1,50 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-commerce website</title>
+    <link rel="stylesheet" href="../styles/output.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>E-commerce website</title>
-  <link rel="stylesheet" href="../styles/output.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-</head>
-
-<body>
-  <header id="header-bar"
-    class="fixed top-0 left-0 right-0 bg-white/90 border-b border-gray-100 flex justify-between items-center px-4 md:px-8 py-4 z-50 transition-all duration-300">
-    <h1 class="text-black text-2xl md:text-3xl font-serif tracking-widest uppercase">
-      Vision jewelry
-    </h1>
-
-  </header>
-  <main>
-    <div class="mt-28 mb-8 px-4">
-      <div class="bg-blue-50 rounded-lg p-8 border-l-4 border-blue-400 lg:max-w-6xl lg:mx-auto xl:px-12">
-        <h2 class="text-3xl md:text-4xl font-serif font-medium text-gray-900">Product Details</h2>
-        <p class="text-gray-500 text-sm mt-2">View product information and add to cart</p>
+  <body>
+    <header
+      id="header-bar"
+      class="fixed top-0 left-0 right-0 bg-white/90 border-b border-gray-100 flex justify-between items-center px-4 md:px-8 py-4 z-50 transition-all duration-300"
+    >
+      <h1
+        class="text-black text-2xl md:text-3xl font-serif tracking-widest uppercase"
+      >
+        Vision jewelry
+      </h1>
+    </header>
+    <main>
+      <div class="mt-28 mb-8 px-4">
+        <div
+          class="bg-blue-50 rounded-lg p-8 border-l-4 border-blue-400 lg:max-w-6xl lg:mx-auto xl:px-12"
+        >
+          <h2 class="text-3xl md:text-4xl font-serif font-medium text-gray-900">
+            Product Details
+          </h2>
+          <p class="text-gray-500 text-sm mt-2">
+            View product information and add to cart
+          </p>
+        </div>
       </div>
-    </div>
-    <section>
-      <div id="product-container" class="product-container px-2 mb-15 ">
+      <section>
+        <div id="product-container" class="product-container px-2 mb-15"></div>
+        <div
+          id="products-similar-container"
+          class="products-similar-container"
+        ></div>
+      </section>
+    </main>
 
-      </div>
-      </div>
-    </section>
-  </main>
-
-  <footer id="footer" class="bg-gray-900 text-gray-400 py-14 px-5"></footer>
-</body>
-<script type="module" src="./product.js" defer></script>
-
+    <footer id="footer" class="bg-gray-900 text-gray-400 py-14 px-5"></footer>
+  </body>
+  <script type="module" src="./product.js" defer></script>
 </html>

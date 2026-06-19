@@ -1,5 +1,5 @@
 import { toggleDropdownMenu } from "../utils/shared.js";
-import { renderProduct } from "../components/render.js";
+import { renderProduct, renderSimilarProducts } from "../components/render.js";
 import { addProductToCart } from "../utils/cart-controller.js";
 import { savedCarts } from "../utils/saveUtils.js";
 import { displayCartsCount } from "../utils/shared.js";
@@ -35,7 +35,11 @@ footer.innerHTML = footerHTML("./shop.html", "./about.html", "./contact.html");
 const carts = savedCarts();
 
 const productContainer = document.getElementById("product-container");
+const similarProductsContainer = document.getElementById(
+  "products-similar-container",
+);
 renderProduct(productContainer, "../images/");
+renderSimilarProducts(similarProductsContainer, "../images/");
 
 const addTocartBtn = document.getElementById("add-cart-btn");
 const cartButton = document.getElementById("cart-btn");
@@ -57,18 +61,21 @@ cartButton.addEventListener("click", () => {
 
 window.addEventListener("pageshow", (event) => {
   const currentProduct = JSON.parse(sessionStorage.getItem("currentProduct"));
+  const carts = savedCarts();
+
+  // Initialize main product cart state
   if (isProductInCart(currentProduct.id, carts)) {
     const cart = getProductInCart(carts, currentProduct.id);
-    const quantityControlsBtn = document.querySelector(
+    const quantityControlsBtn = productContainer.querySelector(
       ".quantity-control-btns",
     );
-    const addToCartBtn = document.querySelector(".add-cart-btn");
+    const addToCartBtn = productContainer.querySelector(".add-cart-btn");
     ShowQuantityControlButtons(quantityControlsBtn, addToCartBtn);
-    document.querySelector(".quantity-display").textContent = cart.quantity;
+    productContainer.querySelector(".quantity-display").textContent = cart.quantity;
 
     // Attach listeners because the buttons now exist
-    const increaseBtn = document.querySelector(".increase-btn");
-    const decreaseBtn = document.querySelector(".decrease-btn");
+    const increaseBtn = productContainer.querySelector(".increase-btn");
+    const decreaseBtn = productContainer.querySelector(".decrease-btn");
 
     increaseBtn.addEventListener("click", () => {
       increaseFunc();
@@ -78,6 +85,7 @@ window.addEventListener("pageshow", (event) => {
       decreaseFunc();
     });
   }
+
   displayCartsCount(cartsCount, carts);
 });
 
@@ -86,8 +94,8 @@ const toastMsg = "Cart updated successfully!";
 function decreaseFunc() {
   const cart = getProductInCart(carts, currentProduct.id);
   if (cart.quantity === 1) {
-    const addToCartBtn = document.querySelector(".add-cart-btn");
-    const quantityControlsBtn = document.querySelector(
+    const addToCartBtn = productContainer.querySelector(".add-cart-btn");
+    const quantityControlsBtn = productContainer.querySelector(
       ".quantity-control-btns",
     );
     removeProductFromCart(currentProduct.id, carts);
@@ -95,7 +103,7 @@ function decreaseFunc() {
     runCartActionsConfirmation(toastMsg, carts, cartsCount);
   } else {
     decreaseCartQuantity(currentProduct.id, carts);
-    document.querySelector(".quantity-display").textContent = cart.quantity;
+    productContainer.querySelector(".quantity-display").textContent = cart.quantity;
     runCartActionsConfirmation(toastMsg, carts, cartsCount);
   }
 }
@@ -103,7 +111,7 @@ function decreaseFunc() {
 function increaseFunc() {
   const cart = getProductInCart(carts, currentProduct.id);
   increaseCartQuantity(currentProduct.id, carts);
-  document.querySelector(".quantity-display").textContent = cart.quantity;
+  productContainer.querySelector(".quantity-display").textContent = cart.quantity;
   runCartActionsConfirmation(toastMsg, carts, cartsCount);
 }
 
@@ -115,8 +123,8 @@ addTocartBtn.addEventListener("click", () => {
   ShowQuantityControlButtons(quantityControlsBtn, addToCartBtn);
   displayCartsCount(cartsCount, carts);
 
-  const increaseBtn = document.querySelector(".increase-btn");
-  const decreaseBtn = document.querySelector(".decrease-btn");
+  const increaseBtn = productContainer.querySelector(".increase-btn");
+  const decreaseBtn = productContainer.querySelector(".decrease-btn");
 
   increaseBtn.addEventListener("click", () => {
     increaseFunc();
@@ -124,6 +132,19 @@ addTocartBtn.addEventListener("click", () => {
   decreaseBtn.addEventListener("click", () => {
     decreaseFunc();
   });
+});
+
+// Event listener for similar products navigation
+similarProductsContainer.addEventListener("click", (event) => {
+  const card = event.target.closest(".similar-product-card");
+  if (!card) return;
+
+  const cardId = parseInt(card.id.split("-")[1], 10);
+  const selectedProduct = productsData.find((p) => p.id === cardId);
+  if (selectedProduct) {
+    sessionStorage.setItem("currentProduct", JSON.stringify(selectedProduct));
+    window.location.reload();
+  }
 });
 
 hamburgerButton.addEventListener("click", () => {
