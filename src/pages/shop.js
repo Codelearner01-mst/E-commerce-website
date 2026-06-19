@@ -45,12 +45,13 @@ renderProducts(productsData, imagePath, products, productsData.length);
 
 function filterProductsByCategory(cat) {
   if (!cat || cat === null) return;
+
   if (cat === "all") {
     const filterAll = productsData.filter((product) =>
       product.name.toLowerCase().includes(searchInput.value.toLowerCase()),
     );
+    products.innerHTML = "";
     renderProducts(filterAll, imagePath, products, filterAll.length);
-    searchProducts(filterAll);
   } else {
     const filteredProducts = productsData.filter(
       (product) =>
@@ -69,25 +70,40 @@ function filterProductsByCategory(cat) {
       products,
       filteredProducts.length,
     );
-    searchProducts(filteredProducts);
   }
 }
 
-function searchProducts(filtered) {
-  searchInput.addEventListener("input", (event) => {
-    const searchTerm = event.target.value;
-    setTimeout(() => {
-      if (searchTerm.trim() === "") {
-        renderProducts(filtered, imagePath, products, filtered.length);
-        return;
-      }
-      const searchResults = filtered.filter((product) =>
+searchInput.addEventListener("input", (event) => {
+  const searchTerm = event.target.value;
+  const activeCat = document.querySelector(".cat-btn.active").dataset.category;
+  setTimeout(() => {
+    if (activeCat === "all") {
+      const searchResults = productsData.filter((product) =>
         product.name.toLowerCase().includes(searchTerm.toLowerCase()),
       );
+      if (searchResults.length === 0) {
+        products.innerHTML =
+          "<p class='text-center text-gray-500'>OOops! No products found.</p>";
+        return;
+      }
+      products.innerHTML = "";
       renderProducts(searchResults, imagePath, products, searchResults.length);
-    }, 300); // Debounce the search input by 300ms
-  });
-}
+    } else {
+      const searchResults = productsData.filter(
+        (product) =>
+          product.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+          product.category === activeCat,
+      );
+      if (searchResults.length === 0) {
+        products.innerHTML =
+          "<p class='text-center text-gray-500'>OOops! No products found.</p>";
+        return;
+      }
+      products.innerHTML = "";
+      renderProducts(searchResults, imagePath, products, searchResults.length);
+    }
+  }, 300); // Debounce the search input by 300ms
+});
 
 let prevCat = "all";
 catBtns.forEach((btn) => {
