@@ -1,4 +1,14 @@
-export function navigationHTML(productsPath, aboutPath, contactPath) {
+export function navigationHTML(productsPath = "", aboutPath = "", contactPath = "", wishlistPath = "") {
+  // Check if we are currently at the root folder or subpages
+  const isRoot = !window.location.pathname.includes("/src/pages/") && !window.location.pathname.includes("/pages/");
+  
+  // Resolve paths with safe fallbacks based on current page location depth
+  const resolvedProductsPath = productsPath || (isRoot ? "./src/pages/shop.html" : "./shop.html");
+  const resolvedAboutPath = aboutPath || (isRoot ? "./src/pages/about.html" : "./about.html");
+  const resolvedContactPath = contactPath || (isRoot ? "./src/pages/contact.html" : "./contact.html");
+  const resolvedWishlistPath = wishlistPath || (isRoot ? "./src/pages/wishlist.html" : "./wishlist.html");
+  const homeHref = isRoot ? "./index.html" : "../../index.html";
+
   return `
     <!-- Mobile Drawer -->
     <nav
@@ -32,28 +42,35 @@ export function navigationHTML(productsPath, aboutPath, contactPath) {
         <!-- Links -->
         <ul class="flex flex-col px-8 py-8 gap-0 font-serif text-lg text-gray-900">
           <li class="border-b border-gray-100 py-4">
-            <a href="../../index.html"
+            <a href="${homeHref}"
                class="flex justify-between items-center hover:text-amber-800 transition-colors duration-200 tracking-wide">
               Home
               <span class="text-gray-300 text-sm">→</span>
             </a>
           </li>
           <li class="border-b border-gray-100 py-4">
-            <a href="${productsPath}"
+            <a href="${resolvedProductsPath}"
                class="flex justify-between items-center hover:text-amber-800 transition-colors duration-200 tracking-wide">
               Products
               <span class="text-gray-300 text-sm">→</span>
             </a>
           </li>
           <li class="border-b border-gray-100 py-4">
-            <a href="${aboutPath}"
+            <a href="${resolvedWishlistPath}"
+               class="flex justify-between items-center hover:text-amber-800 transition-colors duration-200 tracking-wide">
+              Wishlist
+              <span class="text-gray-300 text-sm">→</span>
+            </a>
+          </li>
+          <li class="border-b border-gray-100 py-4">
+            <a href="${resolvedAboutPath}"
                class="flex justify-between items-center hover:text-amber-800 transition-colors duration-200 tracking-wide">
               About Us
               <span class="text-gray-300 text-sm">→</span>
             </a>
           </li>
           <li class="py-4">
-            <a href="${contactPath}"
+            <a href="${resolvedContactPath}"
                class="flex justify-between items-center hover:text-amber-800 transition-colors duration-200 tracking-wide">
               Contact
               <span class="text-gray-300 text-sm">→</span>
@@ -70,10 +87,11 @@ export function navigationHTML(productsPath, aboutPath, contactPath) {
     <!-- Desktop Nav -->
     <nav class="md:mr-2 lg:mr-4">
       <ul class="hidden md:flex flex-row gap-7 lg:gap-9 items-center">
-        <li><a href="../../index.html" class="nav-link">Home</a></li>
-        <li><a href="${productsPath}" class="nav-link">Products</a></li>
-        <li><a href="${aboutPath}" class="nav-link">About</a></li>
-        <li><a href="${contactPath}" class="nav-link">Contact</a></li>
+        <li><a href="${homeHref}" class="nav-link">Home</a></li>
+        <li><a href="${resolvedProductsPath}" class="nav-link">Products</a></li>
+        <li><a href="${resolvedWishlistPath}" class="nav-link">Wishlist</a></li>
+        <li><a href="${resolvedAboutPath}" class="nav-link">About</a></li>
+        <li><a href="${resolvedContactPath}" class="nav-link">Contact</a></li>
       </ul>
     </nav>`;
 }

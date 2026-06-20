@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wishlist — Vision Jewelry</title>
+    <link rel="stylesheet" href="../styles/output.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+
+  <body class="bg-white">
+    <header
+      id="header-bar"
+      class="fixed top-0 left-0 right-0 bg-white/90 border-b border-gray-100 flex justify-between items-center px-4 md:px-8 py-4 z-50 transition-all duration-300"
+    >
+      <h1
+        class="text-black text-2xl md:text-3xl font-serif tracking-widest uppercase"
+      >
+        Vision Jewelry
+      </h1>
+    </header>
+    <main>
+      <div class="mt-28 mb-8 px-4">
+        <div class="bg-blue-50 rounded-lg p-8 border-l-4 border-blue-400 lg:max-w-4xl lg:mx-auto">
+          <h2 class="text-3xl md:text-4xl font-serif font-medium text-gray-900">
+            My Wishlist
+          </h2>
+          <p class="text-gray-500 text-sm mt-2">
+            Your collection of curated, handcrafted pieces
+          </p>
+        </div>
+      </div>
+      <section class="px-4 py-8 max-w-4xl mx-auto min-h-[400px]">
+        <div id="wishlist-list" class="flex flex-col">
+          <!-- Wishlist items injected here -->
+        </div>
+        <div id="empty-wishlist-message" class="text-center py-16 hidden">
+          <p class="text-gray-400 font-light mb-6">Your wishlist is empty.</p>
+          <a
+            href="./shop.html"
+            class="inline-block bg-gray-900 text-white px-8 py-3 rounded-full text-xs uppercase tracking-[0.2em] font-medium hover:bg-amber-800 transition-all duration-300"
+          >
+            Explore Collection
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer id="footer" class="bg-gray-900 text-gray-400 py-14 px-5"></footer>
+  </body>
+  <script type="module" src="./wishlist.js" defer></script>
+</html>

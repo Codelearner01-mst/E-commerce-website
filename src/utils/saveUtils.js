@@ -11,3 +11,17 @@ export function savedCarts() {
     return [];
   }
 }
+
+export function saveWishlist(wishlist) {
+  if (wishlist && Array.isArray(wishlist)) {
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  }
+}
+
+export function savedWishlist() {
+  try {
+    return JSON.parse(localStorage.getItem("wishlist")) || [];
+  } catch (error) {
+    return [];
+  }
+}

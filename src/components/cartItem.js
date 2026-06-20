@@ -19,7 +19,13 @@ export function CartItem(cart, path) {
    * @param {HTMLElement} ele - element used to display cart count
    * @returns {HTMLElement}
    */
-  const newSrc = cart.image.replace("./src/images/", path);
+  // Strip any existing prefix so we always work with a raw filename,
+  // then prepend the correct path for this page.
+  const filename = cart.image
+    .replace("./src/images/", "")
+    .replace("../images/", "")
+    .replace("src/images/", "");
+  const newSrc = path + filename;
 
   const cartDiv = document.createElement("div");
   cartDiv.className = "cart-card flex flex-row border-b border-gray-200 pb-4";

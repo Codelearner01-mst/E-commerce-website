@@ -50,7 +50,7 @@ export function productHTML(product) {
                 <span class="quantity-display flex-1 font-serif text-gray-900 text-lg text-center select-none border-x border-yellow-700/30 h-full flex items-center justify-center">1</span>
                 <button class="increase-btn text-yellow-800 text-2xl bg-transparent hover:bg-yellow-800 hover:text-white transition-colors duration-300 font-light focus:outline-none cursor-pointer">&#43;</button>
              </div>
-            <button class="btn-secondary">
+            <button id="wishlist-btn" class="btn-secondary">
               Save to Wishlist
             </button>
           </div>
