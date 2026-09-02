@@ -10,59 +10,21 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
     <style>
-      :root {
-        --header-offset: 64px;
-        --search-bar-h: 54px;
-
-        /*COLORS*/
-        --ink: #1f1d1a;
-        --muted: #6d675f;
-        --color-primary: #bb9558; /*Primary color*/
-        --color-secondary: #efe3cc; /*Secondary color*/
-        --muted-beidge-gold: rgba(190, 170, 150, 0.97);
-        --text-color: rgba(247, 243, 238, 0.96);
-        --background: #f8f8f8;
-        --panel: #201f1d;
-        --panel-soft: #2b2a28;
-        --line: rgba(31, 29, 26, 0.08);
-        --color-border: #6d675f;
-
-        /*FONT SIZES*/
-        --font-size-heading-base: 56px;
-        --font-size-heading-small: 64px;
-        --font-size-heading-medium: 69px;
-        --font-size-heading-large: 155px;
-        --font-size-small: 12px;
-        --font-size-small-up: 14px;
-        --font-size-base: 1rem;
-        --font-size-medium: 18px;
-        --font-size-large: 20px;
-
-        /*BORDERS*/
-        --border-radius-sm: 6px;
-        --border-radius-base: 16px;
-        --border-radius-md-up: 18px;
-        --border-radius-full: 999px;
-
-        /*SPACING*/
-        --letter-spacing: 0.5em;
-      }
-
       header {
-        background-color: var(--color-primary);
+        background-color: var(--color-brand-primary);
       }
 
       body {
-        background: var(--ivory);
-        color: var(--ink);
+        background: var(--color-surface-page);
+        color: var(--color-ink);
       }
 
       .shop-toolbar {
-        background-color: var(--muted-beidge-gold);
+        background-color: rgba(190, 170, 150, 0.97);
         color: #f8f8f8;
         box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
         position: sticky;
-        top: calc(var(--header-offset) + var(--search-bar-h));
+        top: calc(var(--layout-header-height) + var(--layout-search-height));
         z-index: 54;
       }
       .toolbar-inner {
@@ -173,12 +135,12 @@
       }
       .search-sticky {
         position: sticky;
-        top: var(--header-offset);
+        top: var(--layout-header-height);
         z-index: 55;
         width: 100%;
-        background-color: var(--color-secondary);
+        background-color: var(--color-brand-secondary);
         backdrop-filter: blur(8px);
-        border-bottom: 1px solid var(--line);
+        border-bottom: 1px solid var(--color-border-subtle);
         box-shadow: 0 8px 24px rgba(24, 20, 16, 0.04);
       }
       .search-sticky .search-wrap {
@@ -191,7 +153,7 @@
       }
       .cat-rail {
         background: rgba(255, 255, 255, 0.72);
-        border-bottom: 1px solid var(--line);
+        border-bottom: 1px solid var(--color-border-subtle);
       }
       .cat-rail-inner {
         max-width: 1100px;
@@ -201,14 +163,14 @@
       .cat-btn {
         border: 1px solid rgba(31, 29, 26, 0.08);
         background: #fff;
-        color: var(--ink);
+        color: var(--color-ink);
         padding: 8px 14px;
         border-radius: 999px;
         transition: all 0.2s ease;
         font-size: 0.9rem;
       }
       .cat-btn.active {
-        background: var(--gold-soft);
+        background: var(--color-brand-soft);
         border-color: rgba(184, 154, 106, 0.3);
         color: #4d3c1c;
       }
