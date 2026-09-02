@@ -10,19 +10,18 @@
   --layout-header-height: 64px;
   --layout-search-height: 54px;
 
-  /* Shared color palette */
+  /* Shared semantic color roles */
+  --color-brand: #bb9558;
+  --color-brand-tint: #efe3cc;
+  --color-brand-pale: #f7f0e8;
+  --color-page: #f8f8f8;
+  --color-surface: #fcf9f9;
   --color-ink: #1f1d1a;
   --color-muted: #6d675f;
-  --color-brand-primary: #bb9558;
-  --color-brand-secondary: #efe3cc;
-  --color-brand-soft: #f7f0e8;
-  --color-text-on-dark: rgba(247, 243, 238, 0.96);
-  --color-surface-page: #f8f8f8;
-  --color-surface-soft: #fcf9f9;
-  --color-surface-dark: #201f1d;
-  --color-surface-dark-soft: #2b2a28;
-  --color-border-subtle: rgba(31, 29, 26, 0.08);
-  --color-border-strong: #6d675f;
+  --color-dark-surface: #201f1d;
+  --color-dark-surface-raised: #2b2a28;
+  --color-on-dark: rgba(247, 243, 238, 0.96);
+  --color-border: rgba(31, 29, 26, 0.08);
 
   /* Shared typography */
   --font-family-body: "Helvetica Neue", Helvetica, Arial, sans-serif;

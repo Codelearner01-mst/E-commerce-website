@@ -11,11 +11,11 @@
     />
     <style>
       header {
-        background-color: var(--color-brand-primary);
+        background-color: var(--color-brand);
       }
 
       body {
-        background: var(--color-surface-page);
+        background: var(--color-page);
         color: var(--color-ink);
       }
 
@@ -41,10 +41,12 @@
         color: #fff;
         padding: 8px 10px;
         border-radius: 6px;
+        background-color: var(--color-brand);
       }
       .toolbar-select option {
         background: #2b2d2f;
         color: #fff;
+        background: var(--color-page);
       }
       .filter-dropdown-container {
         position: relative;
@@ -54,18 +56,18 @@
         background: rgba(255, 255, 255, 0.03);
         border: 1px solid rgba(255, 255, 255, 0.15);
         color: #fff;
-        padding: 8px 14px;
+        background-color: var(--color-brand-tint);
         border-radius: 6px;
-        cursor: pointer;
+        border-bottom: 1px solid var(--color-border);
         transition: all 0.2s ease;
       }
       .filter-btn:hover {
         background: rgba(255, 255, 255, 0.07);
-      }
-      .filter-btn[aria-expanded="true"] .main-arrow {
-        transform: rotate(180deg);
-      }
-      .filter-menu {
+        border-bottom: 1px solid var(--color-border);
+        .filter-btn[aria-expanded="true"] .main-arrow {
+          transform: rotate(180deg);
+        }
+        border-color: rgba(184, 154, 106, 0.3);
         display: none;
         position: absolute;
         top: calc(100% + 6px);
@@ -84,7 +86,7 @@
       .filter-menu ul {
         list-style: none;
         margin: 0;
-        padding: 8px;
+        color: rgba(247, 243, 238, 0.96);
       }
       .filter-menu li {
         border-radius: 4px;
@@ -138,9 +140,9 @@
         top: var(--layout-header-height);
         z-index: 55;
         width: 100%;
-        background-color: var(--color-brand-secondary);
+        background-color: var(--color-brand-tint);
         backdrop-filter: blur(8px);
-        border-bottom: 1px solid var(--color-border-subtle);
+        border-bottom: 1px solid var(--color-border);
         box-shadow: 0 8px 24px rgba(24, 20, 16, 0.04);
       }
       .search-sticky .search-wrap {
@@ -153,7 +155,7 @@
       }
       .cat-rail {
         background: rgba(255, 255, 255, 0.72);
-        border-bottom: 1px solid var(--color-border-subtle);
+        border-bottom: 1px solid var(--color-border);
       }
       .cat-rail-inner {
         max-width: 1100px;
@@ -170,7 +172,7 @@
         font-size: 0.9rem;
       }
       .cat-btn.active {
-        background: var(--color-brand-soft);
+        background: var(--color-brand-pale);
         border-color: rgba(184, 154, 106, 0.3);
         color: #4d3c1c;
       }
