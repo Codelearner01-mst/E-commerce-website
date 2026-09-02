@@ -7,6 +7,7 @@ import { productHTML } from "./productItem.js";
 import { cartsDisplayOnlyItem } from "./cartItem.js";
 import { productCardHTML } from "../components/productCard.js";
 import { productsData } from "../utils/productsStore.js";
+import { savedWishlist } from "../utils/saveUtils.js";
 
 const product = JSON.parse(sessionStorage.getItem("currentProduct"));
 
@@ -82,8 +83,8 @@ export function renderSimilarProducts(container, path) {
     }
 
     html += `
-      <div class="similar-product-card group cursor-pointer bg-white rounded-lg overflow-hidden border border-gray-100/60 shadow-sm hover:shadow-lg transition-all duration-500 hover:-translate-y-1 flex-shrink-0 w-[190px] md:w-auto snap-start flex flex-col justify-between" id="product-${tempProduct.id}">
-        <div class="overflow-hidden aspect-square bg-gray-50/50 relative">
+      <div class="similar-product-card group cursor-pointer bg-white rounded-lg overflow-hidden border border-gray-100/60 shadow-sm hover:shadow-lg transition-all duration-500 hover:-translate-y-1 shrink-0  md:w-auto flex flex-col justify-between" id="product-${tempProduct.id}">
+        <div class="overflow-hidden w-18 h-18 bg-gray-50/50 relative">
           <img
             src="${tempProduct.image}"
             alt="${tempProduct.name}"
@@ -127,8 +128,35 @@ export function renderProducts(products, path, list, number = 4) {
   }
   for (let i = 0; i < number; i++) {
     const product = products[i];
-    product.image = path + product.image;
+    // ensure filenames with spaces or special chars are encoded
+    product.image = encodeURI(path + product.image);
     const productCard = productCardHTML(product);
     list.innerHTML += productCard;
+  }
+  // Update results count if present on the page
+  try {
+    const resultsCount = document.getElementById("results-count");
+    if (resultsCount) resultsCount.textContent = products.length;
+  } catch (e) {
+    // ignore in non-browser environments
+  }
+  // After rendering, mark wishlist buttons according to saved wishlist
+  try {
+    const wishlist = savedWishlist();
+    for (let i = 0; i < Math.min(products.length, number); i++) {
+      const p = products[i];
+      const el = document.getElementById(`product-${p.id}`);
+      if (!el) continue;
+      const btn =
+        el.querySelector(".wishlist-btn") ||
+        el.querySelector(".wishlist-inline-btn");
+      if (!btn) continue;
+      const active = Array.isArray(wishlist) && wishlist.includes(p.id);
+      btn.setAttribute("aria-pressed", active ? "true" : "false");
+      if (active) btn.classList.add("saved");
+      else btn.classList.remove("saved");
+    }
+  } catch (e) {
+    // ignore
   }
 }

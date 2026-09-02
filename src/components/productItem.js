@@ -7,13 +7,15 @@ export function productHTML(product) {
     product !== null
   ) {
     const div = document.createElement("div");
-    div.className = "product-card w-full ";
+    div.className = " w-full ";
     div.id = `product-${product.id}`;
+    const oldPrice =
+      product.originalPrice || (Number(product.price) * 1.2).toFixed(2);
     div.innerHTML = `
- <div class="px-4 md:px-8 lg:px-12 xl:px-16 py-12 md:grid md:grid-cols-2 md:gap-8 lg:gap-16 md:max-w-5xl lg:max-w-6xl md:mx-auto w-full">
+ <div class="px-4 md:px-8 lg:px-12 xl:px-16 py-6 md:grid lg:grid-cols-2 md:gap-8 lg:gap-16 md:max-w-5xl lg:max-w-6xl md:mx-auto w-full">
 
   <!-- Image -->
-  <div class="relative overflow-hidden bg-gray-50 w-full mb-10 md:mb-0 rounded-md h-96 md:h-full min-h-[400px]">
+  <div class="relative overflow-hidde w-65 h-78 mb-10 md:mb-0 md:h-full ">
     <img
       class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
       src="${product.image}"
@@ -31,6 +33,7 @@ export function productHTML(product) {
           </h1>
 
           <p class="text-2xl font-sans font-medium text-amber-800 tracking-wide">
+            <span class="line-through text-sm text-gray-500 mr-2">$${oldPrice}</span>
             $${product.price}
           </p>
 
@@ -41,11 +44,11 @@ export function productHTML(product) {
             ${product.description}
           </p>
 
-          <div class="cart-btns-container flex flex-col gap-3 mt-4 max-w-sm">
+          <div class="cart-btns-container flex flex-col md:flex-row gap-3 mt-4 max-w-sm">
             <button id="add-cart-btn" class="add-cart-btn btn-primary-full">
               Add to Cart
             </button>
-             <div class="quantity-control-btns hidden items-center bg-white border rounded-2xl border-yellow-700  h-9 w-1/2 mx-auto px-6 py-3 overflow-hidden shadow-sm">
+             <div class="quantity-control-btns hidden items-center bg-white border rounded-2xl border-yellow-700  h-9 w-50 md:w-40 mx-auto px-6 py-3 overflow-hidden ">
                 <button class="decrease-btn text-yellow-800 bg-transparent hover:bg-yellow-800 hover:text-white transition-colors duration-300 text-xl font-light focus:outline-none cursor-pointer">&#8722;</button>
                 <span class="quantity-display flex-1 font-serif text-gray-900 text-lg text-center select-none border-x border-yellow-700/30 h-full flex items-center justify-center">1</span>
                 <button class="increase-btn text-yellow-800 text-2xl bg-transparent hover:bg-yellow-800 hover:text-white transition-colors duration-300 font-light focus:outline-none cursor-pointer">&#43;</button>

@@ -9,12 +9,69 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
+
+    <style>
+      :root {
+        --header-offset: 64px;
+        --search-bar-h: 54px;
+
+        /*COLORS*/
+        --ink: #1f1d1a;
+        --muted: #6d675f;
+        --color-primary: #bb9558; /*Primary color*/
+        --color-secondary: #efe3cc; /*Secondary color*/
+        --muted-beidge-gold: rgba(190, 170, 150, 0.97);
+        --text-color: rgba(247, 243, 238, 0.96);
+        --background: #f8f8f8;
+        --background-soft: #fcf9f9;
+        --panel: #201f1d;
+        --panel-soft: #2b2a28;
+        --line: rgba(31, 29, 26, 0.08);
+        --color-border: #6d675f;
+
+        /*FONT SIZES*/
+        --font-size-section-heading: 36px;
+        --font-size-heading-base: 56px;
+        --font-size-heading-small: 64px;
+        --font-size-heading-medium: 69px;
+        --font-size-heading-large: 155px;
+        --font-size-small: 12px;
+        --font-size-small-up: 14px;
+        --font-size-base: 1rem;
+        --font-size-medium: 18px;
+        --font-size-large: 20px;
+
+        /*BORDERS*/
+        --border-radius-sm: 6px;
+        --border-radius-base: 16px;
+        --border-radius-md-up: 18px;
+        --border-radius-full: 999px;
+
+        /*SPACING*/
+        --letter-spacing: 0.5em;
+      }
+
+      header {
+        background-color: var(--color-secondary);
+      }
+
+      .cart-intro {
+        background-color: var(--background);
+      }
+
+      .carts {
+        background-color: var(--color-secondary);
+      }
+      .result-container {
+        background-color: var(--color-secondary);
+      }
+    </style>
   </head>
 
   <body>
     <header
       id="header-bar"
-      class="fixed top-0 left-0 right-0 bg-white/90 border-gray-100 flex justify-between items-center px-4 md:px-8 py-4 z-50 transition-all duration-300"
+      class="fixed top-0 left-0 right-0 shadow-lg shadow-gray-200 border-gray-100 flex justify-between items-center px-4 md:px-8 py-6 z-50 transition-all duration-300"
     >
       <h1
         class="text-black text-2xl md:text-3xl font-serif tracking-widest uppercase"
@@ -22,26 +79,19 @@
         Vision Jewelry
       </h1>
     </header>
-    <main>
-      <div class="mt-20 mb-8 px-4">
-        <div class="bg-blue-50 rounded-lg p-8 border-l-4 border-blue-400">
-          <h2 class="text-3xl md:text-4xl font-serif font-medium text-gray-900">
-            Shopping Cart
-          </h2>
-          <p class="text-gray-500 text-sm mt-2">Review and manage your items</p>
-        </div>
+    <main class="mt-20">
+      <div class="cart-intro mb-4 px-4 py-5">
+        <h2 class="text-4xl md:text-4xl font-serif font-bold text-gray-900">
+          Shopping Cart
+        </h2>
+        <p class="text-gray-500 mt-2">Review and manage your items</p>
       </div>
-      <div class="lg:flex lg:gap-12 lg:max-w-7xl lg:mx-auto xl:px-8 px-4">
-        <section class="mt-18 lg:w-2/3 w-full">
+      <div
+        class="lg:flex lg:gap-12 lg:max-w-7xl lg:mx-auto xl:px-8 px-4 mb-6 py-3"
+      >
+        <section class="mt-10 lg:w-2/3 w-full">
           <div class="carts">
-            <div
-              class="flex items-center flex-row gap-3 ml-3.5 font-medium border-b border-gray-200 pb-4"
-            >
-              <h3>PRODUCT</h3>
-              <h3 class="ml-8">QUANTITY</h3>
-              <h3>TOTAL</h3>
-            </div>
-            <div id="carts-list" class="flex gap-13 flex-col mt-13 mb-15">
+            <div id="carts-list" class="flex gap-8 flex-col mt-13 mb-15">
               <p
                 id="empty-cart-message"
                 class="text-center text-gray-500 hidden"
@@ -50,25 +100,66 @@
               </p>
             </div>
           </div>
+          <div class="mb-8">
+            <h3 class="text-[18px] font-medium mb-2.5">You may also like</h3>
+            <div class="flex flex-row gap-3">
+              <div class="flex flex-col gap-2">
+                <div class="h-18 w-18">
+                  <img
+                    src="../images/sabrianna-a9HPsYvWr-E-unsplash.jpg"
+                    alt="image"
+                    class="product-image"
+                  />
+                </div>
+                <p class="text-[14px]">Fine necklaces</p>
+              </div>
+              <div class="flex flex-col gap-2">
+                <div class="h-18 w-18">
+                  <img
+                    src="../images/atul-mohan-TmOPo7TpLzw-unsplash - Copy.jpg"
+                    alt="image"
+                    class="product-image"
+                  />
+                </div>
+                <p class="text-[14px]">Sublime gold</p>
+              </div>
+              <div class="flex flex-col gap-2">
+                <div class="h-18 w-18">
+                  <img
+                    src="../images/atul-mohan-TmOPo7TpLzw-unsplash - Copy.jpg"
+                    alt="image"
+                    class="product-image"
+                  />
+                </div>
+                <p class="text-[14px]">Fearish prey</p>
+              </div>
+            </div>
+          </div>
         </section>
         <section class="mb-12 lg:w-1/3 w-full lg:mt-32 xl:mt-40">
           <div
             id="result-container"
-            class="bg-yellow-100 mx-auto hidden lg:mx-0 w-full rounded-md shadow-sm"
+            class="result-container mx-auto hidden lg:mx-0 w-full rounded-md shadow-sm"
           >
             <div class="flex flex-col gap-5 p-6.5 w-full">
-              <h3 class="">CART TOTAL</h3>
+              <h3 class="text-[20px] font-bold">CART TOTAL</h3>
               <div class="flex items-center justify-between">
-                <p class="">Subtotal</p>
-                <p id="subtotal-amount" class="text-yellow-700 font-medium">
+                <p class="text-[18px]">Subtotal</p>
+                <p id="subtotal-amount" class="text-[18px] font-medium">
                   $0.00
                 </p>
               </div>
               <div class="flex items-center justify-between">
-                <p class="">Total</p>
-                <p id="total-amount" class="text-yellow-700 font-medium">
-                  $0.00
-                </p>
+                <p class="text-[18px]">Delivery fee</p>
+                <p id="subtotal-amount" class="text-[18px] font-medium">Free</p>
+              </div>
+              <div class="flex items-center justify-between">
+                <p class="text-[18px]">Discount</p>
+                <p id="subtotal-amount" class="text-[18px] font-medium">285</p>
+              </div>
+              <div class="flex items-center justify-between">
+                <p class="text-[18px]">Total</p>
+                <p id="total-amount" class="text-[18px] font-medium">$0.00</p>
               </div>
               <button
                 id="checkout-btn"
@@ -78,6 +169,10 @@
               </button>
             </div>
           </div>
+
+          <button class="text-gray-700 mt-3 text-center">
+            Continue shopping
+          </button>
         </section>
       </div>
     </main>

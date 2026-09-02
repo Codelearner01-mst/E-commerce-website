@@ -1,12 +1,23 @@
-export function navigationHTML(productsPath = "", aboutPath = "", contactPath = "", wishlistPath = "") {
+export function navigationHTML(
+  productsPath = "",
+  aboutPath = "",
+  contactPath = "",
+  wishlistPath = "",
+) {
   // Check if we are currently at the root folder or subpages
-  const isRoot = !window.location.pathname.includes("/src/pages/") && !window.location.pathname.includes("/pages/");
-  
+  const isRoot =
+    !window.location.pathname.includes("/src/pages/") &&
+    !window.location.pathname.includes("/pages/");
+
   // Resolve paths with safe fallbacks based on current page location depth
-  const resolvedProductsPath = productsPath || (isRoot ? "./src/pages/shop.html" : "./shop.html");
-  const resolvedAboutPath = aboutPath || (isRoot ? "./src/pages/about.html" : "./about.html");
-  const resolvedContactPath = contactPath || (isRoot ? "./src/pages/contact.html" : "./contact.html");
-  const resolvedWishlistPath = wishlistPath || (isRoot ? "./src/pages/wishlist.html" : "./wishlist.html");
+  const resolvedProductsPath =
+    productsPath || (isRoot ? "./src/pages/shop.html" : "./shop.html");
+  const resolvedAboutPath =
+    aboutPath || (isRoot ? "./src/pages/about.html" : "./about.html");
+  const resolvedContactPath =
+    contactPath || (isRoot ? "./src/pages/contact.html" : "./contact.html");
+  const resolvedWishlistPath =
+    wishlistPath || (isRoot ? "./src/pages/wishlist.html" : "./wishlist.html");
   const homeHref = isRoot ? "./index.html" : "../../index.html";
 
   return `

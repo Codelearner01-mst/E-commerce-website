@@ -20,7 +20,7 @@
   }
   /* ── Product Card ─────────────────────────────────────────── */
   .product-card {
-    @apply bg-white shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1 rounded-md overflow-hidden border border-gray-100/60;
+    @apply bg-white hover:shadow-xl transition-all duration-500 hover:-translate-y-1  overflow-hidden border border-gray-100/60;
   }
 
   .product-card:hover .product-image {
@@ -32,8 +32,7 @@
   }
 
   .product-image-container {
-    @apply overflow-hidden relative mx-auto
-            h-65.5;
+    @apply overflow-hidden relative mx-auto h-90;
   }
 
   /* subtle dark veil on image hover */
@@ -47,25 +46,29 @@
   }
 
   .product-info {
-    @apply pt-4 pb-5 px-1 flex flex-col gap-1;
+    @apply pt-4 pb-6 px-2.5 flex flex-col gap-1;
   }
 
   .product-label {
-    @apply text-[10px] uppercase tracking-[0.2em] text-amber-700/70 font-sans font-medium;
+    @apply text-[11px] uppercase tracking-[0.2em] mb-1.5 text-amber-700/70 font-sans font-medium;
   }
 
   .product-title {
-    @apply text-[14.5px] font-serif font-medium text-gray-900 tracking-wide leading-snug line-clamp-2;
+    @apply text-[18px] font-serif font-medium  mb-1.5 text-gray-900 tracking-wide leading-snug line-clamp-2;
+  }
+
+  .product-price-discounted {
+    @apply text-gray-400 line-through;
   }
 
   .product-price {
-    @apply font-sans font-semibold text-base text-gray-900 tracking-wide;
+    @apply font-sans font-bold text-[18px] text-gray-900 tracking-wide;
   }
 
   /* ── Buttons ──────────────────────────────────────────────── */
   .btn-primary {
-    @apply bg-gray-900 text-white text-[10px] uppercase tracking-[0.18em]
-           py-2.5 px-5 rounded-full
+    @apply bg-gray-900 text-white text-[14px] tracking-[0.16em]
+           py-2 px-3 rounded-2xl
            hover:bg-amber-800 hover:shadow-lg
            transition-all duration-300 font-medium;
   }
@@ -91,6 +94,33 @@
            transition-all duration-300;
   }
 
+  .category {
+    @apply text-gray-900 text-[42px] border-t border-t-gray-100 py-1 mt-1.5;
+  }
+
+  .why-different-group {
+    @apply flex flex-col gap-2 w-[80%] mx-auto mb-6;
+  }
+
+  .content {
+    @apply p-3 mb-2;
+  }
+
+  .content h3 {
+    @apply text-gray-900 text-[24px];
+  }
+
+  .content .desc {
+    @apply text-gray-500 text-sm;
+  }
+
+  .why-different-img-wrap {
+    @apply overflow-hidden w-full h-40;
+  }
+  .why-different-image {
+    @apply w-full h-full object-cover transition-transform duration-700 ease-out;
+  }
+
   /* ── Section Typography ──────────────────────────────────── */
   .section-title {
     @apply text-3xl md:text-4xl font-serif font-medium text-gray-900
@@ -113,7 +143,7 @@
   }
 
   .form-label {
-    @apply block text-gray-700 text-xs uppercase tracking-[0.15em] font-medium mb-2;
+    @apply block text-gray-700 text-base uppercase tracking-[0.15em] font-medium mb-2;
   }
 
   /* ── Nav ─────────────────────────────────────────────────── */
