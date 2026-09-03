@@ -48,8 +48,8 @@ export function renderSimilarProducts(container, path) {
     productsToRender = productsData.filter((p) => p.id !== currentProduct.id);
   }
 
-  // Limit to 4 items max
-  productsToRender = productsToRender.slice(0, 4);
+  // Keep the recommendations focused so the product page stays balanced.
+  productsToRender = productsToRender.slice(0, 3);
 
   if (productsToRender.length === 0) {
     container.innerHTML = "";
@@ -67,7 +67,7 @@ export function renderSimilarProducts(container, path) {
       </p>
       
       <!-- Horizontal scroll container on mobile, 4-column grid on desktop -->
-      <div id="similar-products-list" class="flex overflow-x-auto gap-5 pb-5 md:pb-0 md:grid md:grid-cols-4 scroll-smooth snap-x snap-mandatory no-scrollbar px-4 md:px-0">
+      <div id="similar-products-list" class="flex overflow-x-auto gap-4 pb-5 md:pb-0 md:grid md:grid-cols-3 scroll-smooth snap-x snap-mandatory no-scrollbar px-4 md:px-0">
   `;
 
   for (const p of productsToRender) {
@@ -83,8 +83,8 @@ export function renderSimilarProducts(container, path) {
     }
 
     html += `
-      <div class="similar-product-card group cursor-pointer bg-white rounded-lg overflow-hidden border border-gray-100/60 shadow-sm hover:shadow-lg transition-all duration-500 hover:-translate-y-1 shrink-0  md:w-auto flex flex-col justify-between" id="product-${tempProduct.id}">
-        <div class="overflow-hidden w-18 h-18 bg-gray-50/50 relative">
+      <div class="similar-product-card group cursor-pointer bg-white rounded-lg overflow-hidden border border-gray-100/60 shadow-sm hover:shadow-lg transition-all duration-500 hover:-translate-y-1 shrink-0 md:w-auto flex flex-col justify-between" id="product-${tempProduct.id}">
+        <div class="overflow-hidden bg-gray-50/50 relative">
           <img
             src="${tempProduct.image}"
             alt="${tempProduct.name}"
