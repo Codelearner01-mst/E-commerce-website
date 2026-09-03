@@ -52,9 +52,9 @@ export function CartItem(cart, path) {
                     </svg>
                   </button>
       </div>
-      <div class="flex flex-row justify-between flex-1 gap-2">
-    <div class="flex gap-2.5 flex-col ml-3.5 mr-9">
-      <p class="">${cart.name}</p>
+      <div class="cart-content flex flex-row justify-between flex-1 gap-2">
+    <div class="cart-details flex gap-2.5 flex-col ml-3.5 mr-9">
+      <p class="cart-product-name">${cart.name}</p>
       <p class="text-lg font-medium">$${cart.price}</p>
        <div class="flex items-center rounded-sm w-max h-9 overflow-hidden cart-btns-box">
         <button class="decrease-btn w-5 h-full flex items-center justify-center bg-yellow-700  text-white  hover:bg-yellow-600 hover:text-white transition-colors duration-300 text-sm font-light focus:outline-none cursor-pointer">&#8722;</button>

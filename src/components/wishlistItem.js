@@ -1,4 +1,8 @@
-export function wishlistItemHTML(product, path = "../images/", isInCart = false) {
+export function wishlistItemHTML(
+  product,
+  path = "../images/",
+  isInCart = false,
+) {
   // Safe image path resolution
   const filename = product.image
     .replace("./src/images/", "")
@@ -14,7 +18,7 @@ export function wishlistItemHTML(product, path = "../images/", isInCart = false)
   return `
     <div class="wishlist-card flex flex-col sm:flex-row items-center justify-between border-b border-gray-100 py-6 gap-4" id="product-${product.id}">
       <div class="flex items-center gap-4 flex-col sm:flex-row w-full sm:w-auto">
-        <div class="w-24 h-24 overflow-hidden rounded-md bg-gray-50 flex-shrink-0 cursor-pointer img-click">
+        <div class="wishlist-image-frame overflow-hidden rounded-md bg-gray-50 flex-shrink-0 cursor-pointer img-click">
           <img
             src="${fullSrc}"
             alt="${product.name}"

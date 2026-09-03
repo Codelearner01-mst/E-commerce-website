@@ -259,6 +259,35 @@
 
   .product-info {
     @apply pt-4 pb-6 px-2.5 flex flex-col gap-1;
+    min-height: 10.5rem;
+  }
+
+  .cart-card {
+    min-height: 9rem;
+    align-items: stretch;
+  }
+
+  .cart-card .cart-content {
+    min-width: 0;
+  }
+
+  .cart-card .cart-details {
+    min-width: 0;
+  }
+
+  .cart-card .cart-product-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .wishlist-card {
+    min-height: 8rem;
+  }
+
+  .wishlist-card .wishlist-image-frame {
+    width: 6rem;
+    aspect-ratio: 1 / 1;
   }
 
   .product-label {
