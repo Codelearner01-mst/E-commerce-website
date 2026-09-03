@@ -121,11 +121,36 @@
 
   header {
     background-color: var(--color-brand) !important;
+    color: var(--color-surface) !important;
+  }
+
+  header h1,
+  header a,
+  header .nav-link {
+    color: var(--color-surface) !important;
+  }
+
+  header .nav-link:hover {
+    color: var(--color-brand-pale) !important;
+  }
+
+  header .text-black,
+  header .text-gray-900 {
+    color: var(--color-surface) !important;
   }
 
   footer {
     background-color: var(--color-brand-tint) !important;
     color: var(--color-ink);
+  }
+
+  footer a,
+  footer h1,
+  footer h2,
+  footer h3,
+  footer p,
+  footer span {
+    color: inherit;
   }
 
   h1,
@@ -135,6 +160,14 @@
   h5,
   h6,
   .font-serif {
+    font-family: var(--font-family-primary);
+  }
+
+  .font-sans,
+  button,
+  input,
+  textarea,
+  select {
     font-family: var(--font-family-primary);
   }
 }
