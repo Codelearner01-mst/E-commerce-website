@@ -26,8 +26,8 @@
         inset: 0;
         background: linear-gradient(
           to top,
-          rgba(0, 0, 0, 0.65) 0%,
-          rgba(0, 0, 0, 0.2) 60%,
+          var(--color-overlay-dark) 0%,
+          var(--color-overlay-dark-soft) 60%,
           transparent 100%
         );
       }
@@ -55,11 +55,11 @@
         font-size: 0.6rem;
         letter-spacing: 0.35em;
         text-transform: uppercase;
-        color: var(--color-on-dark);
+        color: var(--color-surface);
         margin-bottom: 0.6rem;
       }
       .page-title {
-        font-family: serif;
+        font-family: var(--font-family-primary);
         font-size: clamp(2.2rem, 5vw, 3.5rem);
         font-weight: 400;
         color: white;
@@ -83,8 +83,8 @@
       .stat-strip {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        border-top: 1px solid #ede8df;
-        border-bottom: 1px solid #ede8df;
+        border-top: 1px solid var(--color-border);
+        border-bottom: 1px solid var(--color-border);
         background: var(--color-surface);
       }
       @media (min-width: 768px) {
@@ -96,7 +96,7 @@
       .stat-item {
         padding: 3rem 1.5rem;
         text-align: center;
-        border-right: 1px solid #ede8df;
+        border-right: 1px solid var(--color-border);
       }
       .stat-item:last-child {
         border-right: none;
@@ -106,25 +106,25 @@
           border-right: none;
         }
         .stat-item:nth-child(3) {
-          border-top: 1px solid #ede8df;
+          border-top: 1px solid var(--color-border);
         }
         .stat-item:nth-child(4) {
-          border-top: 1px solid #ede8df;
+          border-top: 1px solid var(--color-border);
           border-right: none;
         }
       }
       .stat-number {
-        font-family: serif;
+        font-family: var(--font-family-primary);
         font-size: 2.5rem;
         font-weight: 400;
-        color: #111;
+        color: var(--color-ink);
         display: block;
       }
       .stat-label {
         font-size: 0.6rem;
         text-transform: uppercase;
         letter-spacing: 0.2em;
-        color: #aaa;
+        color: var(--color-muted);
         margin-top: 0.4rem;
         display: block;
       }
@@ -150,7 +150,7 @@
       .story-image {
         overflow: hidden;
         aspect-ratio: 4/5;
-        background: #f5f2ef;
+        background: var(--color-surface);
       }
       .story-image img {
         width: 100%;
@@ -183,7 +183,7 @@
 
       .value-card {
         padding: 2rem 2rem 2.25rem;
-        border: 1px solid #f0ece6;
+        border: 1px solid var(--color-border);
         display: flex;
         flex-direction: column;
         gap: 0.65rem;
@@ -193,24 +193,24 @@
         color: var(--color-brand);
       }
       .value-heading {
-        font-family: serif;
+        font-family: var(--font-family-primary);
         font-size: 1.1rem;
         font-weight: 400;
-        color: #111;
+        color: var(--color-ink);
         letter-spacing: 0.03em;
       }
       .value-body {
         font-size: 0.875rem;
-        color: #888;
+        color: var(--color-muted);
         line-height: 1.85;
       }
 
       /* Nav */
       .nav-link {
         position: relative;
-        font-family: serif;
+        font-family: var(--font-family-primary);
         font-size: 1rem;
-        color: #1a1a1a;
+        color: var(--color-surface);
         letter-spacing: 0.04em;
         transition: color 0.25s;
       }

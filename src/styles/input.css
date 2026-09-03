@@ -18,14 +18,27 @@
   --color-surface: #fcf9f9;
   --color-ink: #1f1d1a;
   --color-muted: #6d675f;
-  --color-dark-surface: #201f1d;
-  --color-dark-surface-raised: #2b2a28;
-  --color-on-dark: rgba(247, 243, 238, 0.96);
+  --color-danger: #b65b52;
   --color-border: rgba(31, 29, 26, 0.08);
+  --color-overlay-dark: rgba(0, 0, 0, 0.65);
+  --color-overlay-dark-soft: rgba(0, 0, 0, 0.2);
+  --color-overlay-light: rgba(255, 255, 255, 0.72);
+  --color-control-dark: rgba(255, 255, 255, 0.03);
+  --color-control-dark-hover: rgba(255, 255, 255, 0.07);
+  --color-control-dark-active: rgba(255, 255, 255, 0.08);
+  --color-border-control: rgba(255, 255, 255, 0.15);
+  --color-border-control-soft: rgba(255, 255, 255, 0.06);
+  --color-border-control-active: rgba(184, 154, 106, 0.3);
+  --color-toolbar: rgba(190, 170, 150, 0.97);
+  --color-dropdown: #2a2d34;
+  --color-dropdown-option: #2b2d2f;
+  --color-control-text: #d9d3cc;
+  --color-control-muted: #bcb5af;
 
   /* Shared typography */
-  --font-family-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-family-display: Georgia, "Times New Roman", serif;
+  --font-family-primary: "Avenir Next", "Segoe UI", sans-serif;
+  --font-family-body: var(--font-family-primary);
+  --font-family-display: var(--font-family-primary);
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
@@ -69,10 +82,50 @@
   --z-alert: 100;
 }
 
+@theme inline {
+  --color-white: var(--color-surface);
+  --color-black: var(--color-ink);
+  --color-gray-50: var(--color-surface);
+  --color-gray-100: var(--color-border);
+  --color-gray-200: var(--color-border);
+  --color-gray-300: var(--color-muted);
+  --color-gray-400: var(--color-muted);
+  --color-gray-500: var(--color-muted);
+  --color-gray-600: var(--color-muted);
+  --color-gray-700: var(--color-muted);
+  --color-gray-800: var(--color-ink);
+  --color-gray-900: var(--color-ink);
+  --color-amber-50: var(--color-brand-pale);
+  --color-amber-400: var(--color-brand);
+  --color-amber-500: var(--color-brand);
+  --color-amber-700: var(--color-brand);
+  --color-amber-800: var(--color-brand);
+  --color-yellow-100: var(--color-brand-pale);
+  --color-yellow-600: var(--color-brand);
+  --color-yellow-700: var(--color-brand);
+  --color-yellow-800: var(--color-brand);
+  --color-red-50: var(--color-brand-pale);
+  --color-red-200: var(--color-danger);
+  --color-red-400: var(--color-danger);
+  --color-red-500: var(--color-danger);
+  --color-red-600: var(--color-danger);
+  --color-red-700: var(--color-danger);
+}
+
 @layer base {
   body {
     font-family: var(--font-family-body);
+    font-size: var(--font-size-base);
     line-height: var(--line-height-body);
+  }
+
+  header {
+    background-color: var(--color-brand) !important;
+  }
+
+  footer {
+    background-color: var(--color-brand-tint) !important;
+    color: var(--color-ink);
   }
 
   h1,
@@ -82,7 +135,7 @@
   h5,
   h6,
   .font-serif {
-    font-family: var(--font-family-display);
+    font-family: var(--font-family-primary);
   }
 }
 
@@ -116,6 +169,49 @@
 
   .product-image-container {
     @apply overflow-hidden relative mx-auto h-90;
+  }
+
+  .cart-image-frame {
+    @apply relative flex-shrink-0 overflow-hidden;
+    width: 7rem;
+    aspect-ratio: 1 / 1;
+    background: var(--color-surface);
+  }
+
+  .cart-image-frame img {
+    @apply block w-full h-full object-cover;
+    object-position: center;
+  }
+
+  .cart-image-frame .wishlist-btn {
+    @apply absolute top-2 left-2 z-10 flex items-center justify-center;
+    width: 2rem;
+    height: 2rem;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--color-brand);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .detail-image-frame {
+    @apply relative mx-auto overflow-hidden;
+    width: min(100%, 25rem);
+    aspect-ratio: 4 / 5;
+    background: var(--color-surface);
+  }
+
+  .detail-image-frame img {
+    @apply block w-full h-full object-cover;
+    object-position: center;
+  }
+
+  .similar-product-card {
+    width: min(100%, 9.5rem);
+  }
+
+  .similar-product-card > div:first-child {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    height: auto;
   }
 
   /* subtle dark veil on image hover */
@@ -154,6 +250,8 @@
            py-2 px-3 rounded-2xl
            hover:bg-amber-800 hover:shadow-lg
            transition-all duration-300 font-medium;
+    background-color: var(--color-brand);
+    color: var(--color-surface);
   }
 
   .btn-primary-full {
@@ -161,6 +259,8 @@
            uppercase tracking-[0.15em] text-sm
            hover:bg-amber-800 hover:shadow-lg
            transition-all duration-300 font-medium w-full;
+    background-color: var(--color-brand);
+    color: var(--color-surface);
   }
 
   .btn-secondary {
@@ -233,6 +333,7 @@
   .nav-link {
     @apply relative font-serif text-base text-gray-800 tracking-wide
            hover:text-amber-800 transition-colors duration-300;
+    color: var(--color-surface);
   }
 
   .nav-link::after {
@@ -254,10 +355,12 @@
 
   /* ── Alert banner ───────────────────────────────────────── */
   .added-cart-success {
-    @apply bg-gray-900 fixed top-0 left-0
+    @apply fixed top-0 left-0
            transition-all duration-300 ease-in-out
            border-b border-amber-700 w-full shadow-xl
            opacity-0 -translate-y-full pointer-events-none;
+    background-color: var(--color-brand);
+    color: var(--color-surface);
     z-index: var(--z-alert);
   }
 

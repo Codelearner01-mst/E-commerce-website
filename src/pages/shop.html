@@ -20,9 +20,9 @@
       }
 
       .shop-toolbar {
-        background-color: rgba(190, 170, 150, 0.97);
-        color: #f8f8f8;
-        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+        background-color: var(--color-toolbar);
+        color: var(--color-surface);
+        box-shadow: 0 1px 0 var(--color-border-control-soft);
         position: sticky;
         top: calc(var(--layout-header-height) + var(--layout-search-height));
         z-index: 54;
@@ -36,49 +36,46 @@
         padding: 12px 16px;
       }
       .toolbar-select {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        color: #fff;
+        background: var(--color-control-dark);
+        border: 1px solid var(--color-border-control);
+        color: var(--color-surface);
         padding: 8px 10px;
         border-radius: 6px;
-        background-color: var(--color-brand);
       }
       .toolbar-select option {
-        background: #2b2d2f;
-        color: #fff;
-        background: var(--color-page);
+        background: var(--color-dropdown-option);
+        color: var(--color-surface);
       }
       .filter-dropdown-container {
         position: relative;
         display: inline-block;
       }
       .filter-btn {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        color: #fff;
-        background-color: var(--color-brand-tint);
+        background: var(--color-control-dark);
+        border: 1px solid var(--color-border-control);
+        color: var(--color-surface);
+        padding: 8px 14px;
         border-radius: 6px;
-        border-bottom: 1px solid var(--color-border);
+        cursor: pointer;
         transition: all 0.2s ease;
       }
       .filter-btn:hover {
-        background: rgba(255, 255, 255, 0.07);
-        border-bottom: 1px solid var(--color-border);
-        .filter-btn[aria-expanded="true"] .main-arrow {
-          transform: rotate(180deg);
-        }
-        border-color: rgba(184, 154, 106, 0.3);
+        background: var(--color-control-dark-hover);
+      }
+      .filter-btn[aria-expanded="true"] .main-arrow {
+        transform: rotate(180deg);
+      }
+      .filter-menu {
         display: none;
         position: absolute;
         top: calc(100% + 6px);
         left: 0;
-        background: #2a2d34;
-        color: #fff;
+        background: var(--color-dropdown);
+        color: var(--color-surface);
         min-width: 240px;
         border-radius: 8px;
-        box-shadow: 0 16px 34px rgba(0, 0, 0, 0.35);
-        z-index: 120;
-        border: 1px solid rgba(255, 255, 255, 0.06);
+        box-shadow: var(--shadow-floating);
+        border: 1px solid var(--color-border-control-soft);
       }
       .filter-menu.open {
         display: block;
@@ -86,7 +83,7 @@
       .filter-menu ul {
         list-style: none;
         margin: 0;
-        color: rgba(247, 243, 238, 0.96);
+        padding: 8px;
       }
       .filter-menu li {
         border-radius: 4px;
@@ -97,11 +94,11 @@
         align-items: center;
         cursor: pointer;
         padding: 8px 10px;
-        background: rgba(255, 255, 255, 0.03);
+        background: var(--color-control-dark);
         border-radius: 4px;
       }
       .group-toggle:hover {
-        background: rgba(255, 255, 255, 0.08);
+        background: var(--color-control-dark-active);
       }
       .filter-group .submenu {
         display: none;
@@ -112,12 +109,12 @@
       .submenu li {
         padding: 6px 10px;
         font-size: 0.9rem;
-        color: #d9d3cc;
+        color: var(--color-control-text);
         cursor: pointer;
       }
       .submenu li:hover {
-        background: rgba(255, 255, 255, 0.05);
-        color: #fff;
+        background: var(--color-control-dark-active);
+        color: var(--color-surface);
       }
       .filter-group.expanded .submenu {
         display: block;
@@ -125,11 +122,11 @@
       .arrow {
         transition: transform 180ms ease;
         font-size: 0.8rem;
-        color: #bcb5af;
+        color: var(--color-control-muted);
       }
       .filter-group.expanded .arrow {
         transform: rotate(90deg);
-        color: #fff;
+        color: var(--color-surface);
       }
       .submenu {
         padding-left: 8px;
@@ -143,7 +140,7 @@
         background-color: var(--color-brand-tint);
         backdrop-filter: blur(8px);
         border-bottom: 1px solid var(--color-border);
-        box-shadow: 0 8px 24px rgba(24, 20, 16, 0.04);
+        box-shadow: var(--shadow-soft);
       }
       .search-sticky .search-wrap {
         max-width: 1100px;
@@ -151,10 +148,10 @@
         padding: 10px 16px 12px;
       }
       .search-sticky input {
-        box-shadow: 0 8px 18px rgba(20, 17, 14, 0.06);
+        box-shadow: var(--shadow-card);
       }
       .cat-rail {
-        background: rgba(255, 255, 255, 0.72);
+        background: var(--color-overlay-light);
         border-bottom: 1px solid var(--color-border);
       }
       .cat-rail-inner {
@@ -163,8 +160,8 @@
         padding: 12px 16px 0;
       }
       .cat-btn {
-        border: 1px solid rgba(31, 29, 26, 0.08);
-        background: #fff;
+        border: 1px solid var(--color-border);
+        background: var(--color-surface);
         color: var(--color-ink);
         padding: 8px 14px;
         border-radius: 999px;
@@ -173,12 +170,12 @@
       }
       .cat-btn.active {
         background: var(--color-brand-pale);
-        border-color: rgba(184, 154, 106, 0.3);
-        color: #4d3c1c;
+        border-color: var(--color-border-control-active);
+        color: var(--color-brand);
       }
       .cat-btn:hover {
-        border-color: rgba(31, 29, 26, 0.15);
-        box-shadow: 0 4px 14px rgba(31, 29, 26, 0.04);
+        border-color: var(--color-border-control-active);
+        box-shadow: var(--shadow-soft);
       }
       @media (max-width: 640px) {
         .toolbar-inner {
@@ -192,7 +189,7 @@
       }
 
       .shop-text {
-        color: rgba(247, 243, 238, 0.96);
+        color: var(--color-surface);
       }
     </style>
   </head>

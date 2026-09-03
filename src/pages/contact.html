@@ -25,8 +25,8 @@
         inset: 0;
         background: linear-gradient(
           to top,
-          rgba(0, 0, 0, 0.65) 0%,
-          rgba(0, 0, 0, 0.2) 60%,
+          var(--color-overlay-dark) 0%,
+          var(--color-overlay-dark-soft) 60%,
           transparent 100%
         );
       }
@@ -53,11 +53,11 @@
         font-size: 0.6rem;
         letter-spacing: 0.35em;
         text-transform: uppercase;
-        color: var(--color-on-dark);
+        color: var(--color-surface);
         margin-bottom: 0.6rem;
       }
       .page-title {
-        font-family: serif;
+        font-family: var(--font-family-primary);
         font-size: clamp(2.2rem, 5vw, 3.5rem);
         font-weight: 400;
         color: white;
@@ -101,26 +101,26 @@
         font-size: 1rem;
         text-transform: uppercase;
         letter-spacing: 0.22em;
-        color: #999;
+        color: var(--color-muted);
       }
       .form-input {
         width: 100%;
         padding: 0.7rem 0;
         border: none;
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid var(--color-border);
         background: transparent;
         font-size: 0.9rem;
-        color: #111;
+        color: var(--color-ink);
         outline: none;
         transition: border-color 0.2s;
         border-radius: 0;
         font-family: inherit;
       }
       .form-input:focus {
-        border-bottom-color: #111;
+        border-bottom-color: var(--color-ink);
       }
       .form-input::placeholder {
-        color: #ccc;
+        color: var(--color-muted);
         font-size: 0.85rem;
       }
       textarea.form-input {
@@ -129,7 +129,7 @@
       }
 
       .submit-btn {
-        background: #111;
+        background: var(--color-ink);
         color: white;
         border: none;
         padding: 1rem 2.5rem;
@@ -153,15 +153,15 @@
         gap: 1.25rem;
         align-items: flex-start;
         padding: 1.5rem 0;
-        border-bottom: 1px solid #f0ece6;
+        border-bottom: 1px solid var(--color-border);
       }
       .info-item:first-child {
-        border-top: 1px solid #f0ece6;
+        border-top: 1px solid var(--color-border);
       }
       .info-icon {
         width: 2.25rem;
         height: 2.25rem;
-        border: 1px solid #f0ece6;
+        border: 1px solid var(--color-border);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -174,12 +174,12 @@
         font-size: 0.6rem;
         text-transform: uppercase;
         letter-spacing: 0.2em;
-        color: #bbb;
+        color: var(--color-muted);
         margin-bottom: 0.35rem;
       }
       .info-value {
         font-size: 0.9rem;
-        color: #333;
+        color: var(--color-ink);
         line-height: 1.6;
       }
 
@@ -199,9 +199,9 @@
 
       .nav-link {
         position: relative;
-        font-family: serif;
+        font-family: var(--font-family-primary);
         font-size: 1rem;
-        color: #1a1a1a;
+        color: var(--color-surface);
         letter-spacing: 0.04em;
         transition: color 0.25s;
       }
@@ -341,7 +341,10 @@
               <div>
                 <p class="info-label">Phone</p>
                 <p class="info-value">+1 (800) 555 – 0142</p>
-                <p class="info-value" style="font-size: 0.8rem; color: #aaa">
+                <p
+                  class="info-value"
+                  style="font-size: 0.8rem; color: var(--color-muted)"
+                >
                   Mon – Fri, 9am – 5pm EST
                 </p>
               </div>
