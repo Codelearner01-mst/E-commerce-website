@@ -15,7 +15,7 @@ export function productHTML(product) {
  <div class="px-4 md:px-8 lg:px-12 xl:px-16 py-6 md:grid lg:grid-cols-2 md:gap-8 lg:gap-16 md:max-w-5xl lg:max-w-6xl md:mx-auto w-full">
 
   <!-- Image -->
-  <div class="relative overflow-hidde w-65 h-78 mb-10 md:mb-0 md:h-full ">
+  <div class="detail-image-frame mb-10 md:mb-0">
     <img
       class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
       src="${product.image}"

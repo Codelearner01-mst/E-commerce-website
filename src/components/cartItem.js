@@ -33,10 +33,10 @@ export function CartItem(cart, path) {
   cartDiv.id = `product-${cart.id}`;
   cartDiv.innerHTML = `
    
-      <div class="w-40">
-        <img src="${newSrc}" alt="${cart.name}" class="object-cover h-full w-full" />
+      <div class="cart-image-frame">
+        <img src="${newSrc}" alt="${cart.name}" />
                <button
-                    class="wishlist-btn p-1.5 rounded-full hover:bg-[#f7f0e8] hover:text-[#b65b52] transition-colors"
+                    class="wishlist-btn p-1.5 rounded-full hover:bg-amber-50 hover:text-red-500 transition-colors"
                     aria-label="Add to wishlist"
                   >
                     <svg
