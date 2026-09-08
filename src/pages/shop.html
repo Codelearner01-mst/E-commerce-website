@@ -15,17 +15,14 @@
       }
 
       body {
-        background: var(--color-page);
         color: var(--color-ink);
       }
 
       .shop-toolbar {
-        background-color: var(--color-toolbar);
-        color: var(--color-surface);
-        box-shadow: 0 1px 0 var(--color-border-control-soft);
-        position: sticky;
-        top: calc(var(--layout-header-height) + var(--layout-search-height));
-        z-index: 54;
+        background-color: #ffffff;
+        color: var(--color-ink);
+        position: relative;
+        z-index: 20;
       }
       .toolbar-inner {
         max-width: 1100px;
@@ -36,31 +33,32 @@
         padding: 12px 16px;
       }
       .toolbar-select {
-        background: var(--color-control-dark);
-        border: 1px solid var(--color-border-control);
-        color: var(--color-surface);
+        background: #ffffff;
+        border: 1px solid var(--color-border);
+        color: var(--color-ink);
         padding: 8px 10px;
         border-radius: 6px;
       }
       .toolbar-select option {
-        background: var(--color-dropdown-option);
-        color: var(--color-surface);
+        background: #ffffff;
+        color: var(--color-ink);
       }
       .filter-dropdown-container {
         position: relative;
         display: inline-block;
+        z-index: 30;
       }
       .filter-btn {
-        background: var(--color-control-dark);
-        border: 1px solid var(--color-border-control);
-        color: var(--color-surface);
+        background: #ffffff;
+        border: 1px solid var(--color-border);
+        color: var(--color-ink);
         padding: 8px 14px;
         border-radius: 6px;
         cursor: pointer;
         transition: all 0.2s ease;
       }
       .filter-btn:hover {
-        background: var(--color-control-dark-hover);
+        background: var(--color-brand-pale);
       }
       .filter-btn[aria-expanded="true"] .main-arrow {
         transform: rotate(180deg);
@@ -70,12 +68,13 @@
         position: absolute;
         top: calc(100% + 6px);
         left: 0;
-        background: var(--color-dropdown);
-        color: var(--color-surface);
+        z-index: 40;
+        background: #ffffff;
+        color: var(--color-ink);
         min-width: 240px;
         border-radius: 8px;
-        box-shadow: var(--shadow-floating);
-        border: 1px solid var(--color-border-control-soft);
+        box-shadow: var(--shadow-soft);
+        border: 1px solid var(--color-border);
       }
       .filter-menu.open {
         display: block;
@@ -94,11 +93,11 @@
         align-items: center;
         cursor: pointer;
         padding: 8px 10px;
-        background: var(--color-control-dark);
+        background: #ffffff;
         border-radius: 4px;
       }
       .group-toggle:hover {
-        background: var(--color-control-dark-active);
+        background: var(--color-brand-pale);
       }
       .filter-group .submenu {
         display: none;
@@ -109,12 +108,12 @@
       .submenu li {
         padding: 6px 10px;
         font-size: 0.9rem;
-        color: var(--color-control-text);
+        color: var(--color-ink);
         cursor: pointer;
       }
       .submenu li:hover {
-        background: var(--color-control-dark-active);
-        color: var(--color-surface);
+        background: var(--color-brand-pale);
+        color: var(--color-ink);
       }
       .filter-group.expanded .submenu {
         display: block;
@@ -122,11 +121,11 @@
       .arrow {
         transition: transform 180ms ease;
         font-size: 0.8rem;
-        color: var(--color-control-muted);
+        color: var(--color-muted);
       }
       .filter-group.expanded .arrow {
         transform: rotate(90deg);
-        color: var(--color-surface);
+        color: var(--color-ink);
       }
       .submenu {
         padding-left: 8px;
@@ -137,11 +136,15 @@
         top: var(--layout-header-height);
         z-index: 55;
         width: 100%;
-        background-color: var(--color-brand-tint);
+        background-color: var(--color-brand-pale);
         backdrop-filter: blur(8px);
         border-bottom: 1px solid var(--color-border);
         box-shadow: var(--shadow-soft);
       }
+      .search-sticky-hidden {
+        display: none;
+      }
+
       .search-sticky .search-wrap {
         max-width: 1100px;
         margin: 0 auto;
@@ -207,18 +210,18 @@
     </header>
     <main class="pt-2 pb-20">
       <section
-        class="py-2"
+        class="py-10 md:py-16"
         id="home"
         style="
-          background-image: url(&quot;../images/segal-jewelry-NsH-CvU0deg-unsplash.jpg&quot;);
+          background-image: url(&quot;../images/carmen-alarcon-PHcEof5kfqk-unsplash.jpg&quot;);
           background-size: cover;
         "
       >
         <div class="hero-overlay"></div>
-        <div class="mt-5 mb-8 px-4">
-          <div class="rounded-lg p-8 text-center max-w-2xl mx-auto">
+        <div class="mt-8 mb-10 px-4">
+          <div class="rounded-lg p-10 md:p-14 text-center max-w-3xl mx-auto">
             <h2
-              class="text-5xl md:text-4xl font-serif font-bold text-gray-900 tracking-wide"
+              class="text-6xl md:text-7xl font-serif font-bold text-white tracking-wide"
             >
               Shop Collection
             </h2>
@@ -243,10 +246,10 @@
       <section class="shop-toolbar px-4 py-4">
         <div class="toolbar-inner">
           <div class="flex items-center gap-2">
-            <div class="text-white font-medium">Sort by</div>
+            <div class="font-medium">Sort by</div>
             <select
               id="sort-by"
-              class="toolbar-select bg-gray-800 text-white border border-gray-700 px-3 py-2 rounded-md focus:outline-none"
+              class="toolbar-select focus:outline-none"
               aria-label="Sort products"
             >
               <option value="relevance">Relevance</option>
@@ -335,11 +338,11 @@
         </div>
       </section>
 
-      <section id="products" class="px-4 mt-5 py-12 bg-gray-50">
+      <section id="products" class="px-4 mt-5 py-12">
         <div class="max-w-7xl mx-auto">
           <div
             id="product-list"
-            class="product-list grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-8 mb-6 px-4 md:px-0"
+            class="product-list grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-8 mb-6 px-4 md:px-0"
           ></div>
         </div>
       </section>

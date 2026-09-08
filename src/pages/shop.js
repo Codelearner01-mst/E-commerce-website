@@ -38,6 +38,7 @@ const dropDownMenu = document.getElementById("drop-menu");
 const products = document.getElementById("product-list");
 const searchInput = document.getElementById("search-input");
 const catBtns = document.querySelectorAll(".cat-btn");
+const searchSticky = document.querySelector(".search-sticky");
 // if category buttons were removed, avoid errors by providing a default
 if (!catBtns || catBtns.length === 0) {
   // create a virtual 'all' active category so filtering code can still work
@@ -54,6 +55,24 @@ const imagePath = "../images/";
 let currentView = productsData.slice();
 
 renderProducts(currentView, imagePath, products, currentView.length);
+
+let lastScrollY = window.scrollY;
+let isTicking = false;
+window.addEventListener("scroll", () => {
+  const currentScrollY = window.scrollY;
+
+  if (!isTicking) {
+    if (currentScrollY > lastScrollY && currentScrollY > 700) {
+      searchSticky.classList.add("search-sticky-hidden");
+    } else {
+      searchSticky.classList.remove("search-sticky-hidden");
+    }
+    isTicking = true;
+  } else {
+    lastScrollY = currentScrollY;
+    isTicking = false;
+  }
+});
 
 function filterProductsByCategory(cat) {
   if (!cat || cat === null) return;
