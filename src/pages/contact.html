@@ -58,7 +58,7 @@
       }
       .page-title {
         font-family: var(--font-family-primary);
-        font-size: clamp(2.2rem, 5vw, 3.5rem);
+        font-size: clamp(36px, 5vw, 3.5rem);
         font-weight: 400;
         color: white;
         letter-spacing: 0.02em;
@@ -80,15 +80,22 @@
         display: grid;
         grid-template-columns: 1fr;
         gap: 4rem;
-        max-width: 1060px;
+        max-width: 780px;
         margin: 0 auto;
         padding: 5rem 1.5rem;
       }
-      @media (min-width: 768px) {
+      @media (min-width: 1024px) {
         .contact-grid {
           grid-template-columns: 1fr 1fr;
-          gap: 6rem;
-          padding: 7rem 2.5rem;
+          max-width: 1250px;
+          gap: 2.5rem;
+          padding: 5rem 1.4rem;
+        }
+      }
+
+      @media (min-width: 1460px) {
+        .contact-grid {
+          gap: 70px;
         }
       }
 
@@ -98,16 +105,16 @@
         gap: 0.4rem;
       }
       .form-label {
-        font-size: 1rem;
+        font-size: 12px;
         text-transform: uppercase;
         letter-spacing: 0.22em;
         color: var(--color-muted);
       }
       .form-input {
         width: 100%;
-        padding: 0.7rem 0;
+        padding: 0.7rem 0.5rem;
         border: none;
-        border-bottom: 1px solid var(--color-border);
+        border: 1px solid var(--color-border);
         background: transparent;
         font-size: 0.9rem;
         color: var(--color-ink);
@@ -117,10 +124,10 @@
         font-family: inherit;
       }
       .form-input:focus {
-        border-bottom-color: var(--color-ink);
+        border-color: rgb(175, 174, 174);
       }
       .form-input::placeholder {
-        color: var(--color-muted);
+        color: rgb(167, 165, 165);
         font-size: 0.85rem;
       }
       textarea.form-input {
@@ -129,7 +136,7 @@
       }
 
       .submit-btn {
-        background: var(--color-ink);
+        background: var(--color-accent);
         color: white;
         border: none;
         padding: 1rem 2.5rem;
@@ -256,7 +263,7 @@
           <div>
             <span class="gold-rule"></span>
             <h2
-              class="font-serif text-2xl font-medium text-gray-900 tracking-wide mb-2 leading-snug"
+              class="font-serif text-3xl md:text-4xl font-medium text-gray-900 mb-2 leading-snug"
             >
               Send Us a Message
             </h2>
@@ -265,7 +272,11 @@
               you within one business day.
             </p>
 
-            <form id="contact-form" class="flex flex-col gap-7" novalidate>
+            <form
+              id="contact-form"
+              class="flex flex-col gap-7 border border-gray-300 shadow-md shadow-gray-100 rounded-xl p-4 py-9 md:p-7"
+              novalidate
+            >
               <div class="form-group">
                 <label class="form-label" for="name">Full Name</label>
                 <input
@@ -366,20 +377,20 @@
               </div>
               <div>
                 <p class="info-label">Social</p>
-                <div class="flex gap-4 mt-1">
+                <div class="flex gap-5 mt-1">
                   <a
                     href="#"
-                    class="text-sm text-gray-400 hover:text-amber-700 transition-colors"
+                    class="text-base text-gray-400 hover:text-amber-700 transition-colors"
                     ><i class="fab fa-instagram"></i
                   ></a>
                   <a
                     href="#"
-                    class="text-sm text-gray-400 hover:text-amber-700 transition-colors"
+                    class="text-base text-gray-400 hover:text-amber-700 transition-colors"
                     ><i class="fab fa-facebook-f"></i
                   ></a>
                   <a
                     href="#"
-                    class="text-sm text-gray-400 hover:text-amber-700 transition-colors"
+                    class="text-base text-gray-400 hover:text-amber-700 transition-colors"
                     ><i class="fab fa-pinterest-p"></i
                   ></a>
                 </div>
