@@ -1,0 +1,7 @@
+This directory is managed by Flask-Migrate/Alembic.
+
+Initialize migrations from the backend directory:
+
+    flask db init
+    flask db migrate -m "initial schema"
+    flask db upgrade
