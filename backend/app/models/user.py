@@ -4,6 +4,8 @@ from ..extensions import db
 
 
 class User(db.Model):
+    __tablename__ = 'users'
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255),nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False, index=True)
@@ -11,5 +13,5 @@ class User(db.Model):
     created_at = db.Column(
         db.DateTime, default=lambda: datetime.now(timezone.utc), nullable=False
     )
-    updated_at = db.Column(db.Datetime, nullable=False)
+    updated_at = db.Column(db.DateTime, nullable=False)
     orders = db.relationship("Order", back_populates="user", lazy=True)

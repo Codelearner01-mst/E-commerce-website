@@ -10,7 +10,7 @@ class Product(db.Model):
     description = db.Column(db.Text, nullable=True)
     price = db.Column(db.Numeric(10, 2), nullable=False)
     image_url = db.Column(db.String(500), nullable=True)
-    created_at = db.Column(db.Datetime, nullable=False)
-    updated_at = db.Column(db.Datetime, nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False)
+    updated_at = db.Column(db.DateTime, nullable=False)
     
     category = db.relationship("Category", back_populates="products")

@@ -7,5 +7,5 @@ class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=True, nullable=False)
     description = db.Column(db.Text, nullable=True)
-    created_at = db.Column(db.Datetime, nullable=False)
-    updated_at = db.Column(db.Datetime, nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False)
+    updated_at = db.Column(db.DateTime, nullable=False)
