@@ -2,7 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 
 from config import configs
-from .extensions import db, migrate
+from .extensions import db, migrate,login_manager
 from . import models
 from .blueprints.auth import auth_bp
 from .blueprints.products import products_bp
@@ -17,6 +17,7 @@ def create_app(config_name="development"):
 
     db.init_app(app)
     migrate.init_app(app, db)
+    login_manager.init_app(app)
     CORS(app)
 
     app.register_blueprint(auth_bp, url_prefix="/api/auth")
