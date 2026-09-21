@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-commerce website</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles/output.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <style>
+      header {
+        background-color: var(--color-brand);
+      }
+
+      body {
+        color: var(--color-ink);
+      }
+
+      .shop-toolbar {
+        background-color: #ffffff;
+        color: var(--color-ink);
+        position: relative;
+        z-index: 20;
+      }
+      .toolbar-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        padding: 12px 16px;
+      }
+      .toolbar-select {
+        background: #ffffff;
+        border: 1px solid var(--color-border);
+        color: var(--color-ink);
+        padding: 8px 10px;
+        border-radius: 6px;
+      }
+      .toolbar-select option {
+        background: #ffffff;
+        color: var(--color-ink);
+      }
+      .filter-dropdown-container {
+        position: relative;
+        display: inline-block;
+        z-index: 30;
+      }
+      .filter-btn {
+        background: #ffffff;
+        border: 1px solid var(--color-border);
+        color: var(--color-ink);
+        padding: 8px 14px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      .filter-btn:hover {
+        background: var(--color-brand-pale);
+      }
+      .filter-btn[aria-expanded="true"] .main-arrow {
+        transform: rotate(180deg);
+      }
+      .filter-menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        z-index: 40;
+        background: #ffffff;
+        color: var(--color-ink);
+        min-width: 240px;
+        border-radius: 8px;
+        box-shadow: var(--shadow-soft);
+        border: 1px solid var(--color-border);
+      }
+      .filter-menu.open {
+        display: block;
+      }
+      .filter-menu ul {
+        list-style: none;
+        margin: 0;
+        padding: 8px;
+      }
+      .filter-menu li {
+        border-radius: 4px;
+      }
+      .group-toggle {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        padding: 8px 10px;
+        background: #ffffff;
+        border-radius: 4px;
+      }
+      .group-toggle:hover {
+        background: var(--color-brand-pale);
+      }
+      .filter-group .submenu {
+        display: none;
+        list-style: none;
+        padding-left: 12px;
+        margin-top: 4px;
+      }
+      .submenu li {
+        padding: 6px 10px;
+        font-size: 0.9rem;
+        color: var(--color-ink);
+        cursor: pointer;
+      }
+      .submenu li:hover {
+        background: var(--color-brand-pale);
+        color: var(--color-ink);
+      }
+      .filter-group.expanded .submenu {
+        display: block;
+      }
+      .arrow {
+        transition: transform 180ms ease;
+        font-size: 0.8rem;
+        color: var(--color-muted);
+      }
+      .filter-group.expanded .arrow {
+        transform: rotate(90deg);
+        color: var(--color-ink);
+      }
+      .submenu {
+        padding-left: 8px;
+        margin-top: 6px;
+      }
+      .search-sticky {
+        position: sticky;
+        top: var(--layout-header-height);
+        z-index: 55;
+        width: 100%;
+        background-color: var(--color-brand-pale);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--color-border);
+        box-shadow: var(--shadow-soft);
+      }
+      .search-sticky-hidden {
+        display: none;
+      }
+
+      .search-sticky .search-wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 10px 16px 12px;
+      }
+      .search-sticky input {
+        box-shadow: var(--shadow-card);
+      }
+      .cat-rail {
+        background: var(--color-overlay-light);
+        border-bottom: 1px solid var(--color-border);
+      }
+      .cat-rail-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 12px 16px 0;
+      }
+      .cat-btn {
+        border: 1px solid var(--color-border);
+        background: var(--color-surface);
+        color: var(--color-ink);
+        padding: 8px 14px;
+        border-radius: 999px;
+        transition: all 0.2s ease;
+        font-size: 0.9rem;
+      }
+      .cat-btn.active {
+        background: var(--color-brand-pale);
+        border-color: var(--color-border-control-active);
+        color: var(--color-brand);
+      }
+      .cat-btn:hover {
+        border-color: var(--color-border-control-active);
+        box-shadow: var(--shadow-soft);
+      }
+      @media (max-width: 640px) {
+        .toolbar-inner {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .search-sticky .search-wrap {
+          padding-left: 12px;
+          padding-right: 12px;
+        }
+      }
+
+      .shop-text {
+        color: var(--color-surface);
+      }
+    </style>
+  </head>
+
+  <body>
+    <header
+      id="header-bar"
+      class="fixed top-0 left-0 right-0 border-gray-100 flex justify-between items-center px-4 md:px-8 py-4 z-50 transition-all duration-300"
+    >
+      <h1
+        class="text-white text-2xl md:text-3xl font-serif tracking-widest uppercase"
+      >
+        Vision Jewelry
+      </h1>
+    </header>
+    <main class="pt-2 pb-20">
+      <section
+        class="py-10 md:py-16"
+        id="home"
+        style="
+          background-image: url(&quot;../images/carmen-alarcon-PHcEof5kfqk-unsplash.jpg&quot;);
+          background-size: cover;
+        "
+      >
+        <div class="hero-overlay"></div>
+        <div class="mt-8 mb-10 px-4">
+          <div class="rounded-lg p-10 md:p-14 text-center max-w-3xl mx-auto">
+            <h2
+              class="text-6xl md:text-7xl font-serif font-bold text-white tracking-wide"
+            >
+              Shop Collection
+            </h2>
+            <p class="shop-text mt-2">
+              Explore our complete range of exquisite, handcrafted jewelry.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div class="search-sticky">
+        <div class="search-wrap">
+          <input
+            type="text"
+            placeholder="Search for products..."
+            id="search-input"
+            class="px-4 py-3 w-full md:w-2/3 bg-white text-lg border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+          />
+        </div>
+      </div>
+
+      <section class="shop-toolbar px-4 py-4">
+        <div class="toolbar-inner">
+          <div class="flex items-center gap-2">
+            <div class="font-medium">Sort by</div>
+            <select
+              id="sort-by"
+              class="toolbar-select focus:outline-none"
+              aria-label="Sort products"
+            >
+              <option value="relevance">Relevance</option>
+              <option value="newest">Newest</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+            </select>
+          </div>
+
+          <div class="filter-dropdown-container">
+            <button
+              id="filter-btn"
+              class="filter-btn flex items-center gap-2"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <i class="fa-solid fa-filter"></i>
+              <span>Filter by</span>
+              <i
+                class="fa-solid fa-angle-down main-arrow transition-transform duration-200"
+              ></i>
+            </button>
+
+            <div id="filter-menu" class="filter-menu" role="menu">
+              <ul>
+                <li data-filter-group="price" class="filter-group">
+                  <div class="group-toggle" role="button" tabindex="0">
+                    <strong>Price</strong>
+                    <i class="fa-solid fa-angle-right arrow"></i>
+                  </div>
+                  <ul class="submenu" aria-label="Price ranges">
+                    <li class="price-range" data-min="0" data-max="30">
+                      0 - 30
+                    </li>
+                    <li class="price-range" data-min="30" data-max="50">
+                      30 - 50
+                    </li>
+                    <li class="price-range" data-min="50" data-max="100">
+                      50 - 100
+                    </li>
+                    <li class="price-range" data-min="100" data-max="">100+</li>
+                  </ul>
+                </li>
+
+                <li data-filter-group="category" class="filter-group mt-3">
+                  <div class="group-toggle" role="button" tabindex="0">
+                    <strong>Category</strong>
+                    <i class="fa-solid fa-angle-right arrow"></i>
+                  </div>
+                  <ul class="submenu" aria-label="Categories">
+                    <li class="category-item" data-category="all">All</li>
+                    {% for cat in categories %}
+                    <li class="category-item" data-category="{{cat.name}}">
+                      {{ cat.name }}
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </li>
+
+                <li class="mt-3 border-t border-gray-700 pt-2">
+                  <button
+                    id="clear-filters"
+                    class="w-full text-center text-xs text-amber-500 hover:underline"
+                  >
+                    Clear Filters
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cat-rail">
+        <div class="cat-rail-inner flex flex-wrap gap-2 pb-3">
+          <button class="cat-btn active" data-category="all">All</button>
+          {% for cat in categories %}
+
+          <button class="cat-btn" data-category="{{cat.name}}">
+            {{cat.name}}
+          </button>
+          {% endfor %}
+        </div>
+      </section>
+
+      <section id="products" class="px-4 mt-5 py-12">
+        <div class="max-w-7xl mx-auto">
+          <div
+            id="product-list"
+            class="product-list grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-8 mb-6 px-4 md:px-0"
+          ></div>
+        </div>
+      </section>
+    </main>
+    <footer id="footer" class="bg-gray-900 text-gray-400 py-14 px-5"></footer>
+  </body>
+  <script
+    type="module"
+    src="{{url_for('static', filename='pages copy/shop.js')}}"
+    defer
+  ></script>
+</html>

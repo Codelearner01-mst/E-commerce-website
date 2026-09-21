@@ -1,0 +1,186 @@
+import { toggleDropdownMenu } from "../utils/shared.js";
+import { renderProduct, renderSimilarProducts } from "../components/render.js";
+import { addProductToCart } from "../utils/cart-controller.js";
+import { savedCarts } from "../utils/saveUtils.js";
+import { savedWishlist } from "../utils/saveUtils.js";
+import { saveWishlist } from "../utils/saveUtils.js";
+import { displayCartsCount } from "../utils/shared.js";
+import { getCartIndex } from "../utils/helper.js";
+import { getProductInCart } from "../utils/helper.js";
+import { isProductInCart } from "../utils/helper.js";
+import { removeProductFromCart } from "../utils/cart-controller.js";
+import { hamburgerHTML } from "../components/loadComponents/header/hamburgerItem.js";
+import { navigationHTML } from "../components/loadComponents/header/navigationItem.js";
+import { cartCountHTML } from "../components/loadComponents/header/cartCountItem.js";
+import { footerHTML } from "../components/loadComponents/footer/footerItem.js";
+import { decreaseCartQuantity } from "../utils/cart-controller.js";
+import { increaseCartQuantity } from "../utils/cart-controller.js";
+import { productsData } from "../utils/productsStore.js";
+import { runCartActionsConfirmation } from "../utils/toast/notify.js";
+import {
+  ShowQuantityControlButtons,
+  showAddToCartButton,
+} from "../utils/toggler.js";
+
+const headerBar = document.getElementById("header-bar");
+const footer = document.getElementById("footer");
+
+headerBar.insertAdjacentHTML("beforeEnd", cartCountHTML());
+headerBar.insertAdjacentHTML("beforeEnd", hamburgerHTML());
+headerBar.insertAdjacentHTML(
+  "beforeEnd",
+  navigationHTML("./shop.html", "./about.html", "./contact.html"),
+);
+
+footer.innerHTML = footerHTML("./shop.html", "./about.html", "./contact.html");
+
+const carts = savedCarts();
+const wishlist = savedWishlist();
+
+//localStorage.removeItem("wishlist");
+
+const productContainer = document.getElementById("product-container");
+const similarProductsContainer = document.getElementById(
+  "products-similar-container",
+);
+renderProduct(productContainer, "../images/");
+renderSimilarProducts(similarProductsContainer, "../images/");
+
+const addTocartBtn = document.getElementById("add-cart-btn");
+const cartButton = document.getElementById("cart-btn");
+const toastEle = document.querySelector(".added-cart-success");
+const cartsCount = document.getElementById("cart-count");
+const wishlistBtn = document.getElementById("wishlist-btn");
+
+const hamburgerButton = document.getElementById("hamburger-btn");
+const dropDownMenu = document.getElementById("drop-menu");
+
+const currentProduct = JSON.parse(sessionStorage.getItem("currentProduct"));
+console.log("Current product", currentProduct);
+
+const index = getCartIndex(currentProduct.id, productsData);
+const product = productsData[index];
+product.image = "../images/" + product.image;
+
+cartButton.addEventListener("click", () => {
+  window.location.href = "carts.html";
+});
+
+window.addEventListener("pageshow", (event) => {
+  // Initialize main product cart state
+  if (isProductInCart(currentProduct.id, carts)) {
+    const cart = getProductInCart(carts, currentProduct.id);
+    const quantityControlsBtn = productContainer.querySelector(
+      ".quantity-control-btns",
+    );
+    const addToCartBtn = productContainer.querySelector(".add-cart-btn");
+    ShowQuantityControlButtons(quantityControlsBtn, addToCartBtn);
+    productContainer.querySelector(".quantity-display").textContent =
+      cart.quantity;
+
+    // Attach listeners because the buttons now exist
+    const increaseBtn = productContainer.querySelector(".increase-btn");
+    const decreaseBtn = productContainer.querySelector(".decrease-btn");
+
+    increaseBtn.addEventListener("click", () => {
+      increaseFunc();
+    });
+
+    decreaseBtn.addEventListener("click", () => {
+      decreaseFunc();
+    });
+  }
+
+  if (wishlist.some((w) => currentProduct.id === w.id)) {
+    wishlistBtn.textContent = "remove from wishlist";
+  }
+
+  displayCartsCount(cartsCount, carts);
+});
+
+const toastMsg = "Cart updated successfully!";
+
+function decreaseFunc() {
+  const cart = getProductInCart(carts, currentProduct.id);
+  if (cart.quantity === 1) {
+    const addToCartBtn = productContainer.querySelector(".add-cart-btn");
+    const quantityControlsBtn = productContainer.querySelector(
+      ".quantity-control-btns",
+    );
+    removeProductFromCart(currentProduct.id, carts);
+    showAddToCartButton(quantityControlsBtn, addToCartBtn);
+    runCartActionsConfirmation(toastMsg, carts, cartsCount);
+  } else {
+    decreaseCartQuantity(currentProduct.id, carts);
+    productContainer.querySelector(".quantity-display").textContent =
+      cart.quantity;
+    runCartActionsConfirmation(toastMsg, carts, cartsCount);
+  }
+}
+
+function increaseFunc() {
+  const cart = getProductInCart(carts, currentProduct.id);
+  increaseCartQuantity(currentProduct.id, carts);
+  productContainer.querySelector(".quantity-display").textContent =
+    cart.quantity;
+  runCartActionsConfirmation(toastMsg, carts, cartsCount);
+}
+
+addTocartBtn.addEventListener("click", () => {
+  const card = addTocartBtn.closest(".product-card");
+  const addToCartBtn = card.querySelector(".add-cart-btn");
+  const quantityControlsBtn = card.querySelector(".quantity-control-btns");
+  addProductToCart(card, carts);
+  ShowQuantityControlButtons(quantityControlsBtn, addToCartBtn);
+  displayCartsCount(cartsCount, carts);
+
+  const increaseBtn = productContainer.querySelector(".increase-btn");
+  const decreaseBtn = productContainer.querySelector(".decrease-btn");
+
+  increaseBtn.addEventListener("click", () => {
+    increaseFunc();
+  });
+  decreaseBtn.addEventListener("click", () => {
+    decreaseFunc();
+  });
+});
+
+console.log(
+  "Wislist content",
+  wishlistBtn.textContent.trim().toLowerCase() === "save to wishlist",
+);
+
+wishlistBtn.addEventListener("click", () => {
+  if (wishlistBtn.textContent.trim().toLowerCase() === "save to wishlist") {
+    wishlist.push(currentProduct);
+    wishlistBtn.textContent = "remove from wishlist";
+  } else {
+    const wishlistToRemove = wishlist.findIndex(
+      (w) => currentProduct.id === w.id,
+    );
+    if (wishlistToRemove >= 0 && wishlistToRemove < wishlist.length) {
+      wishlist.splice(wishlistToRemove, 1);
+    }
+    wishlistBtn.textContent = "save to wishlist";
+  }
+  saveWishlist(wishlist);
+});
+
+// Event listener for similar products navigation
+similarProductsContainer.addEventListener("click", (event) => {
+  const card = event.target.closest(".similar-product-card");
+  if (!card) return;
+
+  const cardId = parseInt(card.id.split("-")[1], 10);
+  const selectedProduct = productsData.find((p) => p.id === cardId);
+  if (selectedProduct) {
+    sessionStorage.setItem("currentProduct", JSON.stringify(selectedProduct));
+    window.location.reload();
+  }
+});
+
+hamburgerButton.addEventListener("click", () => {
+  toggleDropdownMenu(dropDownMenu);
+});
+
+displayCartsCount(cartsCount, carts);
