@@ -6,8 +6,8 @@
     "tailwindcss": "^4.1.18"
   },
   "scripts": {
-    "dev": "npx @tailwindcss/cli -i ./src/styles/input.css -o ./src/styles/output.css --watch",
-    "build": "npx @tailwindcss/cli -i ./src/styles/input.css -o ./src/styles/output.css",
+    "dev": "npx @tailwindcss/cli -i ./backend/app/static/styles/input.css -o ./backend/app/static/styles/output.css --watch",
+    "build": "npx @tailwindcss/cli -i ./backend/app/static/styles/input.css -o ./backend/app/static/styles/output.css",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   }
 }
