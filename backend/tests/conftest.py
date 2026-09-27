@@ -1,7 +1,7 @@
 import pytest
 
-from backend.app import create_app
-from backend.app import db
+from app import create_app
+from app import db
 
 
 @pytest.fixture
@@ -17,4 +17,5 @@ def app():
 
 @pytest.fixture
 def client(app):
-    return app.test_client()
+    with app.test_client() as client:
+        yield client

@@ -15,8 +15,19 @@ class Product(db.Model):
     
     category = db.relationship("Category", back_populates="products")
 
-    def__init__():
-      pass
+    def __init__(self,category_id, name,description,price,image_url):
+      self.category_id = category_id
+      self.name = name
+      self.description = description
+      self.price = price
+      self.image_url = image_url
 
-    def product_to_dict():
-        pass
+    def product_to_dict(self):
+        return {
+           'id':self.id,
+           'name':self.name,
+           'desc':self.description,
+           'price':self.price,
+           'image':self.image_url,
+           'category': self.category.name
+        }

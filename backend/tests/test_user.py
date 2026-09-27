@@ -1,4 +1,4 @@
-from backend.app.models import User
+from app.models import User
 
 def test_password_hash():
      password = "paul1457"
@@ -27,6 +27,6 @@ def test_verify_password_fail():
      assert user.verify_password("wrongpassword") == False
 
 def test_signup_page(client):
-    response = client.get('/signup')
+    response = client.get('/api/auth')
     assert response.status_code == 200
     assert b'Sign Up' in response.data
