@@ -6,7 +6,6 @@ import { increaseCartQuantity } from "../utils/cart-controller.js";
 import { calculateSubtotal } from "../utils/calculateTotal.js";
 import { hamburgerHTML } from "../components/loadComponents/header/hamburgerItem.js";
 import { navigationHTML } from "../components/loadComponents/header/navigationItem.js";
-import { footerHTML } from "../components/loadComponents/footer/footerItem.js";
 import { cartCountHTML } from "../components/loadComponents/header/cartCountItem.js";
 import { saveCarts } from "../utils/saveUtils.js";
 import { getCartIndex } from "../utils/helper.js";
@@ -15,13 +14,11 @@ import { displayProduct } from "../utils/cart-controller.js";
 import { runCartActionsConfirmation } from "../utils/toast/notify.js";
 
 const headerBar = document.getElementById("header-bar");
-const footer = document.getElementById("footer");
 
 headerBar.insertAdjacentHTML("beforeEnd", cartCountHTML());
 headerBar.insertAdjacentHTML("beforeEnd", hamburgerHTML());
-headerBar.insertAdjacentHTML("beforeEnd", navigationHTML("./shop.html"));
+headerBar.insertAdjacentHTML("beforeEnd", navigationHTML());
 
-footer.innerHTML = footerHTML();
 
 const carts = savedCarts();
 
@@ -136,15 +133,15 @@ cartList.addEventListener("click", (event) => {
       return;
     }
   }
-  displayProduct(card, "./product.html");
+  displayProduct(card, "/product");
 });
 
 checkoutButton.addEventListener("click", () => {
-  window.location.href = "checkout.html";
+  window.location.href = "/checkout";
 });
 
 cartButton.addEventListener("click", () => {
-  window.location.href = "carts.html";
+  window.location.href = "/cart";
 });
 
 const result = calculateSubtotal(carts);

@@ -22,7 +22,6 @@ import { productsData } from "../utils/productsStore.js";
 import { hamburgerHTML } from "../components/loadComponents/header/hamburgerItem.js";
 import { navigationHTML } from "../components/loadComponents/header/navigationItem.js";
 import { cartCountHTML } from "../components/loadComponents/header/cartCountItem.js";
-import { footerHTML } from "../components/loadComponents/footer/footerItem.js";
 import { renderProducts } from "../components/render.js";
 import { decreaseCartQuantity } from "../utils/cart-controller.js";
 import { increaseCartQuantity } from "../utils/cart-controller.js";
@@ -33,24 +32,14 @@ import {
 } from "../utils/toggler.js";
 
 const headerBar = document.getElementById("header-bar");
-const footer = document.getElementById("footer");
 
 headerBar.insertAdjacentHTML("beforeEnd", cartCountHTML());
 headerBar.insertAdjacentHTML("beforeEnd", hamburgerHTML());
 headerBar.insertAdjacentHTML(
   "beforeEnd",
-  navigationHTML(
-    "./src/pages/shop.html",
-    "./src/pages/about.html",
-    "./src/pages/contact.html",
-  ),
+  navigationHTML(),
 );
 
-footer.innerHTML = footerHTML(
-  "./src/pages/shop.html",
-  "./src/pages/about.html",
-  "./src/pages/contact.html",
-);
 
 const cartsCount = document.getElementById("cart-count");
 const cartButton = document.getElementById("cart-btn");
@@ -60,14 +49,14 @@ const hamburgerButton = document.getElementById("hamburger-btn");
 const dropDownMenu = document.getElementById("drop-menu");
 const products = document.getElementById("product-list");
 
-const imagePath = "./src/images/";
+const imagePath = "/static/images/";
 
 renderProducts(productsData, imagePath, products);
 
 const carts = savedCarts();
 
 function goToNewPage() {
-  window.location.href = "src/pages/carts.html";
+  window.location.href = "/cart";
 }
 
 cartButton.addEventListener("click", goToNewPage);
@@ -97,7 +86,7 @@ products.addEventListener("click", (event) => {
     return;
   }
   if (event.target.tagName !== "BUTTON") {
-    displayProduct(card, "src/pages/product.html");
+    displayProduct(card, "/product");
     return;
   }
 

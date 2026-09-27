@@ -4,18 +4,18 @@ export function supportHTML() {
             <ul class="space-y-2">
               <li>
                 <a
-                  href="#contact"
+                  href="/contact"
                   class="text-sm hover:text-white transition"
                   >Contact Us</a
                 >
               </li>
               <li>
-                <a href="#" class="text-sm hover:text-white transition"
+                <a href="/contact" class="text-sm hover:text-white transition"
                   >Shipping Info</a
                 >
               </li>
               <li>
-                <a href="#" class="text-sm hover:text-white transition"
+                <a href="/contact" class="text-sm hover:text-white transition"
                   >Returns</a
                 >
               </li>

@@ -69,12 +69,8 @@
         overflow-wrap: anywhere;
       }
       .hero-heading {
-        font-size: clamp(
-          var(--font-size-heading-base),
-          7vw,
-          var(--font-size-heading-large)
-        );
-        font-family: var(--font-family-primary);
+        font-size: clamp(3.25rem, 8vw, 7rem);
+        font-family: var(--font-family-display);
         font-weight: 300;
         line-height: 1.08;
         color: var(--color-surface);
@@ -84,7 +80,7 @@
         overflow-wrap: break-word;
       }
       .hero-sub {
-        font-family: var(--font-family-primary);
+        font-family: var(--font-family-body);
         font-size: var(--font-size-small-up);
         color: var(--color-brand-pale);
         font-weight: 300;
@@ -117,7 +113,7 @@
       .gold-rule {
         width: 2.5rem;
         height: 1px;
-        background: var(--color-brand);
+        background: var(--color-accent);
         display: block;
         margin: 0 auto 1rem;
       }
@@ -475,7 +471,8 @@
     </style>
   </head>
 
-  <body class="bg-white">
+  <body class="home-page bg-white">
+    {% from "macros.html" import site_footer %}
     <!-- Header -->
     <header
       id="header-bar"
@@ -489,103 +486,34 @@
       <!-- nav + cart injected via JS -->
     </header>
 
-    <main class="py-6">
+    <main>
       <!-- Hero -->
       <section>
         <div
           id="home"
           style="
-            background-image: url(&quot; ./src/images/segal-jewelry-NsH-CvU0deg-unsplash.jpg&quot;);
+            background-image: url(&quot;{{ url_for('static', filename='images/segal-jewelry-NsH-CvU0deg-unsplash.jpg') }}&quot;);
           "
         >
           <div class="hero-overlay"></div>
           <div class="hero-content">
-            <span class="hero-eyebrow">Fine Jewelry — New Collection 2026</span>
+            <span class="hero-eyebrow">Made with intention, worn your way</span>
             <h1 class="hero-heading">
-              Adorn What <br />
-              Matters Most
+              Made to be<br />kept close.
             </h1>
             <p class="hero-sub">
-              Handcrafted pieces that celebrate life's most precious moments.
+              Discover modern heirlooms, chosen for the way they make you feel.
             </p>
-            <a href="{{url_for('products.list_products')}}" class="hero-cta"
-              >Explore Collection</a
-            >
+            <a href="{{ url_for('pages.shop') }}" class="hero-cta">Explore the collection <span aria-hidden="true">&rarr;</span></a>
+            <span class="hero-note">Fine jewelry for everyday rituals and once-in-a-lifetime moments.</span>
           </div>
         </div>
       </section>
 
-      <!-- Three alternating collection sections -->
-      <section>
-        <!-- 1: text left, image right -->
-        <div class="collection-section collection-section-1">
-          <div class="collection-text">
-            <span class="collection-eyebrow">Our Craft</span>
-            <h3 class="collection-heading">Jewelry<br />Collections</h3>
-            <p class="collection-body">
-              Explore our exquisite range of handcrafted jewelry pieces, each
-              designed to capture timeless elegance and modern sensibility. Made
-              with the finest materials by master artisans.
-            </p>
-            <a href="./src/pages/shop.html" class="collection-link"
-              >Shop Now →</a
-            >
-          </div>
-          <div class="collection-image-wrap">
-            <img
-              src="{{url_for('static',filename='images/atul-mohan-TmOPo7TpLzw-unsplash - Copy.jpg')}}"
-              alt="Gold Ring"
-            />
-          </div>
-        </div>
-
-        <hr class="collection-divider" />
-
-        <!-- 2: image left, text right -->
-        <div class="collection-section collection-section-2">
-          <div class="collection-image-wrap md:order-1">
-            <img
-              src="{{url_for('static',filename='images/alex-azabache-y2ErhoE92KA-unsplash.jpg')}}"
-              alt="Silver Necklace"
-            />
-          </div>
-          <div class="collection-text md:order-2">
-            <span class="collection-eyebrow">Complete Your Look</span>
-            <h3 class="collection-heading">Accessories</h3>
-            <p class="collection-body">
-              Complete your look with our carefully curated selection of
-              accessories — each piece the perfect finishing touch to any
-              outfit, for any occasion.
-            </p>
-            <a href="./src/pages/shop.html" class="collection-link"
-              >Shop Now →</a
-            >
-          </div>
-        </div>
-
-        <hr class="collection-divider" />
-
-        <!-- 3: text left, image right -->
-        <div class="collection-section collection-section-3">
-          <div class="collection-text">
-            <span class="collection-eyebrow">Signature Line</span>
-            <h3 class="collection-heading">Violet 5040</h3>
-            <p class="collection-body">
-              Our signature Violet 5040 collection blends tradition with
-              contemporary elegance. Each piece carries a story — worn by those
-              who appreciate the art of fine jewelry.
-            </p>
-            <a href="./src/pages/shop.html" class="collection-link"
-              >Shop Now →</a
-            >
-          </div>
-          <div class="collection-image-wrap">
-            <img
-              src="{{url_for('static',filename='images/sabrianna-a9HPsYvWr-E-unsplash.jpg')}}"
-              alt="Violet Collection"
-            />
-          </div>
-        </div>
+      <section class="promise-strip" aria-label="Our promises">
+        <div><span>01</span><p>Thoughtfully selected</p></div>
+        <div><span>02</span><p>Made for real life</p></div>
+        <div><span>03</span><p>Here for the long run</p></div>
       </section>
 
       <!-- Featured Products -->
@@ -606,7 +534,7 @@
           ></div>
           <div class="text-center">
             <a
-              href="./src/pages/shop.html"
+              href="{{ url_for('pages.shop') }}"
               class="inline-flex items-center gap-1 text-base uppercase tracking-[0.22em] font-medium text-gray-900 border-b border-gray-900 pb-0.5 hover:text-amber-800 hover:border-amber-800 transition-all duration-300"
             >
               View All Products →
@@ -626,10 +554,10 @@
           </p>
           <div class="category-grid">
             <a
-              href="./src/pages/shop.html"
+              href="{{ url_for('pages.shop') }}"
               class="category-card"
               style="
-                background-image: url(&quot;./src/images/sabrianna-a9HPsYvWr-E-unsplash.jpg&quot;);
+                background-image: url(&quot;{{ url_for('static', filename='images/sabrianna-a9HPsYvWr-E-unsplash.jpg') }}&quot;);
               "
             >
               <div class="category-card-content">
@@ -639,10 +567,10 @@
             </a>
 
             <a
-              href="./src/pages/shop.html"
+              href="{{ url_for('pages.shop') }}"
               class="category-card"
               style="
-                background-image: url(&quot;./src/images/atul-mohan-TmOPo7TpLzw-unsplash - Copy.jpg&quot;);
+                background-image: url(&quot;{{ url_for('static', filename='images/atul-mohan-TmOPo7TpLzw-unsplash - Copy.jpg') }}&quot;);
               "
             >
               <div class="category-card-content">
@@ -652,10 +580,10 @@
             </a>
 
             <a
-              href="./src/pages/shop.html"
+              href="{{ url_for('pages.shop') }}"
               class="category-card"
               style="
-                background-image: url(&quot;./src/images/alex-azabache-y2ErhoE92KA-unsplash.jpg&quot;);
+                background-image: url(&quot;{{ url_for('static', filename='images/alex-azabache-y2ErhoE92KA-unsplash.jpg') }}&quot;);
               "
             >
               <div class="category-card-content">
@@ -665,10 +593,10 @@
             </a>
 
             <a
-              href="./src/pages/shop.html"
+              href="{{ url_for('pages.shop') }}"
               class="category-card"
               style="
-                background-image: url(&quot;./src/images/nexaro-studio-vbsN7MUXyT4-unsplash.jpg&quot;);
+                background-image: url(&quot;{{ url_for('static', filename='images/nexaro-studio-vbsN7MUXyT4-unsplash.jpg') }}&quot;);
               "
             >
               <div class="category-card-content">
@@ -679,58 +607,32 @@
           </div>
         </div>
       </section>
-      <section class="why-different-section py-12">
-        <div class="section-shell">
-          <h2
-            class="text-4xl md:text-4xl font-serif font-medium text-gray-900 mb-3"
-          >
-            Why we stand out
-          </h2>
-          <p class="text-gray-400 text-base font-light mb-8">
-            We stand out for our best offers we to customers
-          </p>
-          <div class="why-different-container">
-            <div class="why-different-group">
-              <div class="why-different-img-wrap">
-                <img
-                  class="why-different-image"
-                  src="./src/images/sabrianna-a9HPsYvWr-E-unsplash.jpg"
-                />
-              </div>
-              <div class="content">
-                <h3>Good packaging</h3>
-                <p class="desc">We provide best packaging for our customers</p>
-              </div>
-            </div>
-            <div class="why-different-group">
-              <div class="why-different-img-wrap">
-                <img
-                  class="why-different-image"
-                  src="./src/images/atul-mohan-TmOPo7TpLzw-unsplash - Copy.jpg"
-                />
-              </div>
-              <div class="content">
-                <h3>Customer care</h3>
-
-                <p class="desc">
-                  We care for customers an happy to give the best of all
-                </p>
-              </div>
-            </div>
-            <div class="why-different-group">
-              <div class="why-different-img-wrap">
-                <img
-                  class="why-different-image"
-                  src="./src/images/sabrianna-a9HPsYvWr-E-unsplash.jpg"
-                />
-              </div>
-              <div class="content">
-                <h3>Best offers</h3>
-                <p class="desc">We stand out on our offers</p>
-              </div>
-            </div>
-          </div>
+      <section class="home-story">
+        <div class="home-story-image">
+          <img src="{{ url_for('static', filename='images/atul-mohan-TmOPo7TpLzw-unsplash - Copy.jpg') }}" alt="A close view of a carefully finished gold ring" loading="lazy" />
+          <span>Chosen with intention</span>
         </div>
+        <div class="home-story-copy">
+          <p class="eyebrow">A more personal kind of fine jewelry</p>
+          <h2>Good things deserve to be kept.</h2>
+          <p>We look for the details that make a piece feel like yours: thoughtful design, lasting materials, and the quiet confidence to wear it every day.</p>
+          <a href="{{ url_for('pages.about') }}" class="story-link">Get to know us <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </section>
+
+      <section class="service-band" aria-label="Shopping with Vision Jewelry">
+        <article>
+          <i class="fa-regular fa-gem" aria-hidden="true"></i>
+          <div><h3>Picked with care</h3><p>Considered designs and lasting finishes.</p></div>
+        </article>
+        <article>
+          <i class="fa-solid fa-box-open" aria-hidden="true"></i>
+          <div><h3>Gift-ready details</h3><p>Beautifully prepared for giving or keeping.</p></div>
+        </article>
+        <article>
+          <i class="fa-regular fa-message" aria-hidden="true"></i>
+          <div><h3>Here to help</h3><p>Real support whenever you need a hand.</p></div>
+        </article>
       </section>
       <section class="subscribe-newsletter py-12 px-4">
         <div class="section-shell">
@@ -751,6 +653,7 @@
                 <input
                   class="form-input py-3 px-1.5 bg-white mb-2 border outline-none"
                   type="email"
+                  id="email"
                   placeholder="Enter your email"
                   name="email"
                   required
@@ -769,12 +672,11 @@
     </main>
 
     <!-- Footer -->
-    <footer id="footer" class="bg-gray-900 text-gray-400 py-14 px-5"></footer>
+    {{ site_footer() }}
   </body>
   <script
     type="module"
     src="{{url_for('static', filename='pages copy/home.js')}}"
     defer
   ></script>
-  <script type="module" src="src/utils/shared.js"></script>
 </html>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>E-commerce website</title>
+    <title>Shop the Collection | Vision Jewelry</title>
 
     <link
       rel="stylesheet"
@@ -201,7 +201,8 @@
     </style>
   </head>
 
-  <body>
+  <body class="shop-page">
+    {% from "macros.html" import breadcrumb, site_footer %}
     <header
       id="header-bar"
       class="fixed top-0 left-0 right-0 border-gray-100 flex justify-between items-center px-4 md:px-8 py-4 z-50 transition-all duration-300"
@@ -212,25 +213,27 @@
         Vision Jewelry
       </h1>
     </header>
-    <main class="pt-2 pb-20">
+    <main class="pt-[var(--layout-header-height)] pb-20">
+      {{ breadcrumb("Shop") }}
       <section
-        class="py-10 md:py-16"
-        id="home"
+        class="shop-hero"
+        id="shop-hero"
         style="
-          background-image: url(&quot;../images/carmen-alarcon-PHcEof5kfqk-unsplash.jpg&quot;);
+          background-image: url(&quot;{{ url_for('static', filename='images/carmen-alarcon-PHcEof5kfqk-unsplash.jpg') }}&quot;);
           background-size: cover;
         "
       >
         <div class="hero-overlay"></div>
-        <div class="mt-8 mb-10 px-4">
-          <div class="rounded-lg p-10 md:p-14 text-center max-w-3xl mx-auto">
+        <div class="shop-hero-content">
+          <div class="shop-hero-copy">
+            <p class="eyebrow">The collection</p>
             <h2
-              class="text-6xl md:text-7xl font-serif font-bold text-white tracking-wide"
+              class="shop-hero-title text-white tracking-wide"
             >
               Shop Collection
             </h2>
-            <p class="shop-text mt-2">
-              Explore our complete range of exquisite, handcrafted jewelry.
+            <p class="shop-text">
+              Distinctive pieces, thoughtfully selected for your everyday and your once-in-a-lifetime.
             </p>
           </div>
         </div>
@@ -247,7 +250,7 @@
         </div>
       </div>
 
-      <section class="shop-toolbar px-4 py-4">
+      <section class="shop-toolbar px-4 py-4" aria-label="Sort and filter products">
         <div class="toolbar-inner">
           <div class="flex items-center gap-2">
             <div class="font-medium">Sort by</div>
@@ -327,7 +330,7 @@
         </div>
       </section>
 
-      <section class="cat-rail">
+      <section class="cat-rail" aria-label="Browse product categories">
         <div class="cat-rail-inner flex flex-wrap gap-2 pb-3">
           <button class="cat-btn active" data-category="all">All</button>
           {% for cat in categories %}
@@ -339,7 +342,7 @@
         </div>
       </section>
 
-      <section id="products" class="px-4 mt-5 py-12">
+      <section id="products" class="shop-products px-4 py-12">
         <div class="max-w-7xl mx-auto">
           <div
             id="product-list"
@@ -348,7 +351,7 @@
         </div>
       </section>
     </main>
-    <footer id="footer" class="bg-gray-900 text-gray-400 py-14 px-5"></footer>
+    {{ site_footer() }}
   </body>
   <script
     type="module"

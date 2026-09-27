@@ -71,7 +71,7 @@
       .gold-rule {
         width: 2.5rem;
         height: 1px;
-        background: var(--color-brand);
+        background: var(--color-accent);
         display: block;
         margin-bottom: 1rem;
       }
@@ -234,23 +234,25 @@
     </style>
   </head>
 
-  <body class="bg-white">
+  <body class="contact-page bg-white">
+    {% from "macros.html" import breadcrumb, site_footer %}
     <header
       id="header-bar"
       class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-5 md:px-10 py-5 bg-white/95 border-b border-gray-100/80 transition-all duration-300"
     >
       <a
-        href="../../index.html"
+        href="{{ url_for('pages.index') }}"
         class="text-gray-900 text-xl md:text-2xl font-serif tracking-[0.22em] uppercase"
         >Vision Jewelry</a
       >
     </header>
 
     <main class="pt-[73px]">
+      {{ breadcrumb("Contact") }}
       <div
         class="page-banner"
         style="
-          background-image: url(&quot;../images/alex-azabache-y2ErhoE92KA-unsplash.jpg&quot;);
+          background-image: url(&quot;{{ url_for('static', filename='images/alex-azabache-y2ErhoE92KA-unsplash.jpg') }}&quot;);
         "
       >
         <div class="page-banner-overlay"></div>
@@ -382,17 +384,23 @@
                 <p class="info-label">Social</p>
                 <div class="flex gap-5 mt-1">
                   <a
-                    href="#"
+                    href="https://www.instagram.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     class="text-base text-gray-400 hover:text-amber-700 transition-colors"
                     ><i class="fab fa-instagram"></i
                   ></a>
                   <a
-                    href="#"
+                    href="https://www.facebook.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     class="text-base text-gray-400 hover:text-amber-700 transition-colors"
                     ><i class="fab fa-facebook-f"></i
                   ></a>
                   <a
-                    href="#"
+                    href="https://www.pinterest.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     class="text-base text-gray-400 hover:text-amber-700 transition-colors"
                     ><i class="fab fa-pinterest-p"></i
                   ></a>
@@ -427,8 +435,8 @@
       </section>
     </main>
 
-    <footer id="footer" class="bg-gray-900 text-gray-400 py-14 px-5"></footer>
+    {{ site_footer() }}
 
-    <script type="module" src="./contact.js"></script>
+    <script type="module" src="{{ url_for('static', filename='pages copy/contact.js') }}"></script>
   </body>
 </html>

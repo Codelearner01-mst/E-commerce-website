@@ -12,7 +12,6 @@ import { removeProductFromCart } from "../utils/cart-controller.js";
 import { hamburgerHTML } from "../components/loadComponents/header/hamburgerItem.js";
 import { navigationHTML } from "../components/loadComponents/header/navigationItem.js";
 import { cartCountHTML } from "../components/loadComponents/header/cartCountItem.js";
-import { footerHTML } from "../components/loadComponents/footer/footerItem.js";
 import { decreaseCartQuantity } from "../utils/cart-controller.js";
 import { increaseCartQuantity } from "../utils/cart-controller.js";
 import { productsData } from "../utils/productsStore.js";
@@ -23,16 +22,14 @@ import {
 } from "../utils/toggler.js";
 
 const headerBar = document.getElementById("header-bar");
-const footer = document.getElementById("footer");
 
 headerBar.insertAdjacentHTML("beforeEnd", cartCountHTML());
 headerBar.insertAdjacentHTML("beforeEnd", hamburgerHTML());
 headerBar.insertAdjacentHTML(
   "beforeEnd",
-  navigationHTML("./shop.html", "./about.html", "./contact.html"),
+  navigationHTML(),
 );
 
-footer.innerHTML = footerHTML("./shop.html", "./about.html", "./contact.html");
 
 const carts = savedCarts();
 const wishlist = savedWishlist();
@@ -43,8 +40,8 @@ const productContainer = document.getElementById("product-container");
 const similarProductsContainer = document.getElementById(
   "products-similar-container",
 );
-renderProduct(productContainer, "../images/");
-renderSimilarProducts(similarProductsContainer, "../images/");
+renderProduct(productContainer, "/static/images/");
+renderSimilarProducts(similarProductsContainer, "/static/images/");
 
 const addTocartBtn = document.getElementById("add-cart-btn");
 const cartButton = document.getElementById("cart-btn");
@@ -60,10 +57,10 @@ console.log("Current product", currentProduct);
 
 const index = getCartIndex(currentProduct.id, productsData);
 const product = productsData[index];
-product.image = "../images/" + product.image;
+product.image = "/static/images/" + product.image.replace("../images/", "");
 
 cartButton.addEventListener("click", () => {
-  window.location.href = "carts.html";
+  window.location.href = "/cart";
 });
 
 window.addEventListener("pageshow", (event) => {

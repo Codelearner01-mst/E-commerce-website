@@ -17,7 +17,7 @@ export function renderCarts(list, carts) {
   }
 
   for (const cart of carts) {
-    const cartElement = CartItem(cart, "../images/");
+    const cartElement = CartItem(cart, "/static/images/");
     list.appendChild(cartElement);
   }
 }
@@ -26,7 +26,10 @@ export function renderProduct(containerEle, path) {
   if (typeof product !== "object" || product === null) {
     return;
   }
-  const newSrc = product.image.replace("./src/images/", "");
+  const newSrc = product.image
+    .replace("./src/images/", "")
+    .replace("../images/", "")
+    .replace("src/images/", "");
   product.image = path + newSrc;
   containerEle.appendChild(productHTML(product));
 }

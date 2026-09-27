@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>E-commerce website</title>
+    <title>Product Details | Vision Jewelry</title>
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='styles/output.css') }}"
@@ -24,7 +24,8 @@
     </style>
   </head>
 
-  <body>
+  <body class="product-page">
+    {% from "macros.html" import breadcrumb, site_footer %}
     <header
       id="header-bar"
       class="fixed top-0 left-0 right-0 bg-white/90 border-b border-gray-100 flex justify-between items-center px-4 md:px-8 py-4 z-50 transition-all duration-300"
@@ -35,8 +36,9 @@
         Vision jewelry
       </h1>
     </header>
-    <main class="mt-16 mb-26">
-      <div class="px-4 py-5 product-intro">
+    <main class="mt-16 pb-16">
+      {{ breadcrumb("Product Details") }}
+      <div class="page-heading product-intro">
         <h2 class="text-4xl md:text-4xl font-serif font-bold text-gray-900">
           Product Details
         </h2>
@@ -55,7 +57,7 @@
       </section>
     </main>
 
-    <footer id="footer" class="bg-gray-900 text-gray-400 py-14 px-5"></footer>
+    {{ site_footer() }}
   </body>
   <script
     type="module"

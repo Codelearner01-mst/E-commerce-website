@@ -5,7 +5,7 @@ from ...extensions import db
 from ...models import User
 
 
-@auth_bp.route("/", methods=["GET","POST"])
+@auth_bp.route("/", methods=["GET", "POST"], strict_slashes=False)
 def sign_up():
     form = SignupForm()
     if form.validate_on_submit():
@@ -18,7 +18,7 @@ def sign_up():
         db.session.add(user)
         db.session.commit()
         flash("Account created sucessfuly!")   
-        return redirect(url_for("main.index"))
+        return redirect(url_for("pages.index"))
     return render_template("signup.html", form=form)
     
  

@@ -17,27 +17,19 @@ import {
 import { hamburgerHTML } from "../components/loadComponents/header/hamburgerItem.js";
 import { navigationHTML } from "../components/loadComponents/header/navigationItem.js";
 import { cartCountHTML } from "../components/loadComponents/header/cartCountItem.js";
-import { footerHTML } from "../components/loadComponents/footer/footerItem.js";
 import { productsData } from "../utils/productsStore.js";
 import { isProductInCart } from "../utils/helper.js";
 
 const headerBar = document.getElementById("header-bar");
-const footer = document.getElementById("footer");
 
 // Inject header navigation and footer components
 headerBar.insertAdjacentHTML("beforeEnd", cartCountHTML());
 headerBar.insertAdjacentHTML("beforeEnd", hamburgerHTML());
 headerBar.insertAdjacentHTML(
   "beforeEnd",
-  navigationHTML(
-    "./shop.html",
-    "./about.html",
-    "./contact.html",
-    "./wishlist.html",
-  ),
+  navigationHTML(),
 );
 
-footer.innerHTML = footerHTML("./shop.html", "./about.html", "./contact.html");
 
 const wishlist = savedWishlist();
 const carts = savedCarts();
@@ -54,7 +46,7 @@ const dropDownMenu = document.getElementById("drop-menu");
 displayCartsCount(cartCount, carts);
 
 cartButton.addEventListener("click", () => {
-  window.location.href = "carts.html";
+  window.location.href = "/cart";
 });
 
 hamburgerButton.addEventListener("click", () => {
@@ -73,7 +65,7 @@ function renderWishlist() {
     const isInCart = isProductInCart(item.id, carts);
     wishlistList.insertAdjacentHTML(
       "beforeEnd",
-      wishlistItemHTML(item, "../images/", isInCart),
+      wishlistItemHTML(item, "/static/images/", isInCart),
     );
   }
   toggleHiddenOnEmptyWishlist();
@@ -164,7 +156,7 @@ wishlistList.addEventListener("click", (event) => {
     const selectedProduct = productsData.find((p) => p.id === cardId);
     if (selectedProduct) {
       sessionStorage.setItem("currentProduct", JSON.stringify(selectedProduct));
-      window.location.href = "./product.html";
+      window.location.href = "/product";
     }
   }
 });

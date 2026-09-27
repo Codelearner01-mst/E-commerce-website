@@ -74,7 +74,7 @@
       .gold-rule {
         width: 2.5rem;
         height: 1px;
-        background: var(--color-brand);
+        background: var(--color-accent);
         display: block;
         margin-bottom: 1rem;
       }
@@ -237,14 +237,15 @@
     </style>
   </head>
 
-  <body class="bg-white">
+  <body class="about-page bg-white">
+    {% from "macros.html" import breadcrumb, site_footer %}
     <!-- Header -->
     <header
       id="header-bar"
       class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-5 md:px-10 py-5 bg-white/95 border-b border-gray-100/80 transition-all duration-300"
     >
       <a
-        href="../../index.html"
+        href="{{ url_for('pages.index') }}"
         class="text-gray-900 text-xl md:text-2xl font-serif tracking-[0.22em] uppercase"
       >
         Vision Jewelry
@@ -252,11 +253,12 @@
     </header>
 
     <main class="pt-[73px]">
+      {{ breadcrumb("Our Story") }}
       <!-- Banner -->
       <div
         class="page-banner"
         style="
-          background-image: url(&quot;../images/segal-jewelry-NsH-CvU0deg-unsplash.jpg&quot;);
+          background-image: url(&quot;{{ url_for('static', filename='images/segal-jewelry-NsH-CvU0deg-unsplash.jpg') }}&quot;);
         "
       >
         <div class="page-banner-overlay"></div>
@@ -319,7 +321,7 @@
         <div class="story-grid">
           <div class="story-image">
             <img
-              src="../images/atul-mohan-TmOPo7TpLzw-unsplash - Copy.jpg"
+              src="{{ url_for('static', filename='images/atul-mohan-TmOPo7TpLzw-unsplash - Copy.jpg') }}"
               alt="Artisan at work"
             />
           </div>
@@ -341,7 +343,7 @@
               beauty never comes at a cost to people or the planet.
             </p>
             <a
-              href="./shop.html"
+              href="{{ url_for('pages.shop') }}"
               class="inline-flex items-center gap-1 text-xs uppercase tracking-[0.22em] font-medium text-gray-900 border-b border-gray-900 pb-0.5 w-fit hover:text-amber-800 hover:border-amber-800 transition-all duration-300 mt-2"
             >
               Shop the Collection →
@@ -410,7 +412,7 @@
           Browse our full collection of handcrafted jewelry and accessories.
         </p>
         <a
-          href="./shop.html"
+          href="{{ url_for('pages.shop') }}"
           class="inline-block bg-gray-900 text-white px-8 py-3.5 text-xs uppercase tracking-[0.2em] font-medium hover:bg-amber-800 transition-all duration-300"
         >
           Shop Now
@@ -419,7 +421,7 @@
     </main>
 
     <!-- Footer -->
-    <footer id="footer" class="bg-gray-900 text-gray-400 py-14 px-5"></footer>
+    {{ site_footer() }}
   </body>
-  <script type="module" src="./about.js"></script>
+  <script type="module" src="{{ url_for('static', filename='pages copy/about.js') }}"></script>
 </html>

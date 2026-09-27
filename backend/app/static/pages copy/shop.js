@@ -8,7 +8,6 @@ import { isProductInCart } from "../utils/helper.js";
 import { hamburgerHTML } from "../components/loadComponents/header/hamburgerItem.js";
 import { navigationHTML } from "../components/loadComponents/header/navigationItem.js";
 import { cartCountHTML } from "../components/loadComponents/header/cartCountItem.js";
-import { footerHTML } from "../components/loadComponents/footer/footerItem.js";
 import { productsData } from "../utils/productsStore.js";
 import { renderProducts } from "../components/render.js";
 import { decreaseCartQuantity } from "../utils/cart-controller.js";
@@ -20,16 +19,14 @@ import {
 } from "../utils/toggler.js";
 
 const headerBar = document.getElementById("header-bar");
-const footer = document.getElementById("footer");
 
 headerBar.insertAdjacentHTML("beforeEnd", cartCountHTML());
 headerBar.insertAdjacentHTML("beforeEnd", hamburgerHTML());
 headerBar.insertAdjacentHTML(
   "beforeEnd",
-  navigationHTML("#products", "./about.html", "./contact.html"),
+  navigationHTML(),
 );
 
-footer.innerHTML = footerHTML("#products", "./about.html", "./contact.html");
 
 const cartCount = document.getElementById("cart-count");
 const hamburgerButton = document.getElementById("hamburger-btn");
@@ -49,7 +46,7 @@ if (!catBtns || catBtns.length === 0) {
   // do not insert into DOM, only querySelector will find it if needed by code that checks document
 }
 
-const imagePath = "../images/";
+const imagePath = "/static/images/";
 
 // currentView holds the array currently displayed (after filters/sorts)
 let currentView = productsData.slice();
@@ -284,7 +281,7 @@ if (filterBtn && filterMenu) {
 }
 
 cartButton.addEventListener("click", () => {
-  window.location.href = "carts.html";
+  window.location.href = "/cart";
 });
 const carts = savedCarts();
 
@@ -337,7 +334,7 @@ products.addEventListener("click", (event) => {
   }
 
   if (event.target.tagName !== "BUTTON") {
-    displayProduct(card, "product.html");
+    displayProduct(card, "/product");
     return;
   }
 

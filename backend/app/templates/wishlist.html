@@ -6,7 +6,7 @@
     <title>Wishlist — Vision Jewelry</title>
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='styles/output.css')}} "
+      href="{{ url_for('static', filename='styles/output.css') }}"
     />
     <link
       rel="stylesheet"
@@ -14,7 +14,8 @@
     />
   </head>
 
-  <body class="bg-white">
+  <body class="wishlist-page bg-white">
+    {% from "macros.html" import breadcrumb, site_footer %}
     <header
       id="header-bar"
       class="fixed top-0 left-0 right-0 bg-white/90 border-b border-gray-100 flex justify-between items-center px-4 md:px-8 py-4 z-50 transition-all duration-300"
@@ -26,7 +27,8 @@
       </h1>
     </header>
     <main class="mt-16">
-      <div class="px-4 py-5" style="background-color: var(--color-page)">
+      {{ breadcrumb("Wishlist") }}
+      <div class="page-heading">
         <h2 class="text-4xl md:text-4xl font-serif font-bold text-gray-900">
           My Wishlist
         </h2>
@@ -41,7 +43,7 @@
         <div id="empty-wishlist-message" class="text-center py-16 hidden">
           <p class="text-gray-400 font-light mb-6">Your wishlist is empty.</p>
           <a
-            href="./shop.html"
+            href="{{ url_for('pages.shop') }}"
             class="inline-block bg-gray-900 text-white px-8 py-3 rounded-full text-xs uppercase tracking-[0.2em] font-medium hover:bg-amber-800 transition-all duration-300"
           >
             Explore Collection
@@ -50,11 +52,11 @@
       </section>
     </main>
 
-    <footer id="footer" class="bg-gray-900 text-gray-400 py-14 px-5"></footer>
+    {{ site_footer() }}
   </body>
   <script
     type="module"
-    src="{{url_for('static', filename='pages copy/whislist.js')}}"
+    src="{{ url_for('static', filename='pages copy/wishlist.js') }}"
     defer
   ></script>
 </html>

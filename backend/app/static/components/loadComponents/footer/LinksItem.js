@@ -1,4 +1,7 @@
-export function linksHTML(shopPath, aboutPath, contactPath) {
+export function linksHTML() {
+  const shopPath = "/shop";
+  const aboutPath = "/about";
+  const contactPath = "/contact";
   return `<div>
             <h4 class="text-xs tracking-[0.15em] uppercase mb-4">Quick Links</h4>
             <div class="flex flex-col gap-3 text-sm">

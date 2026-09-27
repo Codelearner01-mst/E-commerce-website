@@ -9,6 +9,7 @@ from .blueprints.products import products_bp
 from .blueprints.cart import cart_bp
 from .blueprints.wishlist import wishlist_bp
 from .blueprints.orders import orders_bp
+from .blueprints import pages_bp
 
 
 def create_app(config_name="development"):
@@ -20,6 +21,7 @@ def create_app(config_name="development"):
     login_manager.init_app(app)
     CORS(app)
 
+    app.register_blueprint(pages_bp)
     app.register_blueprint(auth_bp, url_prefix="/api/auth")
     app.register_blueprint(products_bp, url_prefix="/api/products")
     app.register_blueprint(cart_bp, url_prefix="/api/cart")

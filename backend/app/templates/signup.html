@@ -3,33 +3,44 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>E-commerce website</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/output.css') }}" />
+    <title>Create Account | Vision Jewelry</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles/output.css') }}"
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
-    <body>
-      <div class="text-center mt-5 mb-3">
-        <h1 class="text-3xl font-medium text-green-500 mb-1">Sign up</h1>
-        <p class="text-xs text-gray-500">Create new account</p>
+  </head>
+  <body class="signup-page">
+    {% from "macros.html" import breadcrumb, render_field, site_footer %}
+    <header class="signup-header px-5 py-4">
+      <a
+        href="{{ url_for('pages.index') }}"
+        class="font-serif text-lg tracking-[0.16em] uppercase"
+        >Vision Jewelry</a
+      >
+    </header>
+    {{ breadcrumb("Create Account") }}
+    <main class="signup-panel">
+      <div class="text-center mb-8">
+        <p class="eyebrow">Welcome to Vision Jewelry</p>
+        <h1 class="signup-title">Create your account</h1>
+        <p class="text-sm text-gray-500 mt-2">
+          Save your favorites and enjoy a more personal shopping experience.
+        </p>
       </div>
 
-       {% from "macros.html" import render_field %}
-       <div class="max-w-md mx-auto">
-
+      <div class="max-w-md mx-auto">
         <form method="POST">
-            {{ form.csrf_token }}
-    
-            {{ render_field(form.first_name) }}
-            {{ render_field(form.last_name) }}
-            {{ render_field(form.phone) }}
-            {{ render_field(form.password) }}
-            {{ render_field(form.confirm_password) }}
-    
-            {{ form.submit(class="w-full bg-blue-600 mt-3 text-lg font-bold text-black py-2 rounded-lg border border-gray-400") }}
+          {{ form.csrf_token }} {{ render_field(form.first_name) }} {{
+          render_field(form.last_name) }} {{ render_field(form.phone) }} {{
+          render_field(form.password) }} {{ render_field(form.confirm_password)
+          }} {{ form.submit(class="signup-submit") }}
         </form>
       </div>
-
-    </body>
-    </html>
+    </main>
+    {{ site_footer() }}
+  </body>
+</html>
