@@ -1,25 +1,22 @@
 import { toggleDropdownMenu } from "../utils/shared.js";
 import { renderCartsDisplayOnly } from "../components/render.js";
-import { savedCarts } from "../utils/saveUtils.js";
+import { savedCarts, saveCarts } from "../utils/saveUtils.js";
 import { displayCartsCount } from "../utils/shared.js";
 import { calculateSubtotal } from "../utils/calculateTotal.js";
 
 import { hamburgerHTML } from "../components/loadComponents/header/hamburgerItem.js";
 import { navigationHTML } from "../components/loadComponents/header/navigationItem.js";
 import { cartCountHTML } from "../components/loadComponents/header/cartCountItem.js";
-import { footerHTML } from "../components/loadComponents/footer/footerItem.js";
 
 const headerBar = document.getElementById("header-bar");
-const footer = document.getElementById("footer");
 
 headerBar.insertAdjacentHTML("beforeEnd", cartCountHTML());
 headerBar.insertAdjacentHTML("beforeEnd", hamburgerHTML());
 headerBar.insertAdjacentHTML(
   "beforeEnd",
-  navigationHTML("./shop.html", "./about.html", "./contact.html"),
+  navigationHTML(),
 );
 
-footer.innerHTML = footerHTML("./shop.html", "./about.html", "./contact.htm");
 
 const cartsCount = document.getElementById("cart-count");
 const cartButton = document.getElementById("cart-btn");
@@ -34,6 +31,8 @@ const randomOrderId = document.getElementById("random-order-id");
 const cartList = document.getElementById("carts");
 const subtotalAmount = document.getElementById("subtotal-amount");
 const totalAmount = document.getElementById("total-amount");
+const checkoutError = document.getElementById("checkout-error");
+const placeOrderButton = document.getElementById("place-order-btn");
 
 const carts = savedCarts();
 
@@ -43,47 +42,76 @@ window.addEventListener("pageshow", (event) => {
 });
 
 cartButton.addEventListener("click", () => {
-  window.location.href = "carts.html";
+  window.location.href = "/cart";
 });
 
 const result = calculateSubtotal(carts);
 subtotalAmount.textContent = result;
 totalAmount.textContent = result;
 
-checkoutForm.addEventListener("submit", (e) => {
+checkoutForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-
-  // Get selected payment method
-  const selectedPayment = document.querySelector(
-    'input[name="payment"]:checked',
-  );
-  let paymentText = "Credit / Debit Card";
-  if (selectedPayment) {
-    if (selectedPayment.value === "paypal") paymentText = "PayPal";
-    else if (selectedPayment.value === "cod") paymentText = "Cash on Delivery";
+  checkoutError.hidden = true;
+  const cartItems = savedCarts();
+  if (cartItems.length === 0) {
+    checkoutError.textContent = "Your cart is empty. Add an item before placing an order.";
+    checkoutError.hidden = false;
+    return;
   }
 
-  // Generate random order ID
-  randomOrderId.textContent = Math.floor(1000 + Math.random() * 9000);
+  const formData = new FormData(checkoutForm);
+  const selectedPayment = formData.get("payment");
+  const paymentText = {
+    "credit-card": "Credit / Debit Card",
+    paypal: "PayPal",
+    cod: "Cash on Delivery",
+  }[selectedPayment] || selectedPayment;
 
-  // Update modal info
-  confirmPaymentMethod.textContent = paymentText;
-  confirmTotalAmount.textContent =
-    totalAmount && totalAmount.textContent !== "$0.00"
-      ? totalAmount.textContent
-      : "$189.88"; // Fallback placeholder if actual calculation isn't present
+  placeOrderButton.disabled = true;
+  placeOrderButton.textContent = "PLACING ORDER…";
+  try {
+    const response = await fetch("/api/orders/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        customer: {
+          first_name: formData.get("firstname"),
+          last_name: formData.get("lastname"),
+          phone: formData.get("phoneNumber"),
+          country: formData.get("country"),
+          address: formData.get("address"),
+          email: formData.get("email"),
+          city: formData.get("city"),
+          message: formData.get("desciption"),
+        },
+        payment_method: selectedPayment,
+        items: cartItems.map((item) => ({
+          product_id: Number(item.id),
+          quantity: Number(item.quantity),
+        })),
+      }),
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || "We could not place your order.");
 
-  // Show modal
-  confirmationModal.classList.remove("hidden");
-
-  // Trigger animations after a tiny delay for CSS transitions to work
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
+    const order = data.order;
+    randomOrderId.textContent = order.id;
+    confirmPaymentMethod.textContent = paymentText;
+    confirmTotalAmount.textContent = `$${Number(order.total).toFixed(2)}`;
+    saveCarts([]);
+    confirmationModal.classList.remove("hidden");
+    requestAnimationFrame(() => requestAnimationFrame(() => {
       confirmationModal.classList.remove("opacity-0");
       modalContent.classList.remove("scale-95");
       modalContent.classList.add("scale-100");
-    });
-  });
+    }));
+  } catch (error) {
+    checkoutError.textContent = error.message || "A network error occurred. Please try again.";
+    checkoutError.hidden = false;
+  } finally {
+    placeOrderButton.disabled = false;
+    placeOrderButton.textContent = "PLACE ORDER";
+  }
 });
 
 hamburgerButton.addEventListener("click", () => {
