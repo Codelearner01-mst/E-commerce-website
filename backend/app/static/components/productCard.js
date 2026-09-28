@@ -1,23 +1,27 @@
+import { escapeHtml } from "../utils/product-format.js";
+
 export function productCardHTML(product) {
-  const oldPrice =
-    product.originalPrice || (Number(product.price) * 1.2).toFixed(2);
+  const name = escapeHtml(product.name);
+  const image = escapeHtml(product.image);
+  const price = Number(product.price).toFixed(2);
   return `
-  <div class="product-card group bg-white rounded-lg overflow-hidden" id="product-${product.id}">
+  <div class="product-card group bg-white rounded-lg overflow-hidden" id="product-${product.id}"
+       data-product-id="${product.id}" data-product-name="${name}"
+       data-product-price="${price}" data-product-image="${image}">
     <div class="product-image-container overflow-hidden">
       <img
-        src="${product.image}"
-        alt="${product.name}"
+        src="${image}"
+        alt="${name}"
         class="product-image w-full h-[230px] object-cover transition-transform duration-500 group-hover:scale-[1.03]"
         loading="lazy"
       />
     </div>
     <div class="product-info p-4 px-6">
-      <span class="product-label uppercase tracking-[0.18em] text-[10px]">Vision Jewelry</span>
-      <h3 class="product-title font-medium">${product.name}</h3>
+      <span class="product-label uppercase tracking-[0.18em] text-[10px]">${escapeHtml(product.category || "Vision Jewelry")}</span>
+          <h3 class="product-title font-medium">${name}</h3>
       <div class="cart-btns-container">
         <div class="price-row flex items-center gap-2">
-          <span class="line-through text-sm text-gray-500">$${oldPrice}</span>
-          <span class="product-price font-semibold">$${product.price}</span>
+          <span class="product-price font-semibold">$${price}</span>
         </div>
         <div class="actions flex items-center justify-between mt-3">
           <button class="wishlist-btn p-1.5 rounded-full hover:bg-amber-50 hover:text-red-500 transition-colors" aria-label="Add to wishlist">

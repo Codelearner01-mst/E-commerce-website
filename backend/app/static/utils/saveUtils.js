@@ -6,7 +6,8 @@ export function saveCarts(carts) {
 
 export function savedCarts() {
   try {
-    return JSON.parse(localStorage.getItem("carts")) || [];
+    const carts = JSON.parse(localStorage.getItem("carts"));
+    return Array.isArray(carts) ? carts : [];
   } catch (error) {
     return [];
   }
@@ -20,7 +21,8 @@ export function saveWishlist(wishlist) {
 
 export function savedWishlist() {
   try {
-    return JSON.parse(localStorage.getItem("wishlist")) || [];
+    const wishlist = JSON.parse(localStorage.getItem("wishlist"));
+    return Array.isArray(wishlist) ? wishlist : [];
   } catch (error) {
     return [];
   }

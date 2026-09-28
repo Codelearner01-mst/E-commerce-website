@@ -1,37 +1,44 @@
 import { ShowSucessMessage } from "../utils/shared.js";
 import { saveCarts } from "./saveUtils.js";
-import { productsData } from "../utils/productsStore.js";
 import { getCartIndex } from "../utils/helper.js";
 import { increaseQuantity } from "./quantityUpdate.js";
 import { decreaseQuantity } from "./quantityUpdate.js";
 
 /**
- * Return a product object from `productsData` by id.
+ * Read a product snapshot from a database-backed product card.
  * @param {number} id
  * @returns {{id:number,name:string,price:number,quantity:number}|undefined}
  */
-function productToAddToCartOrDisplay(id) {
-  const product = productsData.find((product) => {
-    const productId = product?.id;
-    //Tackle undefined and NaN. e.g.(id: null id:"abc" id2: 1)
-    if (
-      !productId ||
-      typeof productId !== "number" ||
-      Number.isNaN(productId)
-    ) {
-      return undefined;
-    }
-    return productId === id;
-  });
-  return product;
+function productFromCard(card) {
+  const id = Number(card?.dataset?.productId || card?.id?.split("-").pop());
+  const name =
+    card?.dataset?.productName ||
+    card?.querySelector(".product-title")?.textContent?.trim();
+  const price = Number(
+    card?.dataset?.productPrice ||
+      card
+        ?.querySelector(".product-price")
+        ?.textContent?.replace(/[^\d.]/g, ""),
+  );
+  const image =
+    card?.dataset?.productImage ||
+    card?.querySelector("img")?.getAttribute("src");
+  if (
+    !Number.isInteger(id) ||
+    id < 1 ||
+    !name ||
+    !Number.isFinite(price) ||
+    !image
+  )
+    return null;
+  return { id, name, price, image, quantity: 1 };
 }
 
 //Locate to the product page
 export function displayProduct(card, href) {
   const productId = parseInt(card.id.split("-")[1], 10);
-  const product = productToAddToCartOrDisplay(productId);
-  sessionStorage.setItem("currentProduct", JSON.stringify(product)); //Store the product object temporilary to display it in the product page
-  window.location.href = href;
+  if (!Number.isInteger(productId) || productId < 1) return;
+  window.location.href = `/product/${productId}`;
 }
 
 export const increaseCartQuantity = (id, carts) => {
@@ -67,15 +74,18 @@ export function removeProductFromCart(id, carts) {
 }
 
 export function addProductToCart(card, carts) {
+  if (!Array.isArray(carts)) return;
   const productId = parseInt(card.id.split("-")[1], 10);
   if (isNaN(productId)) {
     return;
   }
-  const product = productToAddToCartOrDisplay(productId);
-  if (product === undefined) {
+  const product = productFromCard(card);
+  if (!product) {
     return;
   }
-  carts.push(product);
+  const existing = carts.find((item) => Number(item.id) === product.id);
+  if (existing) existing.quantity = Number(existing.quantity || 1) + 1;
+  else carts.push(product);
   ShowSucessMessage(`${product.name} added to cart successfully!`);
   saveCarts(carts);
 }

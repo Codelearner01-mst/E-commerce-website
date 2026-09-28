@@ -1,3 +1,5 @@
+import { escapeHtml, resolveProductImage } from "../utils/product-format.js";
+
 /**
  * components/cartItem.js
  * Cart item renderer and controls.
@@ -21,11 +23,7 @@ export function CartItem(cart, path) {
    */
   // Strip any existing prefix so we always work with a raw filename,
   // then prepend the correct path for this page.
-  const filename = cart.image
-    .replace("./src/images/", "")
-    .replace("../images/", "")
-    .replace("src/images/", "");
-  const newSrc = path + filename;
+  const newSrc = resolveProductImage(cart.image, path);
 
   const cartDiv = document.createElement("div");
   cartDiv.className =
@@ -34,7 +32,7 @@ export function CartItem(cart, path) {
   cartDiv.innerHTML = `
    
       <div class="cart-image-frame">
-        <img src="${newSrc}" alt="${cart.name}" />
+        <img src="${escapeHtml(newSrc)}" alt="${escapeHtml(cart.name)}" />
                <button
                     class="wishlist-btn p-1.5 rounded-full hover:bg-amber-50 hover:text-red-500 transition-colors"
                     aria-label="Add to wishlist"
@@ -54,7 +52,7 @@ export function CartItem(cart, path) {
       </div>
       <div class="cart-content flex flex-row justify-between flex-1 gap-2">
     <div class="cart-details flex gap-2.5 flex-col ml-3.5 mr-9">
-      <p class="cart-product-name">${cart.name}</p>
+      <p class="cart-product-name">${escapeHtml(cart.name)}</p>
       <p class="text-lg font-medium">$${cart.price}</p>
        <div class="flex items-center rounded-sm w-max h-9 overflow-hidden cart-btns-box">
         <button class="decrease-btn w-5 h-full flex items-center justify-center bg-yellow-700  text-white  hover:bg-yellow-600 hover:text-white transition-colors duration-300 text-sm font-light focus:outline-none cursor-pointer">&#8722;</button>

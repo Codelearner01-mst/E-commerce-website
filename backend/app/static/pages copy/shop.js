@@ -1,372 +1,287 @@
+import { renderProducts } from "../components/render.js";
 import { savedCarts, savedWishlist, saveWishlist } from "../utils/saveUtils.js";
 import { displayCartsCount, toggleDropdownMenu } from "../utils/shared.js";
-import { displayProduct } from "../utils/cart-controller.js";
-import { addProductToCart } from "../utils/cart-controller.js";
-import { removeProductFromCart } from "../utils/cart-controller.js";
+import {
+  addProductToCart,
+  decreaseCartQuantity,
+  increaseCartQuantity,
+  removeProductFromCart,
+} from "../utils/cart-controller.js";
 import { getProductInCart } from "../utils/helper.js";
-import { isProductInCart } from "../utils/helper.js";
-import { hamburgerHTML } from "../components/loadComponents/header/hamburgerItem.js";
-import { navigationHTML } from "../components/loadComponents/header/navigationItem.js";
-import { cartCountHTML } from "../components/loadComponents/header/cartCountItem.js";
-import { productsData } from "../utils/productsStore.js";
-import { renderProducts } from "../components/render.js";
-import { decreaseCartQuantity } from "../utils/cart-controller.js";
-import { increaseCartQuantity } from "../utils/cart-controller.js";
-import { runCartActionsConfirmation } from "../utils/toast/notify.js";
 import {
   ShowQuantityControlButtons,
   showAddToCartButton,
 } from "../utils/toggler.js";
+import { runCartActionsConfirmation } from "../utils/toast/notify.js";
+import { hamburgerHTML } from "../components/loadComponents/header/hamburgerItem.js";
+import { navigationHTML } from "../components/loadComponents/header/navigationItem.js";
+import { cartCountHTML } from "../components/loadComponents/header/cartCountItem.js";
 
-const headerBar = document.getElementById("header-bar");
-
-headerBar.insertAdjacentHTML("beforeEnd", cartCountHTML());
-headerBar.insertAdjacentHTML("beforeEnd", hamburgerHTML());
-headerBar.insertAdjacentHTML(
-  "beforeEnd",
-  navigationHTML(),
+const header = document.getElementById("header-bar");
+header?.insertAdjacentHTML(
+  "beforeend",
+  cartCountHTML() + hamburgerHTML() + navigationHTML(),
 );
 
-
-const cartCount = document.getElementById("cart-count");
-const hamburgerButton = document.getElementById("hamburger-btn");
-const cartButton = document.getElementById("cart-btn");
-const dropDownMenu = document.getElementById("drop-menu");
-const products = document.getElementById("product-list");
+const productList = document.getElementById("product-list");
 const searchInput = document.getElementById("search-input");
-const catBtns = document.querySelectorAll(".cat-btn");
-const searchSticky = document.querySelector(".search-sticky");
-// if category buttons were removed, avoid errors by providing a default
-if (!catBtns || catBtns.length === 0) {
-  // create a virtual 'all' active category so filtering code can still work
-  // some code paths expect `.cat-btn.active` to exist; create a lightweight stub
-  const stub = document.createElement("button");
-  stub.className = "cat-btn active";
-  stub.dataset.category = "all";
-  // do not insert into DOM, only querySelector will find it if needed by code that checks document
-}
+const categoryRail = document.querySelector(".cat-rail-inner");
+const filterMenu = document.getElementById("filter-menu");
+const filterButton = document.getElementById("filter-btn");
+const sortSelect = document.getElementById("sort-by");
+const carts = savedCarts();
+const cartCount = document.getElementById("cart-count");
 
+let allProducts = [];
+let activeCategory = "all";
+let activePriceRange = null;
+let sortMode = "relevance";
 const imagePath = "/static/images/";
 
-// currentView holds the array currently displayed (after filters/sorts)
-let currentView = productsData.slice();
+function setCategory(category) {
+  activeCategory = category || "all";
+  categoryRail?.querySelectorAll(".cat-btn").forEach((button) => {
+    button.classList.toggle(
+      "active",
+      button.dataset.category === activeCategory,
+    );
+  });
+  applyFilters();
+}
 
-renderProducts(currentView, imagePath, products, currentView.length);
+function applyFilters() {
+  if (!productList) return;
+  const term = searchInput?.value.trim().toLowerCase() || "";
+  let view = allProducts.filter((product) => {
+    const matchesCategory =
+      activeCategory === "all" || product.category === activeCategory;
+    const matchesTerm = `${product.name} ${product.description || ""}`
+      .toLowerCase()
+      .includes(term);
+    const price = Number(product.price);
+    const matchesPrice =
+      !activePriceRange ||
+      (price >= activePriceRange.min &&
+        (activePriceRange.max === null || price <= activePriceRange.max));
+    return matchesCategory && matchesTerm && matchesPrice;
+  });
 
-let lastScrollY = window.scrollY;
-let isTicking = false;
-window.addEventListener("scroll", () => {
-  const currentScrollY = window.scrollY;
+  if (sortMode === "price-asc")
+    view.sort((a, b) => Number(a.price) - Number(b.price));
+  if (sortMode === "price-desc")
+    view.sort((a, b) => Number(b.price) - Number(a.price));
+  if (sortMode === "newest") view.sort((a, b) => Number(b.id) - Number(a.id));
 
-  if (!isTicking) {
-    if (currentScrollY > lastScrollY && currentScrollY > 700) {
-      searchSticky.classList.add("search-sticky-hidden");
-    } else {
-      searchSticky.classList.remove("search-sticky-hidden");
-    }
-    isTicking = true;
-  } else {
-    lastScrollY = currentScrollY;
-    isTicking = false;
+  renderProducts(view, imagePath, productList);
+  if (!view.length) {
+    const empty = document.createElement("p");
+    empty.className = "col-span-full py-12 text-center text-gray-500";
+    empty.textContent = "No products match those filters.";
+    productList.append(empty);
   }
-});
+  initializeCartCards();
+}
 
-function filterProductsByCategory(cat) {
-  if (!cat || cat === null) return;
+function populateCategories(categories) {
+  if (!categoryRail || !filterMenu) return;
+  categoryRail
+    .querySelectorAll(".cat-btn:not([data-category='all'])")
+    .forEach((node) => node.remove());
+  const categoryList = filterMenu.querySelector("[aria-label='Categories']");
+  categoryList
+    ?.querySelectorAll(".category-item:not([data-category='all'])")
+    .forEach((node) => node.remove());
 
-  if (cat === "all") {
-    const filterAll = productsData.filter((product) =>
-      product.name.toLowerCase().includes(searchInput.value.toLowerCase()),
-    );
-    currentView = filterAll;
-    products.innerHTML = "";
-    renderProducts(currentView, imagePath, products, currentView.length);
-  } else {
-    const filteredProducts = productsData.filter(
-      (product) =>
-        product.category === cat &&
-        product.name.toLowerCase().includes(searchInput.value.toLowerCase()),
-    );
-    if (filteredProducts.length === 0) {
-      products.innerHTML =
-        "<p class='text-center text-gray-500'>OOops! No products found.</p>";
-      return;
+  for (const category of categories) {
+    const button = document.createElement("button");
+    button.className = "cat-btn";
+    button.dataset.category = category.name;
+    button.textContent = category.name;
+    categoryRail.append(button);
+
+    if (categoryList) {
+      const item = document.createElement("li");
+      item.className = "category-item";
+      item.dataset.category = category.name;
+      item.textContent = category.name;
+      categoryList.append(item);
     }
-    currentView = filteredProducts;
-    products.innerHTML = ""; // Clear previous products before rendering filtered ones
-    renderProducts(currentView, imagePath, products, currentView.length);
   }
 }
 
-// Filter by price range (min inclusive, max exclusive if provided)
-function filterByPrice(min, max) {
-  const activeBtn = document.querySelector(".cat-btn.active");
-  const activeCat = activeBtn ? activeBtn.dataset.category : "all";
-  const searchTerm = searchInput.value.trim().toLowerCase();
+async function loadCatalog() {
+  try {
+    const [productsResponse, categoriesResponse] = await Promise.all([
+      fetch("/api/products/data"),
+      fetch("/api/products/categories"),
+    ]);
+    if (!productsResponse.ok) throw new Error("Product request failed.");
+    const productsData = await productsResponse.json();
+    const categoriesData = categoriesResponse.ok
+      ? await categoriesResponse.json()
+      : { categories: [] };
+    allProducts = Array.isArray(productsData.products)
+      ? productsData.products
+      : [];
+    populateCategories(
+      Array.isArray(categoriesData.categories) ? categoriesData.categories : [],
+    );
+    const requestedCategory = new URLSearchParams(window.location.search).get("category");
+    if (
+      requestedCategory &&
+      Array.isArray(categoriesData.categories) &&
+      categoriesData.categories.some((category) => category.name === requestedCategory)
+    ) {
+      setCategory(requestedCategory);
+    } else {
+      applyFilters();
+    }
+  } catch (error) {
+    if (productList)
+      productList.innerHTML =
+        "<p class='col-span-full py-12 text-center text-gray-500'>We could not load the collection. Please refresh to try again.</p>";
+  }
+}
 
-  const results = productsData.filter((product) => {
-    const withinCategory =
-      activeCat === "all" ? true : product.category === activeCat;
-    const withinSearch = product.name.toLowerCase().includes(searchTerm);
-    const priceOk = (() => {
-      const price = Number(product.price) || 0;
-      if (max === "" || max === null || max === undefined)
-        return price >= Number(min);
-      return price >= Number(min) && price <= Number(max);
-    })();
-    return withinCategory && withinSearch && priceOk;
-  });
+function initializeCartCards() {
+  for (const card of productList?.querySelectorAll(".product-card") || []) {
+    const item = getProductInCart(carts, Number(card.dataset.productId));
+    if (!item) continue;
+    ShowQuantityControlButtons(
+      card.querySelector(".quantity-control-btns"),
+      card.querySelector(".add-cart-btn"),
+    );
+    const display = card.querySelector(".quantity-display");
+    if (display) display.textContent = item.quantity;
+  }
+}
 
-  if (results.length === 0) {
-    products.innerHTML =
-      "<p class='text-center text-gray-500'>OOops! No products found.</p>";
-    currentView = [];
+categoryRail?.addEventListener("click", (event) => {
+  const button = event.target.closest(".cat-btn");
+  if (button) setCategory(button.dataset.category);
+});
+
+searchInput?.addEventListener("input", applyFilters);
+sortSelect?.addEventListener("change", (event) => {
+  sortMode = event.target.value;
+  applyFilters();
+});
+
+filterButton?.addEventListener("click", (event) => {
+  event.stopPropagation();
+  const open = filterMenu.classList.toggle("open");
+  filterButton.setAttribute("aria-expanded", String(open));
+});
+document.addEventListener("click", (event) => {
+  if (
+    filterMenu &&
+    !filterMenu.contains(event.target) &&
+    !filterButton?.contains(event.target)
+  ) {
+    filterMenu.classList.remove("open");
+    filterButton?.setAttribute("aria-expanded", "false");
+  }
+});
+
+filterMenu?.addEventListener("click", (event) => {
+  const toggle = event.target.closest(".group-toggle");
+  if (toggle) {
+    toggle.closest(".filter-group")?.classList.toggle("expanded");
     return;
   }
-  currentView = results;
-  products.innerHTML = "";
-  renderProducts(currentView, imagePath, products, currentView.length);
-}
-
-// Sort currentView according to option
-function sortProducts(option) {
-  if (!currentView || currentView.length === 0) return;
-  const copy = currentView.slice();
-  if (option === "price-asc") {
-    copy.sort((a, b) => Number(a.price) - Number(b.price));
-  } else if (option === "price-desc") {
-    copy.sort((a, b) => Number(b.price) - Number(a.price));
-  } else if (option === "newest") {
-    // If products have an id or created date, use that; fallback to id desc
-    copy.sort((a, b) => Number(b.id) - Number(a.id));
+  const category = event.target.closest(".category-item");
+  if (category) {
+    setCategory(category.dataset.category);
+    return;
   }
-  currentView = copy;
-  products.innerHTML = "";
-  renderProducts(currentView, imagePath, products, currentView.length);
-}
+  const priceRange = event.target.closest(".price-range");
+  if (priceRange) {
+    activePriceRange = {
+      min: Number(priceRange.dataset.min),
+      max: priceRange.dataset.max ? Number(priceRange.dataset.max) : null,
+    };
+    applyFilters();
+    return;
+  }
+  if (event.target.closest("#clear-filters")) {
+    activePriceRange = null;
+    searchInput.value = "";
+    sortMode = "relevance";
+    if (sortSelect) sortSelect.value = sortMode;
+    setCategory("all");
+  }
+});
 
-// expose for external calls/testing
-window.filterByPrice = filterByPrice;
-window.sortProducts = sortProducts;
-
-searchInput.addEventListener("input", (event) => {
-  const searchTerm = event.target.value;
-  const activeBtn = document.querySelector(".cat-btn.active");
-  const activeCat = activeBtn ? activeBtn.dataset.category : "all";
-  setTimeout(() => {
-    if (activeCat === "all") {
-      const searchResults = productsData.filter((product) =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase()),
+productList?.addEventListener("click", (event) => {
+  const card = event.target.closest(".product-card");
+  if (!card) return;
+  const id = Number(card.dataset.productId);
+  const product = getProductInCart(carts, id);
+  const wishlistButton = event.target.closest(
+    ".wishlist-btn, .wishlist-inline-btn",
+  );
+  if (wishlistButton) {
+    const wishlist = savedWishlist();
+    const index = wishlist.findIndex(
+      (item) => Number(typeof item === "object" ? item.id : item) === id,
+    );
+    if (index < 0) wishlist.push(id);
+    else wishlist.splice(index, 1);
+    saveWishlist(wishlist);
+    wishlistButton.classList.toggle("saved", index < 0);
+    wishlistButton.setAttribute("aria-pressed", String(index < 0));
+    return;
+  }
+  if (event.target.closest(".increase-btn")) {
+    increaseCartQuantity(id, carts);
+    card.querySelector(".quantity-display").textContent = getProductInCart(
+      carts,
+      id,
+    ).quantity;
+    runCartActionsConfirmation("Cart updated successfully!", carts, cartCount);
+    return;
+  }
+  if (event.target.closest(".decrease-btn")) {
+    if (product?.quantity <= 1) {
+      removeProductFromCart(id, carts);
+      showAddToCartButton(
+        card.querySelector(".quantity-control-btns"),
+        card.querySelector(".add-cart-btn"),
       );
-      if (searchResults.length === 0) {
-        products.innerHTML =
-          "<p class='text-center text-gray-500'>OOops! No products found.</p>";
-        return;
-      }
-      products.innerHTML = "";
-      renderProducts(searchResults, imagePath, products, searchResults.length);
     } else {
-      const searchResults = productsData.filter(
-        (product) =>
-          product.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-          product.category === activeCat,
-      );
-      if (searchResults.length === 0) {
-        products.innerHTML =
-          "<p class='text-center text-gray-500'>OOops! No products found.</p>";
-        return;
-      }
-      products.innerHTML = "";
-      renderProducts(searchResults, imagePath, products, searchResults.length);
+      decreaseCartQuantity(id, carts);
+      card.querySelector(".quantity-display").textContent = getProductInCart(
+        carts,
+        id,
+      ).quantity;
     }
-  }, 300); // Debounce the search input by 300ms
+    runCartActionsConfirmation("Cart updated successfully!", carts, cartCount);
+    return;
+  }
+  if (event.target.closest(".add-cart-btn")) {
+    addProductToCart(card, carts);
+    ShowQuantityControlButtons(
+      card.querySelector(".quantity-control-btns"),
+      card.querySelector(".add-cart-btn"),
+    );
+    card.querySelector(".quantity-display").textContent = getProductInCart(
+      carts,
+      id,
+    ).quantity;
+    displayCartsCount(cartCount, carts);
+    return;
+  }
+  if (!event.target.closest("a, button"))
+    window.location.href = `/product/${id}`;
 });
 
-let prevCat = "all";
-catBtns.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const category = btn.dataset.category;
-    if (prevCat !== category) {
-      document
-        .querySelector(`[data-category="${prevCat}"]`)
-        .classList.remove("active");
-      btn.classList.add("active");
-      const filtered = filterProductsByCategory(category);
-      prevCat = category;
-    }
-  });
-});
-
-// Toolbar interactions
-const sortSelect = document.getElementById("sort-by");
-const filterBtn = document.getElementById("filter-btn");
-const filterMenu = document.getElementById("filter-menu");
-
-if (sortSelect) {
-  sortSelect.addEventListener("change", (e) => {
-    sortProducts(e.target.value);
-  });
-}
-
-if (filterBtn && filterMenu) {
-  filterBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    const open = filterMenu.classList.toggle("open");
-    filterBtn.setAttribute("aria-expanded", String(open));
-  });
-
-  document.addEventListener("click", (ev) => {
-    if (!filterMenu.contains(ev.target) && ev.target !== filterBtn) {
-      filterMenu.classList.remove("open");
-      filterBtn.setAttribute("aria-expanded", "false");
-    }
-  });
-
-  filterMenu.addEventListener("click", (ev) => {
-    const groupToggle = ev.target.closest(".group-toggle");
-    if (groupToggle) {
-      ev.stopPropagation();
-      const parent = groupToggle.closest(".filter-group");
-      if (parent) parent.classList.toggle("expanded");
-      return;
-    }
-
-    const priceItem = ev.target.closest(".price-range");
-    const catItem = ev.target.closest(".category-item");
-    const clearBtn = ev.target.closest("#clear-filters");
-
-    if (priceItem) {
-      const min = priceItem.dataset.min;
-      const max = priceItem.dataset.max;
-      filterByPrice(min, max);
-      filterMenu.classList.remove("open");
-      filterBtn.setAttribute("aria-expanded", "false");
-      return;
-    }
-
-    if (catItem) {
-      const cat = catItem.dataset.category;
-      const btn = document.querySelector(`.cat-btn[data-category="${cat}"]`);
-      if (btn) btn.click();
-      filterMenu.classList.remove("open");
-      filterBtn.setAttribute("aria-expanded", "false");
-      return;
-    }
-
-    if (clearBtn) {
-      const active = document.querySelector(".cat-btn.active");
-      if (active) active.classList.remove("active");
-      const allBtn = document.querySelector('.cat-btn[data-category="all"]');
-      if (allBtn) allBtn.classList.add("active");
-      prevCat = "all";
-      searchInput.value = "";
-      currentView = productsData.slice();
-      products.innerHTML = "";
-      renderProducts(currentView, imagePath, products, currentView.length);
-      filterMenu.classList.remove("open");
-      filterBtn.setAttribute("aria-expanded", "false");
-    }
-  });
-
-  const toggles = filterMenu.querySelectorAll(".group-toggle");
-  toggles.forEach((g) => {
-    g.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        const parent = g.closest(".filter-group");
-        if (parent) parent.classList.toggle("expanded");
-      }
-    });
-  });
-}
-
-cartButton.addEventListener("click", () => {
+document.getElementById("cart-btn")?.addEventListener("click", () => {
   window.location.href = "/cart";
 });
-const carts = savedCarts();
-
-const toastMsg = "Cart updated successfully!";
-
-//Set quantity control for all products already in cart when page reloads
-window.addEventListener("pageshow", (event) => {
-  const carts = savedCarts();
-  products.querySelectorAll(".product-card").forEach((card) => {
-    const cardId = parseInt(card.id.split("-")[1], 10);
-    const cart = getProductInCart(carts, cardId);
-    if (isProductInCart(cardId, carts)) {
-      const quantityControlsBtn = card.querySelector(".quantity-control-btns");
-      const addToCartBtn = card.querySelector(".add-cart-btn");
-      ShowQuantityControlButtons(quantityControlsBtn, addToCartBtn);
-      card.querySelector(".quantity-display").textContent = cart.quantity;
-    }
-  });
-  displayCartsCount(cartCount, carts);
-});
-
-products.addEventListener("click", (event) => {
-  const card = event.target.closest(".product-card");
-  if (!card || card === null) return;
-  const cardId = parseInt(card.id.split("-")[1], 10);
-  const cart = getProductInCart(carts, cardId);
-
-  // Wishlist toggle handling (short-circuit other button handlers)
-  const wishBtn = event.target.closest(".wishlist-btn, .wishlist-inline-btn");
-  if (wishBtn) {
-    try {
-      const wishlist = savedWishlist();
-      const idx = wishlist.indexOf(cardId);
-      let active;
-      if (idx === -1) {
-        wishlist.push(cardId);
-        active = true;
-      } else {
-        wishlist.splice(idx, 1);
-        active = false;
-      }
-      saveWishlist(wishlist);
-      wishBtn.setAttribute("aria-pressed", active ? "true" : "false");
-      if (active) wishBtn.classList.add("saved");
-      else wishBtn.classList.remove("saved");
-    } catch (e) {
-      // ignore storage errors
-    }
-    return;
-  }
-
-  if (event.target.tagName !== "BUTTON") {
-    displayProduct(card, "/product");
-    return;
-  }
-
-  const quantityControlsBtn = card.querySelector(".quantity-control-btns");
-  const addToCartBtn = card.querySelector(".add-cart-btn");
-
-  if (event.target.classList.contains("decrease-btn")) {
-    if (cart.quantity === 1) {
-      removeProductFromCart(cardId, carts);
-      showAddToCartButton(quantityControlsBtn, addToCartBtn);
-      runCartActionsConfirmation(toastMsg, carts, cartCount);
-    } else {
-      decreaseCartQuantity(cardId, carts);
-      card.querySelector(".quantity-display").textContent = cart.quantity;
-      runCartActionsConfirmation(toastMsg, carts, cartCount);
-    }
-    return;
-  }
-
-  if (event.target.classList.contains("increase-btn")) {
-    increaseCartQuantity(cardId, carts);
-    card.querySelector(".quantity-display").textContent = cart.quantity;
-    runCartActionsConfirmation(toastMsg, carts, cartCount);
-    return;
-  }
-
-  addProductToCart(card, carts);
-  displayCartsCount(cartCount, carts);
-  ShowQuantityControlButtons(quantityControlsBtn, addToCartBtn);
-});
-
+document
+  .getElementById("hamburger-btn")
+  ?.addEventListener("click", () =>
+    toggleDropdownMenu(document.getElementById("drop-menu")),
+  );
 displayCartsCount(cartCount, carts);
-hamburgerButton.addEventListener("click", () => {
-  toggleDropdownMenu(dropDownMenu);
-});
+loadCatalog();

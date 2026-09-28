@@ -1,3 +1,5 @@
+import { escapeHtml } from "../utils/product-format.js";
+
 // Product HTML displayed when user clicks on a product
 
 export function productHTML(product) {
@@ -7,10 +9,12 @@ export function productHTML(product) {
     product !== null
   ) {
     const div = document.createElement("div");
-    div.className = " w-full ";
+    div.className = "product-card w-full";
     div.id = `product-${product.id}`;
-    const oldPrice =
-      product.originalPrice || (Number(product.price) * 1.2).toFixed(2);
+    div.dataset.productId = product.id;
+    div.dataset.productName = product.name || "";
+    div.dataset.productPrice = product.price;
+    div.dataset.productImage = product.image || "";
     div.innerHTML = `
  <div class="px-4 md:px-8 lg:px-12 xl:px-16 py-6 md:grid lg:grid-cols-2 md:gap-8 lg:gap-16 md:max-w-5xl lg:max-w-6xl md:mx-auto w-full">
 
@@ -18,30 +22,29 @@ export function productHTML(product) {
   <div class="detail-image-frame mb-10 md:mb-0">
     <img
       class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-      src="${product.image}"
-      alt="${product.name}"
+      src="${escapeHtml(product.image)}"
+      alt="${escapeHtml(product.name)}"
     />
   </div>
 
   <!-- Info -->
   <div class="flex flex-col justify-center gap-5 px-4 md:px-0 lg:py-8">
-          <span class="eyebrow">Vision Jewelry</span>
+          <span class="eyebrow">${escapeHtml(product.category || "Vision Jewelry")}</span>
 
           <h1 class="text-3xl md:text-4xl lg:text-[2.6rem] font-serif font-medium
                      tracking-wide text-gray-900 leading-tight">
-            ${product.name}
+            ${escapeHtml(product.name)}
           </h1>
 
           <p class="text-2xl font-sans font-medium text-amber-800 tracking-wide">
-            <span class="line-through text-sm text-gray-500 mr-2">$${oldPrice}</span>
-            $${product.price}
+            $${Number(product.price).toFixed(2)}
           </p>
 
           <!-- Divider -->
           <div class="w-12 h-px bg-amber-700 my-1"></div>
 
           <p class="text-[1rem] text-gray-500 font-sans leading-relaxed max-w-md">
-            ${product.description}
+            ${escapeHtml(product.description || "A thoughtfully selected piece from our collection.")}
           </p>
 
           <div class="cart-btns-container flex flex-col md:flex-row gap-3 mt-4 max-w-sm">

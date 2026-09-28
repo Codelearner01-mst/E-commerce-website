@@ -11,3 +11,6 @@ class Category(db.Model):
     updated_at = db.Column(db.DateTime, nullable=True)
 
     products = db.relationship("Product", back_populates="category")
+
+    def category_to_dict(self):
+        return {"id": self.id, "name": self.name, "description": self.description}

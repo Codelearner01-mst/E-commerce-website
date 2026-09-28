@@ -1,183 +1,132 @@
-import { toggleDropdownMenu } from "../utils/shared.js";
 import { renderProduct, renderSimilarProducts } from "../components/render.js";
-import { addProductToCart } from "../utils/cart-controller.js";
-import { savedCarts } from "../utils/saveUtils.js";
-import { savedWishlist } from "../utils/saveUtils.js";
-import { saveWishlist } from "../utils/saveUtils.js";
-import { displayCartsCount } from "../utils/shared.js";
-import { getCartIndex } from "../utils/helper.js";
+import { savedCarts, savedWishlist, saveWishlist } from "../utils/saveUtils.js";
+import { addProductToCart, decreaseCartQuantity, increaseCartQuantity, removeProductFromCart } from "../utils/cart-controller.js";
 import { getProductInCart } from "../utils/helper.js";
-import { isProductInCart } from "../utils/helper.js";
-import { removeProductFromCart } from "../utils/cart-controller.js";
+import { displayCartsCount, toggleDropdownMenu } from "../utils/shared.js";
+import { ShowQuantityControlButtons, showAddToCartButton } from "../utils/toggler.js";
+import { runCartActionsConfirmation } from "../utils/toast/notify.js";
 import { hamburgerHTML } from "../components/loadComponents/header/hamburgerItem.js";
 import { navigationHTML } from "../components/loadComponents/header/navigationItem.js";
 import { cartCountHTML } from "../components/loadComponents/header/cartCountItem.js";
-import { decreaseCartQuantity } from "../utils/cart-controller.js";
-import { increaseCartQuantity } from "../utils/cart-controller.js";
-import { productsData } from "../utils/productsStore.js";
-import { runCartActionsConfirmation } from "../utils/toast/notify.js";
-import {
-  ShowQuantityControlButtons,
-  showAddToCartButton,
-} from "../utils/toggler.js";
 
-const headerBar = document.getElementById("header-bar");
-
-headerBar.insertAdjacentHTML("beforeEnd", cartCountHTML());
-headerBar.insertAdjacentHTML("beforeEnd", hamburgerHTML());
-headerBar.insertAdjacentHTML(
-  "beforeEnd",
-  navigationHTML(),
-);
-
-
-const carts = savedCarts();
-const wishlist = savedWishlist();
-
-//localStorage.removeItem("wishlist");
+const header = document.getElementById("header-bar");
+header?.insertAdjacentHTML("beforeend", cartCountHTML() + hamburgerHTML() + navigationHTML());
 
 const productContainer = document.getElementById("product-container");
-const similarProductsContainer = document.getElementById(
-  "products-similar-container",
-);
-renderProduct(productContainer, "/static/images/");
-renderSimilarProducts(similarProductsContainer, "/static/images/");
+const similarContainer = document.getElementById("products-similar-container");
+const productId = Number(document.querySelector("[data-product-id]")?.dataset.productId);
+const carts = savedCarts();
+const cartCount = document.getElementById("cart-count");
 
-const addTocartBtn = document.getElementById("add-cart-btn");
-const cartButton = document.getElementById("cart-btn");
-const toastEle = document.querySelector(".added-cart-success");
-const cartsCount = document.getElementById("cart-count");
-const wishlistBtn = document.getElementById("wishlist-btn");
-
-const hamburgerButton = document.getElementById("hamburger-btn");
-const dropDownMenu = document.getElementById("drop-menu");
-
-const currentProduct = JSON.parse(sessionStorage.getItem("currentProduct"));
-console.log("Current product", currentProduct);
-
-const index = getCartIndex(currentProduct.id, productsData);
-const product = productsData[index];
-product.image = "/static/images/" + product.image.replace("../images/", "");
-
-cartButton.addEventListener("click", () => {
-  window.location.href = "/cart";
-});
-
-window.addEventListener("pageshow", (event) => {
-  // Initialize main product cart state
-  if (isProductInCart(currentProduct.id, carts)) {
-    const cart = getProductInCart(carts, currentProduct.id);
-    const quantityControlsBtn = productContainer.querySelector(
-      ".quantity-control-btns",
-    );
-    const addToCartBtn = productContainer.querySelector(".add-cart-btn");
-    ShowQuantityControlButtons(quantityControlsBtn, addToCartBtn);
-    productContainer.querySelector(".quantity-display").textContent =
-      cart.quantity;
-
-    // Attach listeners because the buttons now exist
-    const increaseBtn = productContainer.querySelector(".increase-btn");
-    const decreaseBtn = productContainer.querySelector(".decrease-btn");
-
-    increaseBtn.addEventListener("click", () => {
-      increaseFunc();
-    });
-
-    decreaseBtn.addEventListener("click", () => {
-      decreaseFunc();
-    });
+async function loadProduct() {
+  if (!Number.isInteger(productId) || productId < 1) {
+    showProductError("This product link is invalid.");
+    return;
   }
-
-  if (wishlist.some((w) => currentProduct.id === w.id)) {
-    wishlistBtn.textContent = "remove from wishlist";
-  }
-
-  displayCartsCount(cartsCount, carts);
-});
-
-const toastMsg = "Cart updated successfully!";
-
-function decreaseFunc() {
-  const cart = getProductInCart(carts, currentProduct.id);
-  if (cart.quantity === 1) {
-    const addToCartBtn = productContainer.querySelector(".add-cart-btn");
-    const quantityControlsBtn = productContainer.querySelector(
-      ".quantity-control-btns",
-    );
-    removeProductFromCart(currentProduct.id, carts);
-    showAddToCartButton(quantityControlsBtn, addToCartBtn);
-    runCartActionsConfirmation(toastMsg, carts, cartsCount);
-  } else {
-    decreaseCartQuantity(currentProduct.id, carts);
-    productContainer.querySelector(".quantity-display").textContent =
-      cart.quantity;
-    runCartActionsConfirmation(toastMsg, carts, cartsCount);
-  }
-}
-
-function increaseFunc() {
-  const cart = getProductInCart(carts, currentProduct.id);
-  increaseCartQuantity(currentProduct.id, carts);
-  productContainer.querySelector(".quantity-display").textContent =
-    cart.quantity;
-  runCartActionsConfirmation(toastMsg, carts, cartsCount);
-}
-
-addTocartBtn.addEventListener("click", () => {
-  const card = addTocartBtn.closest(".product-card");
-  const addToCartBtn = card.querySelector(".add-cart-btn");
-  const quantityControlsBtn = card.querySelector(".quantity-control-btns");
-  addProductToCart(card, carts);
-  ShowQuantityControlButtons(quantityControlsBtn, addToCartBtn);
-  displayCartsCount(cartsCount, carts);
-
-  const increaseBtn = productContainer.querySelector(".increase-btn");
-  const decreaseBtn = productContainer.querySelector(".decrease-btn");
-
-  increaseBtn.addEventListener("click", () => {
-    increaseFunc();
-  });
-  decreaseBtn.addEventListener("click", () => {
-    decreaseFunc();
-  });
-});
-
-console.log(
-  "Wislist content",
-  wishlistBtn.textContent.trim().toLowerCase() === "save to wishlist",
-);
-
-wishlistBtn.addEventListener("click", () => {
-  if (wishlistBtn.textContent.trim().toLowerCase() === "save to wishlist") {
-    wishlist.push(currentProduct);
-    wishlistBtn.textContent = "remove from wishlist";
-  } else {
-    const wishlistToRemove = wishlist.findIndex(
-      (w) => currentProduct.id === w.id,
-    );
-    if (wishlistToRemove >= 0 && wishlistToRemove < wishlist.length) {
-      wishlist.splice(wishlistToRemove, 1);
+  try {
+    const productResponse = await fetch(`/api/products/${productId}`);
+    if (productResponse.status === 404) {
+      showProductError("We could not find that product.");
+      return;
     }
-    wishlistBtn.textContent = "save to wishlist";
+    if (!productResponse.ok) throw new Error("Product request failed.");
+    const productPayload = await productResponse.json();
+    const product = productPayload.product;
+    if (!product) {
+      showProductError("We could not find that product.");
+      return;
+    }
+    document.title = `${product.name} | Vision Jewelry`;
+    document.getElementById("product-page-title").textContent = product.name;
+    renderProduct(productContainer, product);
+    connectProductActions(product);
+    try {
+      const productsResponse = await fetch("/api/products/data");
+      const productsPayload = productsResponse.ok ? await productsResponse.json() : {};
+      renderSimilarProducts(
+        similarContainer,
+        product,
+        Array.isArray(productsPayload.products) ? productsPayload.products : [],
+      );
+    } catch (error) {
+      similarContainer.replaceChildren();
+    }
+  } catch (error) {
+    showProductError("Product details are temporarily unavailable. Please try again.");
   }
-  saveWishlist(wishlist);
-});
+}
 
-// Event listener for similar products navigation
-similarProductsContainer.addEventListener("click", (event) => {
-  const card = event.target.closest(".similar-product-card");
+function showProductError(message) {
+  if (productContainer) {
+    const note = document.createElement("p");
+    note.className = "py-12 text-center text-gray-500";
+    note.textContent = message;
+    productContainer.replaceChildren(note);
+  }
+}
+
+function connectProductActions(product) {
+  const card = productContainer.querySelector(".product-card");
   if (!card) return;
+  const id = Number(product.id);
+  const addButton = card.querySelector(".add-cart-btn");
+  const controls = card.querySelector(".quantity-control-btns");
+  const quantityDisplay = card.querySelector(".quantity-display");
+  const wishlistButton = card.querySelector("#wishlist-btn");
 
-  const cardId = parseInt(card.id.split("-")[1], 10);
-  const selectedProduct = productsData.find((p) => p.id === cardId);
-  if (selectedProduct) {
-    sessionStorage.setItem("currentProduct", JSON.stringify(selectedProduct));
-    window.location.reload();
+  function syncCartState() {
+    const cartItem = getProductInCart(carts, id);
+    if (cartItem) {
+      ShowQuantityControlButtons(controls, addButton);
+      quantityDisplay.textContent = cartItem.quantity;
+    } else {
+      showAddToCartButton(controls, addButton);
+    }
+    displayCartsCount(cartCount, carts);
   }
-});
 
-hamburgerButton.addEventListener("click", () => {
-  toggleDropdownMenu(dropDownMenu);
-});
+  function syncWishlistState() {
+    const wishlist = savedWishlist();
+    const inWishlist = wishlist.some((item) => Number(typeof item === "object" ? item.id : item) === id);
+    wishlistButton.textContent = inWishlist ? "Remove from wishlist" : "Save to Wishlist";
+    wishlistButton.setAttribute("aria-pressed", String(inWishlist));
+  }
 
-displayCartsCount(cartsCount, carts);
+  addButton.addEventListener("click", () => {
+    addProductToCart(card, carts);
+    syncCartState();
+  });
+  controls.querySelector(".increase-btn")?.addEventListener("click", () => {
+    increaseCartQuantity(id, carts);
+    syncCartState();
+    runCartActionsConfirmation("Cart updated successfully!", carts, cartCount);
+  });
+  controls.querySelector(".decrease-btn")?.addEventListener("click", () => {
+    const cartItem = getProductInCart(carts, id);
+    if (cartItem?.quantity <= 1) removeProductFromCart(id, carts);
+    else decreaseCartQuantity(id, carts);
+    syncCartState();
+    runCartActionsConfirmation("Cart updated successfully!", carts, cartCount);
+  });
+  wishlistButton.addEventListener("click", () => {
+    const wishlist = savedWishlist();
+    const index = wishlist.findIndex((item) => Number(typeof item === "object" ? item.id : item) === id);
+    if (index === -1) wishlist.push(id);
+    else wishlist.splice(index, 1);
+    saveWishlist(wishlist);
+    syncWishlistState();
+  });
+
+  similarContainer.addEventListener("click", (event) => {
+    const similarCard = event.target.closest(".product-card");
+    if (similarCard && !event.target.closest("button")) {
+      window.location.href = `/product/${Number(similarCard.dataset.productId)}`;
+    }
+  });
+  syncCartState();
+  syncWishlistState();
+}
+
+document.getElementById("cart-btn")?.addEventListener("click", () => { window.location.href = "/cart"; });
+document.getElementById("hamburger-btn")?.addEventListener("click", () => toggleDropdownMenu(document.getElementById("drop-menu")));
+loadProduct();

@@ -1,14 +1,12 @@
+import { escapeHtml, resolveProductImage } from "../utils/product-format.js";
+
 export function wishlistItemHTML(
   product,
   path = "../images/",
   isInCart = false,
 ) {
   // Safe image path resolution
-  const filename = product.image
-    .replace("./src/images/", "")
-    .replace("../images/", "")
-    .replace("src/images/", "");
-  const fullSrc = path + filename;
+  const fullSrc = resolveProductImage(product.image, path);
 
   const btnText = isInCart ? "Remove from Cart" : "Add to Cart";
   const btnClass = isInCart
@@ -16,18 +14,18 @@ export function wishlistItemHTML(
     : "add-cart-btn btn-primary text-xs tracking-wider px-5 py-2.5";
 
   return `
-    <div class="wishlist-card flex flex-col sm:flex-row items-center justify-between border-b border-gray-100 py-6 gap-4" id="product-${product.id}">
+    <div class="wishlist-card flex flex-col sm:flex-row items-center justify-between border-b border-gray-100 py-6 gap-4" id="product-${product.id}" data-product-id="${product.id}">
       <div class="flex items-center gap-4 flex-col sm:flex-row w-full sm:w-auto">
         <div class="wishlist-image-frame overflow-hidden rounded-md bg-gray-50 flex-shrink-0 cursor-pointer img-click">
           <img
-            src="${fullSrc}"
-            alt="${product.name}"
+            src="${escapeHtml(fullSrc)}"
+            alt="${escapeHtml(product.name)}"
             class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
           />
         </div>
         <div class="text-center sm:text-left">
           <span class="text-[9px] uppercase tracking-[0.2em] text-amber-700/70 font-sans font-medium block">Vision Jewelry</span>
-          <h3 class="text-base font-serif font-medium text-gray-900 tracking-wide cursor-pointer hover:text-amber-800 transition-colors duration-300 title-click">${product.name}</h3>
+          <h3 class="text-base font-serif font-medium text-gray-900 tracking-wide cursor-pointer hover:text-amber-800 transition-colors duration-300 title-click">${escapeHtml(product.name)}</h3>
           <p class="font-sans font-semibold text-sm text-gray-900 mt-1">$${product.price}</p>
         </div>
       </div>

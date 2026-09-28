@@ -24,10 +24,22 @@ class Product(db.Model):
 
     def product_to_dict(self):
         return {
-           'id':self.id,
-           'name':self.name,
-           'desc':self.description,
-           'price':self.price,
-           'image':self.image_url,
-           'category': self.category.name
+            "id": self.id,
+            "name": self.name,
+            "desc": self.description,
+            "price": self.price,
+            "image": self.image_url,
+            "category": self.category.name if self.category else "Uncategorized",
+        }
+
+    def product_to_api_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "description": self.description,
+            "desc": self.description,
+            "price": float(self.price),
+            "image": self.image_url,
+            "category": self.category.name if self.category else "Uncategorized",
+            "category_id": self.category_id,
         }

@@ -10,153 +10,115 @@ import {
   saveCarts,
 } from "../utils/saveUtils.js";
 import { wishlistItemHTML } from "../components/wishlistItem.js";
-import {
-  addProductToCart,
-  removeProductFromCart,
-} from "../utils/cart-controller.js";
 import { hamburgerHTML } from "../components/loadComponents/header/hamburgerItem.js";
 import { navigationHTML } from "../components/loadComponents/header/navigationItem.js";
 import { cartCountHTML } from "../components/loadComponents/header/cartCountItem.js";
-import { productsData } from "../utils/productsStore.js";
 import { isProductInCart } from "../utils/helper.js";
 
-const headerBar = document.getElementById("header-bar");
-
-// Inject header navigation and footer components
-headerBar.insertAdjacentHTML("beforeEnd", cartCountHTML());
-headerBar.insertAdjacentHTML("beforeEnd", hamburgerHTML());
-headerBar.insertAdjacentHTML(
-  "beforeEnd",
-  navigationHTML(),
+const header = document.getElementById("header-bar");
+header?.insertAdjacentHTML(
+  "beforeend",
+  cartCountHTML() + hamburgerHTML() + navigationHTML(),
 );
-
-
-const wishlist = savedWishlist();
-const carts = savedCarts();
-
 const wishlistList = document.getElementById("wishlist-list");
 const emptyWishlistMessage = document.getElementById("empty-wishlist-message");
 const cartCount = document.getElementById("cart-count");
-const cartButton = document.getElementById("cart-btn");
+const wishlist = (Array.isArray(savedWishlist()) ? savedWishlist() : [])
+  .map((item) => Number(typeof item === "object" ? item.id : item))
+  .filter((id) => Number.isInteger(id) && id > 0);
+const carts = Array.isArray(savedCarts()) ? savedCarts() : [];
+let productsById = new Map();
 
-const hamburgerButton = document.getElementById("hamburger-btn");
-const dropDownMenu = document.getElementById("drop-menu");
-
-// Initialize cart badge count
-displayCartsCount(cartCount, carts);
-
-cartButton.addEventListener("click", () => {
+document.getElementById("cart-btn")?.addEventListener("click", () => {
   window.location.href = "/cart";
 });
+document
+  .getElementById("hamburger-btn")
+  ?.addEventListener("click", () =>
+    toggleDropdownMenu(document.getElementById("drop-menu")),
+  );
+displayCartsCount(cartCount, carts);
 
-hamburgerButton.addEventListener("click", () => {
-  toggleDropdownMenu(dropDownMenu);
-});
-
-// Render the wishlist items
 function renderWishlist() {
-  wishlistList.innerHTML = "";
-  if (wishlist.length === 0) {
-    toggleHiddenOnEmptyWishlist();
-    return;
-  }
-
-  for (const item of wishlist) {
-    const isInCart = isProductInCart(item.id, carts);
+  const products = wishlist.map((id) => productsById.get(id)).filter(Boolean);
+  wishlistList.replaceChildren();
+  for (const product of products) {
     wishlistList.insertAdjacentHTML(
-      "beforeEnd",
-      wishlistItemHTML(item, "/static/images/", isInCart),
+      "beforeend",
+      wishlistItemHTML(
+        product,
+        "/static/images/",
+        isProductInCart(product.id, carts),
+      ),
     );
   }
-  toggleHiddenOnEmptyWishlist();
+  const isEmpty = products.length === 0;
+  emptyWishlistMessage.classList.toggle("hidden", !isEmpty);
+  wishlistList.classList.toggle("hidden", isEmpty);
 }
 
-function toggleHiddenOnEmptyWishlist() {
-  if (wishlist.length === 0) {
+async function loadWishlist() {
+  try {
+    const response = await fetch("/api/products/data");
+    if (!response.ok) throw new Error("Could not load products.");
+    const payload = await response.json();
+    const products = Array.isArray(payload.products) ? payload.products : [];
+    productsById = new Map(
+      products.map((product) => [Number(product.id), product]),
+    );
+    const availableIds = wishlist.filter((id) => productsById.has(id));
+    if (availableIds.length !== wishlist.length) {
+      wishlist.splice(0, wishlist.length, ...availableIds);
+      saveWishlist(wishlist);
+    }
+    renderWishlist();
+  } catch (error) {
+    emptyWishlistMessage.textContent =
+      "Your saved pieces could not be loaded. Please refresh to try again.";
     emptyWishlistMessage.classList.remove("hidden");
-    wishlistList.classList.add("hidden");
-  } else {
-    emptyWishlistMessage.classList.add("hidden");
-    wishlistList.classList.remove("hidden");
   }
 }
 
-// Initial render
-renderWishlist();
-
-// Event listeners for card actions
 wishlistList.addEventListener("click", (event) => {
-  const target = event.target;
-  const card = target.closest(".wishlist-card");
+  const card = event.target.closest(".wishlist-card");
   if (!card) return;
+  const id = Number(card.dataset.productId || card.id.split("-").pop());
+  const product = productsById.get(id);
 
-  const cardId = parseInt(card.id.split("-")[1], 10);
-
-  // 1. Move to cart / Remove from cart click
-  if (target.classList.contains("add-cart-btn")) {
-    const isInCart = isProductInCart(cardId, carts);
-
-    if (isInCart) {
-      // Remove from cart
-      removeProductFromCart(cardId, carts);
-      saveCarts(carts);
-
-      // Toggle button to Add
-      target.textContent = "Add to Cart";
-      target.className =
-        "add-cart-btn btn-primary text-xs tracking-wider px-5 py-2.5";
+  if (event.target.closest(".add-cart-btn") && product) {
+    const cartIndex = carts.findIndex((item) => Number(item.id) === id);
+    if (cartIndex >= 0) {
+      carts.splice(cartIndex, 1);
+      event.target.closest(".add-cart-btn").textContent = "Add to Cart";
       ShowSucessMessage("Removed from cart successfully!");
     } else {
-      // Pull the clean product directly from productsData to avoid stale/prefixed image paths
-      const productToAdd = productsData.find((p) => p.id === cardId);
-      if (productToAdd) {
-        carts.push({ ...productToAdd });
-        saveCarts(carts);
-        ShowSucessMessage(`${productToAdd.name} added to cart successfully!`);
-      }
-
-      // Toggle button to Remove
-      target.textContent = "Remove from Cart";
-      target.className =
-        "add-cart-btn btn-secondary text-xs tracking-wider px-5 py-2.5 bg-gray-100 hover:bg-red-50 hover:text-red-600 hover:border-red-200";
+      carts.push({
+        id,
+        name: product.name,
+        price: Number(product.price),
+        image: product.image,
+        quantity: 1,
+      });
+      event.target.closest(".add-cart-btn").textContent = "Remove from Cart";
+      ShowSucessMessage(`${product.name} added to cart successfully!`);
     }
-
+    saveCarts(carts);
     displayCartsCount(cartCount, carts);
     return;
   }
 
-  // 2. Remove click
-  if (target.closest(".remove-wishlist-btn")) {
-    const removeIndex = wishlist.findIndex((w) => w.id === cardId);
-    if (removeIndex > -1) {
-      wishlist.splice(removeIndex, 1);
-      saveWishlist(wishlist);
-
-      // Smooth slide-out slide animation
-      card.classList.add(
-        "opacity-0",
-        "transition-all",
-        "duration-500",
-        "-translate-y-2",
-      );
-      setTimeout(() => {
-        card.remove();
-        toggleHiddenOnEmptyWishlist();
-      }, 500);
-      ShowSucessMessage("Removed from wishlist successfully!");
-    }
+  if (event.target.closest(".remove-wishlist-btn")) {
+    const index = wishlist.indexOf(id);
+    if (index >= 0) wishlist.splice(index, 1);
+    saveWishlist(wishlist);
+    renderWishlist();
+    ShowSucessMessage("Removed from wishlist successfully!");
     return;
   }
 
-  // 3. Navigation details click
-  if (
-    target.closest(".img-click") ||
-    target.classList.contains("title-click")
-  ) {
-    const selectedProduct = productsData.find((p) => p.id === cardId);
-    if (selectedProduct) {
-      sessionStorage.setItem("currentProduct", JSON.stringify(selectedProduct));
-      window.location.href = "/product";
-    }
+  if (event.target.closest(".img-click, .title-click")) {
+    window.location.href = `/product/${id}`;
   }
 });
+
+loadWishlist();
