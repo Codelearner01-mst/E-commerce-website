@@ -227,13 +227,12 @@
         <div class="shop-hero-content">
           <div class="shop-hero-copy">
             <p class="eyebrow">The collection</p>
-            <h2
-              class="shop-hero-title text-white tracking-wide"
-            >
+            <h2 class="shop-hero-title text-white tracking-wide">
               Shop Collection
             </h2>
             <p class="shop-text">
-              Distinctive pieces, thoughtfully selected for your everyday and your once-in-a-lifetime.
+              Distinctive pieces, thoughtfully selected for your everyday and
+              your once-in-a-lifetime.
             </p>
           </div>
         </div>
@@ -250,7 +249,10 @@
         </div>
       </div>
 
-      <section class="shop-toolbar px-4 py-4" aria-label="Sort and filter products">
+      <section
+        class="shop-toolbar px-4 py-4"
+        aria-label="Sort and filter products"
+      >
         <div class="toolbar-inner">
           <div class="flex items-center gap-2">
             <div class="font-medium">Sort by</div>
@@ -308,11 +310,6 @@
                   </div>
                   <ul class="submenu" aria-label="Categories">
                     <li class="category-item" data-category="all">All</li>
-                    {% for cat in categories %}
-                    <li class="category-item" data-category="{{cat.name}}">
-                      {{ cat.name }}
-                    </li>
-                    {% endfor %}
                   </ul>
                 </li>
 
@@ -333,12 +330,6 @@
       <section class="cat-rail" aria-label="Browse product categories">
         <div class="cat-rail-inner flex flex-wrap gap-2 pb-3">
           <button class="cat-btn active" data-category="all">All</button>
-          {% for cat in categories %}
-
-          <button class="cat-btn" data-category="{{cat.name}}">
-            {{cat.name}}
-          </button>
-          {% endfor %}
         </div>
       </section>
 

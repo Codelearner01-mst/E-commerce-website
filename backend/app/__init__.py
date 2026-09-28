@@ -9,7 +9,9 @@ from .blueprints.products import products_bp
 from .blueprints.cart import cart_bp
 from .blueprints.wishlist import wishlist_bp
 from .blueprints.orders import orders_bp
-from .blueprints import pages_bp
+from .blueprints.pages import pages_bp
+from .blueprints.checkout import checkout_bp
+from .blueprints.products import store_bp
 
 
 def create_app(config_name="development"):
@@ -22,10 +24,12 @@ def create_app(config_name="development"):
     CORS(app)
 
     app.register_blueprint(pages_bp)
+    app.register_blueprint(checkout_bp)
+    app.register_blueprint(store_bp)
     app.register_blueprint(auth_bp, url_prefix="/api/auth")
     app.register_blueprint(products_bp, url_prefix="/api/products")
-    app.register_blueprint(cart_bp, url_prefix="/api/cart")
-    app.register_blueprint(wishlist_bp, url_prefix="/api/wishlist")
+    app.register_blueprint(cart_bp)
+    app.register_blueprint(wishlist_bp)
     app.register_blueprint(orders_bp, url_prefix="/api/orders")
 
     @app.get("/api/health")

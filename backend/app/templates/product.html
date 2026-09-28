@@ -39,14 +39,14 @@
     <main class="mt-16 pb-16">
       {{ breadcrumb("Product Details") }}
       <div class="page-heading product-intro">
-        <h2 class="text-4xl md:text-4xl font-serif font-bold text-gray-900">
+      <h2 id="product-page-title" class="text-4xl md:text-4xl font-serif font-bold text-gray-900">
           Product Details
         </h2>
         <p class="text-gray-500 text-sm mt-2">
           View product information and add to cart
         </p>
       </div>
-      <section class="mt-10 py-3" style="background-color: var(--color-page)">
+      <section class="mt-10 py-3" style="background-color: var(--color-page)" data-product-id="{{ product_id }}">
         <div id="product-container" class="product-container px-2 mb-15"></div>
       </section>
       <section class="mb-8">
