@@ -9,8 +9,9 @@ class Category(db.Model):
     description = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, nullable=True)
     updated_at = db.Column(db.DateTime, nullable=True)
+    image_url = db.Column(db.String(255), nullable=True)
 
     products = db.relationship("Product", back_populates="category")
 
     def category_to_dict(self):
-        return {"id": self.id, "name": self.name, "description": self.description}
+        return {"id": self.id, "name": self.name, "description": self.description, "image_url": self.image_url}

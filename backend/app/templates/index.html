@@ -69,7 +69,7 @@
         overflow-wrap: anywhere;
       }
       .hero-heading {
-        font-size: clamp(3.25rem, 8vw, 7rem);
+        font-size: clamp(2.25rem, 4vw, 4rem);
         font-family: var(--font-family-display);
         font-weight: 300;
         line-height: 1.08;
@@ -135,11 +135,15 @@
       }
 
       .collection-section-1 {
-        background-color: rgb(245, 244, 244);
+        background-color: var(--color-brand-tint);
+      }
+
+      .collection-section-2 {
+        background-color: var(--color-page);
       }
 
       .collection-section-3 {
-        background-color: var(--color-brand-tint);
+        background-color: var(--color-brand-pale);
       }
       @media (min-width: 768px) {
         .collection-section {
@@ -164,7 +168,7 @@
       .collection-image-wrap {
         width: min(100%, 540px);
         justify-self: center;
-        aspect-ratio: 4/4;
+        aspect-ratio: 3/4;
         background: var(--color-surface);
       }
       @media (min-width: 768px) {
@@ -292,6 +296,12 @@
       .categories .max-w-7xl {
         margin-top: 1rem;
       }
+      .categories {
+        background-color: var(--color-page);
+      }
+      #products {
+        background-color: transparent;
+      }
       .category-grid {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
@@ -318,10 +328,14 @@
         overflow: hidden;
         text-decoration: none;
         color: inherit;
-        transition:
-          transform 0.35s ease,
-          box-shadow 0.35s ease;
-        box-shadow: 0 8px 24px rgba(17, 17, 17, 0.04);
+        transition: transform 0.35s ease;
+      }
+      .category-card > img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
       .category-card::after {
         content: "";
@@ -335,8 +349,7 @@
         transition: background 0.25s ease;
       }
       .category-card:hover {
-        transform: translateY(-6px) scale(1.01);
-        box-shadow: 0 18px 40px rgba(17, 17, 17, 0.08);
+        transform: translateY(-3px);
       }
       .category-card-content {
         position: absolute;
@@ -479,7 +492,7 @@
       class="fixed top-0 left-0 right-0 border-gray-100 flex justify-between items-center px-4 md:px-8 py-5 z-50 transition-all duration-300"
     >
       <h1
-        class="text-white text-xl md:text-2xl font-serif tracking-[0.22em] uppercase"
+        class="site-wordmark text-xl md:text-2xl font-serif tracking-[0.22em] uppercase"
       >
         Vision Jewelry
       </h1>
@@ -492,28 +505,110 @@
         <div
           id="home"
           style="
-            background-image: url(&quot;{{ url_for('static', filename='images/segal-jewelry-NsH-CvU0deg-unsplash.jpg') }}&quot;);
+            background-image: url(&quot;{{ url_for('static', filename='images/hero_image.png') }}&quot;);
           "
         >
           <div class="hero-overlay"></div>
           <div class="hero-content">
-            <span class="hero-eyebrow">Made with intention, worn your way</span>
-            <h1 class="hero-heading">
-              Made to be<br />kept close.
-            </h1>
+            <h1 class="hero-heading">Made to be kept close.</h1>
             <p class="hero-sub">
               Discover modern heirlooms, chosen for the way they make you feel.
             </p>
-            <a href="{{ url_for('store.shop') }}" class="hero-cta">Explore the collection <span aria-hidden="true">&rarr;</span></a>
-            <span class="hero-note">Fine jewelry for everyday rituals and once-in-a-lifetime moments.</span>
+            <a href="{{ url_for('store.shop') }}" class="hero-cta"
+              >Explore the collection <span aria-hidden="true">&rarr;</span></a
+            >
+            <span class="hero-note"
+              >Fine jewelry for everyday rituals and once-in-a-lifetime
+              moments.</span
+            >
           </div>
         </div>
       </section>
 
+      <section aria-label="A closer look at our pieces">
+        <article class="collection-section collection-section-1">
+          <div class="collection-image-wrap">
+            <img
+              src="{{ url_for('static', filename='images/alex-azabache-y2ErhoE92KA-unsplash.jpg') }}"
+              alt="A close view of a sculptural gold ring"
+              loading="lazy"
+            />
+          </div>
+          <div class="collection-text">
+            <span class="collection-eyebrow">01 / The everyday heirloom</span>
+            <h2 class="collection-heading">
+              Quiet by design. Made to be yours.
+            </h2>
+            <p class="collection-body">
+              Thoughtful lines and considered details make this a piece you can
+              reach for day after day.
+            </p>
+            <a href="{{ url_for('store.shop') }}" class="collection-link"
+              >Explore the collection <span aria-hidden="true">&rarr;</span></a
+            >
+          </div>
+        </article>
+
+        <hr class="collection-divider" />
+
+        <article class="collection-section collection-section-2">
+          <div class="collection-text">
+            <span class="collection-eyebrow">02 / A softer statement</span>
+            <h2 class="collection-heading">A little light, wherever you go.</h2>
+            <p class="collection-body">
+              Subtle texture and an easy silhouette bring a thoughtful finish to
+              the pieces you already love.
+            </p>
+            <a href="{{ url_for('store.shop') }}" class="collection-link"
+              >Find your piece <span aria-hidden="true">&rarr;</span></a
+            >
+          </div>
+          <div class="collection-image-wrap">
+            <img
+              src="{{ url_for('static', filename='images/cornelia-ng-2zHQhfEpisc-unsplash.jpg') }}"
+              alt="A delicate bracelet photographed against a warm neutral background"
+              loading="lazy"
+            />
+          </div>
+        </article>
+
+        <hr class="collection-divider" />
+
+        <article class="collection-section collection-section-3">
+          <div class="collection-image-wrap">
+            <img
+              src="{{ url_for('static', filename='images/sabrianna-uiKSc7-NM2s-unsplash.jpg') }}"
+              alt="Minimal earrings with fine, polished details"
+              loading="lazy"
+            />
+          </div>
+          <div class="collection-text">
+            <span class="collection-eyebrow">03 / The finishing detail</span>
+            <h2 class="collection-heading">Small details. Lasting feeling.</h2>
+            <p class="collection-body">
+              Find the finishing touch that feels personal, whether it is a gift
+              or something kept just for you.
+            </p>
+            <a href="{{ url_for('store.shop') }}" class="collection-link"
+              >Shop jewelry <span aria-hidden="true">&rarr;</span></a
+            >
+          </div>
+        </article>
+      </section>
+
       <section class="promise-strip" aria-label="Our promises">
-        <div><span>01</span><p>Thoughtfully selected</p></div>
-        <div><span>02</span><p>Made for real life</p></div>
-        <div><span>03</span><p>Here for the long run</p></div>
+        <div>
+          <span>01</span>
+          <p>Thoughtfully selected</p>
+        </div>
+        <div>
+          <span>02</span>
+          <p>Made for real life</p>
+        </div>
+        <div>
+          <span>03</span>
+          <p>Here for the long run</p>
+        </div>
       </section>
 
       <!-- Featured Products -->
@@ -530,7 +625,7 @@
           </p>
           <div
             id="product-list"
-            class="mx-auto grid max-w-[1200px] grid-cols-1 justify-items-center gap-x-7 gap-y-12 sm:grid-cols-2 sm:mx-2 lg:grid-cols-3 2xl:grid-cols-4 mb-12"
+            class="mx-auto grid max-w-[1200px] grid-cols-2 justify-items-center gap-x-4 gap-y-8 sm:gap-x-7 sm:gap-y-12 md:grid-cols-3 xl:grid-cols-4 mb-12"
           ></div>
           <div class="text-center">
             <a
@@ -553,85 +648,72 @@
             Browse our categories
           </p>
           <div class="category-grid">
+            {% for category in categories %}
             <a
-              href="{{ url_for('store.shop') }}"
+              href="{{ url_for('store.shop', category=category.name) }}"
               class="category-card"
-              style="
-                background-image: url(&quot;{{ url_for('static', filename='images/sabrianna-a9HPsYvWr-E-unsplash.jpg') }}&quot;);
-              "
             >
+              <img
+                src="{{ url_for('static', filename=category.image_path) }}"
+                data-fallback-src="{{ url_for('static', filename='images/Products/Golden_Elegance_Set.png') }}"
+                alt="{{ category.name }} jewelry collection"
+                loading="lazy"
+              />
               <div class="category-card-content">
-                <span class="eyebrow">Collections</span>
-                <h3>Rings</h3>
+                <span class="eyebrow">Collection</span>
+                <h3>{{ category.name }}</h3>
               </div>
             </a>
-
-            <a
-              href="{{ url_for('store.shop') }}"
-              class="category-card"
-              style="
-                background-image: url(&quot;{{ url_for('static', filename='images/atul-mohan-TmOPo7TpLzw-unsplash - Copy.jpg') }}&quot;);
-              "
-            >
-              <div class="category-card-content">
-                <span class="eyebrow">Finish Your Look</span>
-                <h3>Bracelets</h3>
-              </div>
-            </a>
-
-            <a
-              href="{{ url_for('store.shop') }}"
-              class="category-card"
-              style="
-                background-image: url(&quot;{{ url_for('static', filename='images/alex-azabache-y2ErhoE92KA-unsplash.jpg') }}&quot;);
-              "
-            >
-              <div class="category-card-content">
-                <span class="eyebrow">Signature</span>
-                <h3>Necklaces</h3>
-              </div>
-            </a>
-
-            <a
-              href="{{ url_for('store.shop') }}"
-              class="category-card"
-              style="
-                background-image: url(&quot;{{ url_for('static', filename='images/nexaro-studio-vbsN7MUXyT4-unsplash.jpg') }}&quot;);
-              "
-            >
-              <div class="category-card-content">
-                <span class="eyebrow">Essential</span>
-                <h3>Earrings</h3>
-              </div>
-            </a>
+            {% else %}
+            <p class="text-gray-500">No categories are available yet.</p>
+            {% endfor %}
           </div>
         </div>
       </section>
       <section class="home-story">
         <div class="home-story-image">
-          <img src="{{ url_for('static', filename='images/atul-mohan-TmOPo7TpLzw-unsplash - Copy.jpg') }}" alt="A close view of a carefully finished gold ring" loading="lazy" />
+          <img
+            src="{{ url_for('static', filename='images/atul-mohan-TmOPo7TpLzw-unsplash - Copy.jpg') }}"
+            alt="A close view of a carefully finished gold ring"
+            loading="lazy"
+          />
           <span>Chosen with intention</span>
         </div>
         <div class="home-story-copy">
           <p class="eyebrow">A more personal kind of fine jewelry</p>
           <h2>Good things deserve to be kept.</h2>
-          <p>We look for the details that make a piece feel like yours: thoughtful design, lasting materials, and the quiet confidence to wear it every day.</p>
-          <a href="{{ url_for('pages.about') }}" class="story-link">Get to know us <span aria-hidden="true">&rarr;</span></a>
+          <p>
+            We look for the details that make a piece feel like yours:
+            thoughtful design, lasting materials, and the quiet confidence to
+            wear it every day.
+          </p>
+          <a href="{{ url_for('pages.about') }}" class="story-link"
+            >Get to know us <span aria-hidden="true">&rarr;</span></a
+          >
         </div>
       </section>
 
       <section class="service-band" aria-label="Shopping with Vision Jewelry">
         <article>
           <i class="fa-regular fa-gem" aria-hidden="true"></i>
-          <div><h3>Picked with care</h3><p>Considered designs and lasting finishes.</p></div>
+          <div>
+            <h3>Picked with care</h3>
+            <p>Considered designs and lasting finishes.</p>
+          </div>
         </article>
         <article>
           <i class="fa-solid fa-box-open" aria-hidden="true"></i>
-          <div><h3>Gift-ready details</h3><p>Beautifully prepared for giving or keeping.</p></div>
+          <div>
+            <h3>Gift-ready details</h3>
+            <p>Beautifully prepared for giving or keeping.</p>
+          </div>
         </article>
         <article>
           <i class="fa-regular fa-message" aria-hidden="true"></i>
-          <div><h3>Here to help</h3><p>Real support whenever you need a hand.</p></div>
+          <div>
+            <h3>Here to help</h3>
+            <p>Real support whenever you need a hand.</p>
+          </div>
         </article>
       </section>
       <section class="subscribe-newsletter py-12 px-4">

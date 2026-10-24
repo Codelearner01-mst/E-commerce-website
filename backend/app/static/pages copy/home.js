@@ -51,54 +51,37 @@ let productsData = [];
 
 async function loadHomeCatalog() {
   try {
-    const [productsResponse, categoriesResponse] = await Promise.all([
-      fetch("/api/products/data"),
-      fetch("/api/products/categories"),
-    ]);
+    const productsResponse = await fetch("/api/products/data");
     if (!productsResponse.ok) throw new Error("Product request failed.");
     const productPayload = await productsResponse.json();
-    const categoryPayload = categoriesResponse.ok
-      ? await categoriesResponse.json()
-      : { categories: [] };
     productsData = Array.isArray(productPayload.products)
       ? productPayload.products
       : [];
     renderProducts(productsData.slice(0, 4), imagePath, products);
     syncCartCards();
-
-    const categoryGrid = document.querySelector(".category-grid");
-    if (categoryGrid && Array.isArray(categoryPayload.categories)) {
-      const categoryImages = [
-        "sabrianna-a9HPsYvWr-E-unsplash.jpg",
-        "atul-mohan-TmOPo7TpLzw-unsplash - Copy.jpg",
-        "alex-azabache-y2ErhoE92KA-unsplash.jpg",
-        "nexaro-studio-vbsN7MUXyT4-unsplash.jpg",
-      ];
-      categoryGrid.replaceChildren(
-        ...categoryPayload.categories.slice(0, 4).map((category, index) => {
-          const link = document.createElement("a");
-          link.className = "category-card";
-          link.href = `/shop?category=${encodeURIComponent(category.name)}`;
-          link.style.backgroundImage = `url("${imagePath}${encodeURIComponent(categoryImages[index % categoryImages.length])}")`;
-          const content = document.createElement("div");
-          content.className = "category-card-content";
-          const eyebrow = document.createElement("span");
-          eyebrow.className = "eyebrow";
-          eyebrow.textContent = "Collection";
-          const title = document.createElement("h3");
-          title.textContent = category.name;
-          content.append(eyebrow, title);
-          link.append(content);
-          return link;
-        }),
-      );
-    }
   } catch (error) {
     if (products)
       products.innerHTML =
         "<p class='col-span-full py-8 text-center text-gray-500'>Featured pieces are temporarily unavailable.</p>";
   }
 }
+
+document.querySelector(".category-grid")?.addEventListener(
+  "error",
+  (event) => {
+    const image = event.target;
+    if (
+      !(image instanceof HTMLImageElement) ||
+      !image.dataset.fallbackSrc ||
+      image.dataset.fallbackApplied === "true"
+    ) {
+      return;
+    }
+    image.dataset.fallbackApplied = "true";
+    image.src = image.dataset.fallbackSrc;
+  },
+  true,
+);
 
 loadHomeCatalog();
 
