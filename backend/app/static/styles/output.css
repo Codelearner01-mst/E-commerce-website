@@ -1834,8 +1834,6 @@
   }
   header {
     background-color: rgb(39, 37, 37) !important;
-    border-bottom: 1px solid var(--color-border);
-    box-shadow: 0 4px 18px rgba(36, 39, 34, 0.04);
     backdrop-filter: blur(14px);
   }
   header h1, header a, header .nav-link {
