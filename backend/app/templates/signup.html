@@ -14,15 +14,14 @@
     />
   </head>
   <body class="signup-page">
-    {% from "macros.html" import breadcrumb, render_field, site_footer %}
+    {% from "macros.html" import render_field, site_footer %}
     <header class="signup-header px-5 py-4">
       <a
         href="{{ url_for('pages.index') }}"
-        class="font-serif text-lg tracking-[0.16em] uppercase"
+        class="site-wordmark font-serif text-lg tracking-[0.16em] uppercase"
         >Vision Jewelry</a
       >
     </header>
-    {{ breadcrumb("Create Account") }}
     <main class="signup-panel">
       <div class="text-center mb-8">
         <p class="eyebrow">Welcome to Vision Jewelry</p>

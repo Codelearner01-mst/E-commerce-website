@@ -238,7 +238,7 @@
   </head>
 
   <body class="about-page bg-white">
-    {% from "macros.html" import breadcrumb, site_footer %}
+    {% from "macros.html" import site_footer %}
     <!-- Header -->
     <header
       id="header-bar"
@@ -246,14 +246,13 @@
     >
       <a
         href="{{ url_for('pages.index') }}"
-        class="text-gray-900 text-xl md:text-2xl font-serif tracking-[0.22em] uppercase"
+        class="site-wordmark text-xl md:text-2xl font-serif tracking-[0.22em] uppercase"
       >
         Vision Jewelry
       </a>
     </header>
 
     <main class="pt-[73px]">
-      {{ breadcrumb("Our Story") }}
       <!-- Banner -->
       <div
         class="page-banner"
@@ -423,5 +422,8 @@
     <!-- Footer -->
     {{ site_footer() }}
   </body>
-  <script type="module" src="{{ url_for('static', filename='pages copy/about.js') }}"></script>
+  <script
+    type="module"
+    src="{{ url_for('static', filename='pages copy/about.js') }}"
+  ></script>
 </html>

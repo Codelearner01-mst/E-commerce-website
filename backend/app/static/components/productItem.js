@@ -16,7 +16,7 @@ export function productHTML(product) {
     div.dataset.productPrice = product.price;
     div.dataset.productImage = product.image || "";
     div.innerHTML = `
- <div class="px-4 md:px-8 lg:px-12 xl:px-16 py-6 md:grid lg:grid-cols-2 md:gap-8 lg:gap-16 md:max-w-5xl lg:max-w-6xl md:mx-auto w-full">
+ <div class="px-4 md:px-8 lg:px-12 xl:px-16 py-6 md:grid md:grid-cols-2 md:gap-12 lg:gap-24 md:max-w-6xl lg:max-w-7xl xl:max-w-[1440px] md:mx-auto w-full">
 
   <!-- Image -->
   <div class="detail-image-frame mb-10 md:mb-0">
@@ -51,10 +51,10 @@ export function productHTML(product) {
             <button id="add-cart-btn" class="add-cart-btn btn-primary-full">
               Add to Cart
             </button>
-             <div class="quantity-control-btns hidden items-center bg-white border rounded-2xl border-yellow-700  h-9 w-50 md:w-40 mx-auto px-6 py-3 overflow-hidden ">
-                <button class="decrease-btn text-yellow-800 bg-transparent hover:bg-yellow-800 hover:text-white transition-colors duration-300 text-xl font-light focus:outline-none cursor-pointer">&#8722;</button>
-                <span class="quantity-display flex-1 font-serif text-gray-900 text-lg text-center select-none border-x border-yellow-700/30 h-full flex items-center justify-center">1</span>
-                <button class="increase-btn text-yellow-800 text-2xl bg-transparent hover:bg-yellow-800 hover:text-white transition-colors duration-300 font-light focus:outline-none cursor-pointer">&#43;</button>
+             <div class="quantity-control-btns hidden items-center bg-white border border-[var(--color-accent)] rounded-none h-9 w-50 md:w-40 mx-auto px-6 py-3 overflow-hidden">
+               <button class="decrease-btn text-[var(--color-accent)] bg-transparent hover:bg-[var(--color-accent)] hover:text-white transition-colors duration-300 text-xl font-light focus:outline-none cursor-pointer">&#8722;</button>
+               <span class="quantity-display flex-1 font-serif text-gray-900 text-lg text-center select-none border-x border-[var(--color-border)] h-full flex items-center justify-center">1</span>
+               <button class="increase-btn text-[var(--color-accent)] text-2xl bg-transparent hover:bg-[var(--color-accent)] hover:text-white transition-colors duration-300 font-light focus:outline-none cursor-pointer">&#43;</button>
              </div>
             <button id="wishlist-btn" class="btn-secondary">
               Save to Wishlist

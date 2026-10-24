@@ -14,16 +14,14 @@
     />
 
     <style>
-      header {
-        background-color: var(--color-brand-tint);
-      }
-
       .cart-intro {
         background-color: var(--color-page);
       }
 
       .carts {
-        background-color: var(--color-brand-tint);
+        background-color: var(--color-surface);
+        border: 1px solid rgb(221, 218, 218);
+        padding: 20px;
       }
       .result-container {
         background-color: var(--color-brand-tint);
@@ -32,19 +30,18 @@
   </head>
 
   <body class="cart-page">
-    {% from "macros.html" import breadcrumb, site_footer %}
+    {% from "macros.html" import site_footer %}
     <header
       id="header-bar"
       class="fixed top-0 left-0 right-0 shadow-gray-200 border-gray-100 flex justify-between items-center px-4 md:px-8 py-6 z-50 transition-all duration-300"
     >
       <h1
-        class="text-black text-2xl md:text-3xl font-serif tracking-widest uppercase"
+        class="site-wordmark text-black text-2xl md:text-3xl font-serif tracking-widest uppercase"
       >
         Vision Jewelry
       </h1>
     </header>
-    <main class="mt-20">
-      {{ breadcrumb("Shopping Cart") }}
+    <main class="mt-16">
       <div class="page-heading cart-intro mb-4">
         <h2 class="text-4xl md:text-4xl font-serif font-bold text-gray-900">
           Shopping Cart
@@ -54,14 +51,32 @@
       <div class="cart-layout">
         <section class="cart-items-section">
           <div class="carts">
-            <div id="carts-list" class="flex gap-8 flex-col mt-13 mb-15">
-              <p
-                id="empty-cart-message"
-                class="text-center text-gray-500 hidden"
+            <div
+              id="empty-cart-message"
+              class="hidden min-h-72 flex-col items-center justify-center gap-3 text-center"
+              role="status"
+              aria-live="polite"
+            >
+              <span
+                class="flex h-14 w-14 items-center justify-center border border-[var(--color-border)] text-[var(--color-brand)]"
+                aria-hidden="true"
               >
-                Your cart is empty.
+                <i class="fa-solid fa-bag-shopping text-xl"></i>
+              </span>
+              <h2 class="font-serif text-2xl text-gray-900">
+                Your cart is empty
+              </h2>
+              <p class="max-w-sm text-sm text-gray-500">
+                Find a piece you love and it will be waiting here.
               </p>
+              <a
+                href="{{ url_for('store.shop') }}"
+                class="mt-2 inline-flex items-center gap-2 bg-[var(--color-brand)] px-6 py-3 text-xs uppercase tracking-widest text-white transition hover:opacity-90"
+              >
+                Browse the collection <span aria-hidden="true">&rarr;</span>
+              </a>
             </div>
+            <div id="carts-list" class="mt-13 mb-15 flex flex-col gap-8"></div>
           </div>
         </section>
         <section class="cart-summary-section">
@@ -94,7 +109,9 @@
             </div>
           </div>
 
-          <a href="{{ url_for('store.shop') }}" class="continue-shopping">Continue shopping <span aria-hidden="true">&rarr;</span></a>
+          <a href="{{ url_for('store.shop') }}" class="continue-shopping hidden"
+            >Continue shopping <span aria-hidden="true">&rarr;</span></a
+          >
         </section>
       </div>
     </main>

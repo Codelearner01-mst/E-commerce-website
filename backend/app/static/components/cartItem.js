@@ -27,28 +27,12 @@ export function CartItem(cart, path) {
 
   const cartDiv = document.createElement("div");
   cartDiv.className =
-    "cart-card flex flex-row border-b border-gray-200 pb-4 bg-gray-50 py-3";
+    "cart-card flex flex-row border-b border-gray-200 pb-4  py-3";
   cartDiv.id = `product-${cart.id}`;
   cartDiv.innerHTML = `
    
       <div class="cart-image-frame">
         <img src="${escapeHtml(newSrc)}" alt="${escapeHtml(cart.name)}" />
-               <button
-                    class="wishlist-btn p-1.5 rounded-full hover:bg-amber-50 hover:text-red-500 transition-colors"
-                    aria-label="Add to wishlist"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="w-4 h-4"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M12 21s-7-4.35-9-6.36C1.37 12.91 2 9.5 5 7.5 7.28 6 9.5 7 12 9c2.5-2 4.72-3 7-1.5 3 2 3.63 5.41 2 7.14C19 16.65 12 21 12 21z"
-                      />
-                    </svg>
-                  </button>
       </div>
       <div class="cart-content flex flex-row justify-between flex-1 gap-2">
     <div class="cart-details flex gap-2.5 flex-col ml-3.5 mr-9">

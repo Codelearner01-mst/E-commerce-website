@@ -4,8 +4,8 @@ export function cartCountHTML() {
       id="cart-btn"
       role="button"
       aria-label="Shopping cart"
-      class="relative inline-flex items-center justify-center sm:right-7 md:right-0 mr-6 cursor-pointer
-             text-gray-800 hover:text-amber-800 transition-colors duration-300"
+            class="relative inline-flex items-center justify-center sm:right-7 md:right-0 mr-6 cursor-pointer
+              text-gray-200 hover:text-amber-400 transition-colors duration-300"
     >
       <!-- Cart icon — minimal line style -->
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"

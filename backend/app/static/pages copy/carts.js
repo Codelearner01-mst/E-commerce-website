@@ -19,13 +19,13 @@ headerBar.insertAdjacentHTML("beforeEnd", cartCountHTML());
 headerBar.insertAdjacentHTML("beforeEnd", hamburgerHTML());
 headerBar.insertAdjacentHTML("beforeEnd", navigationHTML());
 
-
 const carts = savedCarts();
 
 const cartCount = document.getElementById("cart-count");
 const cartButton = document.getElementById("cart-btn");
 const cartList = document.getElementById("carts-list");
 const emptyCartMessage = document.getElementById("empty-cart-message");
+const continueShoppingLink = document.querySelector(".continue-shopping");
 
 const hamburgerButton = document.getElementById("hamburger-btn");
 const dropDownMenu = document.getElementById("drop-menu");
@@ -40,9 +40,15 @@ renderCarts(cartList, carts);
 function toggleHiddenOnEmptyCarts() {
   if (carts.length === 0) {
     emptyCartMessage.classList.remove("hidden");
+    emptyCartMessage.classList.add("flex");
+    continueShoppingLink.classList.add("hidden");
+    cartList.classList.add("hidden");
     resultContainer.classList.add("hidden");
   } else {
     emptyCartMessage.classList.add("hidden");
+    emptyCartMessage.classList.remove("flex");
+    continueShoppingLink.classList.remove("hidden");
+    cartList.classList.remove("hidden");
     resultContainer.classList.remove("hidden");
   }
 }
