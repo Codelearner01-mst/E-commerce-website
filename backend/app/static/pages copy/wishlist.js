@@ -45,11 +45,7 @@ function renderWishlist() {
   for (const product of products) {
     wishlistList.insertAdjacentHTML(
       "beforeend",
-      wishlistItemHTML(
-        product,
-        "/static/images/",
-        isProductInCart(product.id, carts),
-      ),
+      wishlistItemHTML(product, isProductInCart(product.id, carts)),
     );
   }
   const isEmpty = products.length === 0;

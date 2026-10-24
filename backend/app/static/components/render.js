@@ -6,30 +6,19 @@ import { escapeHtml, resolveProductImage } from "../utils/product-format.js";
 
 export function renderCarts(list, carts) {
   if (!list || !Array.isArray(carts)) return;
-  list.replaceChildren(
-    ...carts.map((cart) => CartItem(cart, "/static/images/")),
-  );
+  list.replaceChildren(...carts.map((cart) => CartItem(cart)));
 }
 
-export function renderProduct(
-  container,
-  product,
-  basePath = "/static/images/",
-) {
+export function renderProduct(container, product) {
   if (!container || !product) return;
   const normalized = {
     ...product,
-    image: resolveProductImage(product.image, basePath),
+    image: resolveProductImage(product.image),
   };
   container.replaceChildren(productHTML(normalized));
 }
 
-export function renderSimilarProducts(
-  container,
-  currentProduct,
-  allProducts,
-  basePath = "/static/images/",
-) {
+export function renderSimilarProducts(container, currentProduct, allProducts) {
   if (!container || !currentProduct || !Array.isArray(allProducts)) return;
   let similar = allProducts.filter(
     (product) =>
@@ -55,7 +44,7 @@ export function renderSimilarProducts(
       (product) => `
     <a class="product-card group bg-white rounded-lg overflow-hidden" id="product-${product.id}" data-product-id="${product.id}" href="/product/${product.id}">
       <div class="product-image-container overflow-hidden">
-        <img src="${escapeHtml(resolveProductImage(product.image, basePath))}" alt="${escapeHtml(product.name)}" class="product-image w-full h-[230px] object-cover transition-transform duration-500 group-hover:scale-[1.03]" loading="lazy" />
+        <img src="${escapeHtml(resolveProductImage(product.image))}" alt="${escapeHtml(product.name)}" class="product-image w-full h-[230px] object-cover transition-transform duration-500 group-hover:scale-[1.03]" loading="lazy" />
       </div>
       <div class="product-info p-4 px-6">
         <span class="product-label uppercase tracking-[0.18em] text-[10px]">${escapeHtml(product.category || "Vision Jewelry")}</span>
@@ -78,11 +67,11 @@ export function renderCartsDisplayOnly(carts, list) {
   );
 }
 
-export function renderProducts(products, basePath, list) {
+export function renderProducts(products, list) {
   if (!list || !Array.isArray(products)) return;
   const normalized = products.map((product) => ({
     ...product,
-    image: resolveProductImage(product.image, basePath),
+    image: resolveProductImage(product.image),
   }));
   list.innerHTML = normalized.map(productCardHTML).join("");
 

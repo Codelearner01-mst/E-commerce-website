@@ -45,8 +45,6 @@ const hamburgerButton = document.getElementById("hamburger-btn");
 const dropDownMenu = document.getElementById("drop-menu");
 const products = document.getElementById("product-list");
 
-const imagePath = "/static/images/";
-
 let productsData = [];
 
 async function loadHomeCatalog() {
@@ -57,7 +55,7 @@ async function loadHomeCatalog() {
     productsData = Array.isArray(productPayload.products)
       ? productPayload.products
       : [];
-    renderProducts(productsData.slice(0, 4), imagePath, products);
+    renderProducts(productsData.slice(0, 4), products);
     syncCartCards();
   } catch (error) {
     if (products)

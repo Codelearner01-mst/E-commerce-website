@@ -1,12 +1,8 @@
 import { escapeHtml, resolveProductImage } from "../utils/product-format.js";
 
-export function wishlistItemHTML(
-  product,
-  path = "../images/",
-  isInCart = false,
-) {
+export function wishlistItemHTML(product, isInCart = false) {
   // Safe image path resolution
-  const fullSrc = resolveProductImage(product.image, path);
+  const fullSrc = resolveProductImage(product.image);
 
   const btnText = isInCart ? "Remove from Cart" : "Add to Cart";
   const btnClass = isInCart

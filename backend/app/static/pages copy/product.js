@@ -1,20 +1,33 @@
 import { renderProduct, renderSimilarProducts } from "../components/render.js";
 import { savedCarts, savedWishlist, saveWishlist } from "../utils/saveUtils.js";
-import { addProductToCart, decreaseCartQuantity, increaseCartQuantity, removeProductFromCart } from "../utils/cart-controller.js";
+import {
+  addProductToCart,
+  decreaseCartQuantity,
+  increaseCartQuantity,
+  removeProductFromCart,
+} from "../utils/cart-controller.js";
 import { getProductInCart } from "../utils/helper.js";
 import { displayCartsCount, toggleDropdownMenu } from "../utils/shared.js";
-import { ShowQuantityControlButtons, showAddToCartButton } from "../utils/toggler.js";
+import {
+  ShowQuantityControlButtons,
+  showAddToCartButton,
+} from "../utils/toggler.js";
 import { runCartActionsConfirmation } from "../utils/toast/notify.js";
 import { hamburgerHTML } from "../components/loadComponents/header/hamburgerItem.js";
 import { navigationHTML } from "../components/loadComponents/header/navigationItem.js";
 import { cartCountHTML } from "../components/loadComponents/header/cartCountItem.js";
 
 const header = document.getElementById("header-bar");
-header?.insertAdjacentHTML("beforeend", cartCountHTML() + hamburgerHTML() + navigationHTML());
+header?.insertAdjacentHTML(
+  "beforeend",
+  cartCountHTML() + hamburgerHTML() + navigationHTML(),
+);
 
 const productContainer = document.getElementById("product-container");
 const similarContainer = document.getElementById("products-similar-container");
-const productId = Number(document.querySelector("[data-product-id]")?.dataset.productId);
+const productId = Number(
+  document.querySelector("[data-product-id]")?.dataset.productId,
+);
 const carts = savedCarts();
 const cartCount = document.getElementById("cart-count");
 
@@ -42,7 +55,9 @@ async function loadProduct() {
     connectProductActions(product);
     try {
       const productsResponse = await fetch("/api/products/data");
-      const productsPayload = productsResponse.ok ? await productsResponse.json() : {};
+      const productsPayload = productsResponse.ok
+        ? await productsResponse.json()
+        : {};
       renderSimilarProducts(
         similarContainer,
         product,
@@ -52,7 +67,9 @@ async function loadProduct() {
       similarContainer.replaceChildren();
     }
   } catch (error) {
-    showProductError("Product details are temporarily unavailable. Please try again.");
+    showProductError(
+      "Product details are temporarily unavailable. Please try again.",
+    );
   }
 }
 
@@ -87,8 +104,12 @@ function connectProductActions(product) {
 
   function syncWishlistState() {
     const wishlist = savedWishlist();
-    const inWishlist = wishlist.some((item) => Number(typeof item === "object" ? item.id : item) === id);
-    wishlistButton.textContent = inWishlist ? "Remove from wishlist" : "Save to Wishlist";
+    const inWishlist = wishlist.some(
+      (item) => Number(typeof item === "object" ? item.id : item) === id,
+    );
+    wishlistButton.textContent = inWishlist
+      ? "Remove from wishlist"
+      : "Save to Wishlist";
     wishlistButton.setAttribute("aria-pressed", String(inWishlist));
   }
 
@@ -110,7 +131,9 @@ function connectProductActions(product) {
   });
   wishlistButton.addEventListener("click", () => {
     const wishlist = savedWishlist();
-    const index = wishlist.findIndex((item) => Number(typeof item === "object" ? item.id : item) === id);
+    const index = wishlist.findIndex(
+      (item) => Number(typeof item === "object" ? item.id : item) === id,
+    );
     if (index === -1) wishlist.push(id);
     else wishlist.splice(index, 1);
     saveWishlist(wishlist);
@@ -127,6 +150,12 @@ function connectProductActions(product) {
   syncWishlistState();
 }
 
-document.getElementById("cart-btn")?.addEventListener("click", () => { window.location.href = "/cart"; });
-document.getElementById("hamburger-btn")?.addEventListener("click", () => toggleDropdownMenu(document.getElementById("drop-menu")));
+document.getElementById("cart-btn")?.addEventListener("click", () => {
+  window.location.href = "/cart";
+});
+document
+  .getElementById("hamburger-btn")
+  ?.addEventListener("click", () =>
+    toggleDropdownMenu(document.getElementById("drop-menu")),
+  );
 loadProduct();

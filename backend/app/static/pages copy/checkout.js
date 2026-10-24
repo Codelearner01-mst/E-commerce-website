@@ -12,11 +12,7 @@ const headerBar = document.getElementById("header-bar");
 
 headerBar.insertAdjacentHTML("beforeEnd", cartCountHTML());
 headerBar.insertAdjacentHTML("beforeEnd", hamburgerHTML());
-headerBar.insertAdjacentHTML(
-  "beforeEnd",
-  navigationHTML(),
-);
-
+headerBar.insertAdjacentHTML("beforeEnd", navigationHTML());
 
 const cartsCount = document.getElementById("cart-count");
 const cartButton = document.getElementById("cart-btn");
@@ -54,18 +50,20 @@ checkoutForm.addEventListener("submit", async (e) => {
   checkoutError.hidden = true;
   const cartItems = savedCarts();
   if (cartItems.length === 0) {
-    checkoutError.textContent = "Your cart is empty. Add an item before placing an order.";
+    checkoutError.textContent =
+      "Your cart is empty. Add an item before placing an order.";
     checkoutError.hidden = false;
     return;
   }
 
   const formData = new FormData(checkoutForm);
   const selectedPayment = formData.get("payment");
-  const paymentText = {
-    "credit-card": "Credit / Debit Card",
-    paypal: "PayPal",
-    cod: "Cash on Delivery",
-  }[selectedPayment] || selectedPayment;
+  const paymentText =
+    {
+      "credit-card": "Credit / Debit Card",
+      paypal: "PayPal",
+      cod: "Cash on Delivery",
+    }[selectedPayment] || selectedPayment;
 
   placeOrderButton.disabled = true;
   placeOrderButton.textContent = "PLACING ORDER…";
@@ -92,7 +90,8 @@ checkoutForm.addEventListener("submit", async (e) => {
       }),
     });
     const data = await response.json();
-    if (!response.ok) throw new Error(data.error || "We could not place your order.");
+    if (!response.ok)
+      throw new Error(data.error || "We could not place your order.");
 
     const order = data.order;
     randomOrderId.textContent = order.id;
@@ -100,13 +99,16 @@ checkoutForm.addEventListener("submit", async (e) => {
     confirmTotalAmount.textContent = `$${Number(order.total).toFixed(2)}`;
     saveCarts([]);
     confirmationModal.classList.remove("hidden");
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      confirmationModal.classList.remove("opacity-0");
-      modalContent.classList.remove("scale-95");
-      modalContent.classList.add("scale-100");
-    }));
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        confirmationModal.classList.remove("opacity-0");
+        modalContent.classList.remove("scale-95");
+        modalContent.classList.add("scale-100");
+      }),
+    );
   } catch (error) {
-    checkoutError.textContent = error.message || "A network error occurred. Please try again.";
+    checkoutError.textContent =
+      error.message || "A network error occurred. Please try again.";
     checkoutError.hidden = false;
   } finally {
     placeOrderButton.disabled = false;

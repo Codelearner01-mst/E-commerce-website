@@ -36,8 +36,6 @@ let allProducts = [];
 let activeCategory = "all";
 let activePriceRange = null;
 let sortMode = "relevance";
-const imagePath = "/static/images/";
-
 function setCategory(category) {
   activeCategory = category || "all";
   categoryRail?.querySelectorAll(".cat-btn").forEach((button) => {
@@ -72,7 +70,7 @@ function applyFilters() {
     view.sort((a, b) => Number(b.price) - Number(a.price));
   if (sortMode === "newest") view.sort((a, b) => Number(b.id) - Number(a.id));
 
-  renderProducts(view, imagePath, productList);
+  renderProducts(view, productList);
   if (!view.length) {
     const empty = document.createElement("p");
     empty.className = "col-span-full py-12 text-center text-gray-500";
@@ -126,11 +124,15 @@ async function loadCatalog() {
     populateCategories(
       Array.isArray(categoriesData.categories) ? categoriesData.categories : [],
     );
-    const requestedCategory = new URLSearchParams(window.location.search).get("category");
+    const requestedCategory = new URLSearchParams(window.location.search).get(
+      "category",
+    );
     if (
       requestedCategory &&
       Array.isArray(categoriesData.categories) &&
-      categoriesData.categories.some((category) => category.name === requestedCategory)
+      categoriesData.categories.some(
+        (category) => category.name === requestedCategory,
+      )
     ) {
       setCategory(requestedCategory);
     } else {

@@ -12,7 +12,7 @@ import { escapeHtml, resolveProductImage } from "../utils/product-format.js";
  * { id: number, name: string, price: number, image: string, quantity: number }
  */
 
-export function CartItem(cart, path) {
+export function CartItem(cart) {
   //Cart holds a particular product in the carts array
   /**
    * Create a cart item element.
@@ -23,7 +23,7 @@ export function CartItem(cart, path) {
    */
   // Strip any existing prefix so we always work with a raw filename,
   // then prepend the correct path for this page.
-  const newSrc = resolveProductImage(cart.image, path);
+  const newSrc = resolveProductImage(cart.image);
 
   const cartDiv = document.createElement("div");
   cartDiv.className =
