@@ -23,7 +23,7 @@ export function CartItem(cart) {
    */
   // Strip any existing prefix so we always work with a raw filename,
   // then prepend the correct path for this page.
-  const newSrc = resolveProductImage(cart.image);
+  const newSrc = resolveProductImage(cart.image, "production");
 
   const cartDiv = document.createElement("div");
   cartDiv.className =
